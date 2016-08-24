@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="www/bower_components/jquery-3.1.0.js"></script>
+</head>
+<body>
+ <a href="index.jsp">数据导入操作</a>
+      <input id="import" type="button" onclick="improt()" value="导入数据">
+ <button id="bt" type="button"  >按钮</button>
+<script>
+
+    $("#bt").click(function btan(){
+         $("#bt").slideToggle();
+     }) ;
+
+    var inputNmae;
+
+    function improt(){
+        if(!inputNmae) inputNmae=document.createElement('input');
+        inputNmae.type='file' ;
+        inputNmae.name='fileName';
+        inputNmae.accept='application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+        inputNmae.onchange =function(){
+              var fileName= inputNmae.value.split('.');
+            if(fileName[fileName.length-1]!='xls' && fileName[fileName.length-1]!='xlsx'){
+                alert("提示信息：请上传Excel文件！") ;
+                return;
+            }
+            var fileData=new FormData();
+            fileData.append('importFile',inputNmae.files[0]);
+            var xhr=new XMLHttpRequest();
+            xhr.open('post','http://localhost:8080/users/import',true);
+            xhr.setRequestHeader('enctype','multipart/form-data') ;
+            xhr.send(fileData) ;
+            xhr.onreadystatechange=function(data){
+                if(xhr.readyState==4){
+                   if(xhr.status==200){
+                       inputNmae=false;
+                       alert("导入成功！") ;
+                   }else{
+                       inputNmae='';
+                       alert("导入失败！") ;
+                   }
+                }
+            }
+        }
+        inputNmae.click();
+    } ;
+</script>
+</body>
+</html>

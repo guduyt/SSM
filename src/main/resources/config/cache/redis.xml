@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    <util:list id="listshard">
+       <!--<bean class="redis.clients.jedis.JedisShardInfo">
+            <constructor-arg name="host" value="${redis.host}" />
+            <constructor-arg name="port" value="${redis.port}" type="int" />
+            <constructor-arg name="timeout" value="${redis.timeout}" />
+            <constructor-arg name="name" value="instance:01"/>
+        </bean>
+         <bean class="redis.clients.jedis.JedisShardInfo">
+            <constructor-arg name="host" value="${redis.host}" />
+            <constructor-arg name="port" value="9001" type="int" />
+            <constructor-arg name="timeout" value="${redis.timeout}" />
+            <constructor-arg name="name" value="instance:02"/>
+        </bean>
+        <bean class="redis.clients.jedis.JedisShardInfo">
+            <constructor-arg name="host" value="${redis.host}" />
+            <constructor-arg name="port" value="9002" type="int" />
+            <constructor-arg name="timeout" value="${redis.timeout}" />
+            <constructor-arg name="name" value="instance:03"/>
+        </bean>-->
+        <bean class="redis.clients.jedis.JedisShardInfo">
+            <constructor-arg name="host" value="${redis.host}" />
+            <constructor-arg name="port" value="6380" type="int" />
+            <constructor-arg name="timeout" value="${redis.timeout}" />
+            <constructor-arg name="name" value="instance:04"/>
+        </bean>
+        <bean class="redis.clients.jedis.JedisShardInfo">
+            <constructor-arg name="host" value="${redis.host}" />
+            <constructor-arg name="port" value="6382" type="int" />
+            <constructor-arg name="timeout" value="${redis.timeout}" />
+            <constructor-arg name="name" value="instance:05"/>
+        </bean>
+    </util:list>
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="${redis.pool.maxTotal}" />
+        <property name="minIdle" value="${redis.pool.minIdle}" />
+        <property name="maxIdle" value="${redis.pool.maxIdle}" />
+        <property name="maxWaitMillis" value="${redis.pool.maxWait}" />
+        <property name="minEvictableIdleTimeMillis" value="${redis.pool.minEvictableIdle}"></property>
+        <property name="numTestsPerEvictionRun" value="${redis.pool.numTestsPer}"></property>
+        <property name="timeBetweenEvictionRunsMillis" value="${redis.pool.timeBetween}"></property>
+        <property name="SoftMinEvictableIdleTimeMillis" value="${redis.pool.SoftMinTimeMillis}"></property>
+        <property name="testWhileIdle" value="${redis.pool.testWhileIdle}" />
+        <property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />
+        <property name="testOnReturn" value="${redis.pool.testOnReturn}" />
+    </bean>
+
+    <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool" >
+        <constructor-arg  index="0" name="poolConfig" ref="jedisPoolConfig" />
+        <!--<constructor-arg index="1" name="shards" ref="listshard"/>-->
+        <constructor-arg index="1" name="shards">
+            <list>
+                <bean class="redis.clients.jedis.JedisShardInfo">
+                    <constructor-arg name="host" value="${redis.host}" />
+                    <constructor-arg name="port" value="6380" type="int" />
+                    <constructor-arg name="timeout" value="${redis.timeout}" />
+                    <constructor-arg name="name" value="instance:04"/>
+                </bean>
+                <bean class="redis.clients.jedis.JedisShardInfo">
+                    <constructor-arg name="host" value="${redis.host}" />
+                    <constructor-arg name="port" value="6382" type="int" />
+                    <constructor-arg name="timeout" value="${redis.timeout}" />
+                    <constructor-arg name="name" value="instance:05"/>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+
+   <!-- <bean id="jedisConnFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="${redis.host}" />
+        <property name="port" value="${redis.port10}" />
+        <property name="password" value="${redis.password}" />
+        <property name="usePool" value="true" />
+        <property name="poolConfig" ref="jedisPoolConfig" />
+        <property name="timeout" value="${redis.timeout}" />
+    </bean>
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnFactory" />
+
+
+        <property name="keySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+        </property>
+        <property name="valueSerializer">
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+        </property>
+        <property name="hashKeySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+        <property name="hashValueSerializer">
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
+        </property>
+    </bean>-->
+</beans>
