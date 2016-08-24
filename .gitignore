@@ -1,0 +1,18 @@
+
+/.settings
+/.project
+/.classpath
+/.DS_Store
+/1
+/derby.log
+
+# IntelliJ Idea
+.idea/
+out/
+*.ipr
+*.iws
+*.iml
+/bin
+target/
+src/main/webapp/www
+
