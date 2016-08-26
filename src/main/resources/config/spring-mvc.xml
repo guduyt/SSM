@@ -53,12 +53,22 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 	</bean>
 
 	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/" p:suffix=".jsp" />
+	<!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/" p:suffix=".jsp" />-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!-- 这里的配置我的理解是自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->
-        <property name="prefix" value="/WEB-INF/" />
+        <property name="prefix" value="" />
         <property name="suffix" value=".jsp" />
+        <property name="order" value="1" />
     </bean>
+
+    <bean id="velocityViewResolver" class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
+        <property name="contentType" value="text/html;charset=UTF-8" />
+        <property name="prefix" value="" />
+        <property name="suffix" value=".html" />
+        <property name="order" value="0" />
+    </bean>
+
+    <bean id="exceptionInterceptor" class="com.yt.interceptor.exception.ExceptionInterceptor"  ></bean>
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding">

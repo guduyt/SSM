@@ -8,8 +8,24 @@
 <body>
  <a href="index.jsp">数据导入操作</a>
       <input id="import" type="button" onclick="improt()" value="导入数据">
- <button id="bt" type="button"  >按钮</button>
+ <button id="bt" type="button"  >按钮</button> <br/>
+ <button id="btget" type="button"  >获取error</button>
+
+ <button id="get" type="button"  >获取error</button>
 <script>
+    $("#btget").click(function(){
+        $.getJSON("http://localhost:8080/users/error",function(result){
+           var data=result ;
+        }) ;
+    });
+
+    $("#get").click(function(){
+        $.getJSON("http://localhost:8080/users/io",function(result){
+            var data=result ;
+        }) ;
+
+
+    });
 
     $("#bt").click(function btan(){
          $("#bt").slideToggle();

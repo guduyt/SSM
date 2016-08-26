@@ -22,6 +22,7 @@ public interface ContextType {
     public static final String HTML="text/html";
     public static final String TXT="text/plain";
     public static final String XML="text/xml";
+    public static final String JSON="application/json";
     public static final String AFP="application/afp";
     public static final String PDF="application/pdf";
     public static final String RTF="application/rtf";

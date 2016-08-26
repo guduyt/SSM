@@ -7,13 +7,9 @@ import com.entity.model.Users;
 import com.entity.model.UsersExample;
 import com.yt.commons.Page;
 import com.yt.commons.cache.ShardedJedisCache;
-import com.yt.commons.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import redis.clients.jedis.ShardedJedisPool;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**

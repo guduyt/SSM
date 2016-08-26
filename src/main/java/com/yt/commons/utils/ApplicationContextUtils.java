@@ -1,4 +1,4 @@
-package com.yt.commons;
+package com.yt.commons.utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;

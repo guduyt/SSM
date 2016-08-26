@@ -1,5 +1,6 @@
-package com.yt.commons;
+package com.yt.commons.utils;
 
+import com.yt.commons.ContextType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;

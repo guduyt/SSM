@@ -132,5 +132,5 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springfr
     <aop:config proxy-target-class="true">
         <aop:advisor advice-ref="druid-stat-interceptor"  pointcut-ref="druid-stat-pointcut"></aop:advisor>
     </aop:config>
-     <bean id="applicationContextUtils" class="com.yt.commons.ApplicationContextUtils"/>
+     <bean id="applicationContextUtils" class="com.yt.commons.utils.ApplicationContextUtils"/>
 </beans>

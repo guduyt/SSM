@@ -1,5 +1,6 @@
 package com.yt.commons;
 
+import com.yt.commons.utils.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +14,7 @@ import java.io.InputStreamReader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:config/spring.xml" })
-public class FileUtilsTest {
+public class FileDateUtilsTest {
 
     @Test
     public void testDeleteUploadFile(){

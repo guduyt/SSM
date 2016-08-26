@@ -1,6 +1,6 @@
 package com.yt.aop.aspect;
 
-import com.yt.commons.Utils;
+import com.yt.commons.utils.DateUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -29,6 +29,6 @@ public class RedisAspect {
         for (int i=0 ;i<joinPoint.getArgs().length;i++){
            s+=  joinPoint.getArgs()[i].toString() +" ";
         }
-        Utils.log.info(joinPoint.toString()+s);
+        DateUtils.log.info(joinPoint.toString()+s);
     }
 }

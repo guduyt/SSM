@@ -2,8 +2,8 @@ package com.business.controller;
 
 import com.business.service.UsersService;
 import com.entity.model.Users;
-import com.yt.commons.ExcelUtils;
-import com.yt.commons.FileUtils;
+import com.yt.commons.utils.ExcelUtils;
+import com.yt.commons.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,7 @@ public class UsersController {
 
 
     @ResponseBody
-    @RequestMapping(value = "import",method = RequestMethod.POST)
+    @RequestMapping(value = "/import",method = RequestMethod.POST)
     public void importExcel(HttpServletRequest request){
       String s= FileUtils.getUploadFile(null,"test.xlsx",request) ;
         List<Object[]> objects= ExcelUtils.getExcelData(s,1,0);

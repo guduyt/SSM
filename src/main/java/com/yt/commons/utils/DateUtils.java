@@ -1,5 +1,6 @@
-package com.yt.commons;
+package com.yt.commons.utils;
 
+import com.yt.commons.IUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,8 +15,8 @@ import java.util.regex.Pattern;
  * @version 1.0.0
  * @date 2016/5/27 16:44
  */
-public class Utils implements IUtils {
-    public static final Logger log= LoggerFactory.getLogger(Utils.class);
+public class DateUtils implements IUtils {
+    public static final Logger log= LoggerFactory.getLogger(DateUtils.class);
 
     /**
      * 判断字符串是否是空字符串
@@ -141,23 +142,23 @@ public class Utils implements IUtils {
      * @return
      */
     public static String getDateFormat(String s){
-        String  format=Utils.DateFormat_DEFAULT;
+        String  format= DateUtils.DateFormat_DEFAULT;
         Pattern p=Pattern.compile("^\\d{4}(\\-)\\d{1,2}\\1\\d{1,2}(\\s(((0?[0-9])|([1-2][0-3]))\\:([0-5]?[0-9])((\\s)|(\\:([0-5]?[0-9])))))?$");
         if(p.matcher(s).matches()) {
             p=Pattern.compile("^\\d{4}(\\-)\\d{1,2}\\1\\d{1,2}$");
             if(p.matcher(s).matches()){
-                format=Utils.DateFormat_DATE_DEFAULT;
+                format= DateUtils.DateFormat_DATE_DEFAULT;
             } else {
-                format=Utils.DateFormat_DEFAULT;
+                format= DateUtils.DateFormat_DEFAULT;
             }
         }
         p=Pattern.compile("^\\d{4}(\\/)\\d{1,2}\\1\\d{1,2}(\\s(((0?[0-9])|([1-2][0-3]))\\:([0-5]?[0-9])((\\s)|(\\:([0-5]?[0-9])))))?$");
         if(p.matcher(s).matches()){
             p=Pattern.compile("^\\d{4}(\\/)\\d{1,2}\\1\\d{1,2}$");
             if(p.matcher(s).matches()){
-                format=Utils.DateFormat__DATE_ONE;
+                format= DateUtils.DateFormat__DATE_ONE;
             } else {
-                format=Utils.DateFormat_ONE;
+                format= DateUtils.DateFormat_ONE;
             }
 
         }
@@ -165,9 +166,9 @@ public class Utils implements IUtils {
         if(p.matcher(s).matches()){
             p=Pattern.compile("^\\d{4}(\\.)\\d{1,2}\\1\\d{1,2}$");
             if(p.matcher(s).matches()){
-                format=Utils.DateFormat_DATE_TWO;
+                format= DateUtils.DateFormat_DATE_TWO;
             } else {
-                format=Utils.DateFormat_TWO;
+                format= DateUtils.DateFormat_TWO;
             }
 
         }
