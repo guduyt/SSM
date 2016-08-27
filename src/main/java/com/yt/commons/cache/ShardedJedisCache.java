@@ -1,6 +1,5 @@
 package com.yt.commons.cache;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
@@ -16,7 +15,7 @@ import redis.clients.jedis.ShardedJedisPool;
 @Service("ShardedJedisCache")
 public class ShardedJedisCache implements IRedis {
 
-    @Autowired
+    /*@Autowired*/
     private ShardedJedisPool jedisPool;
 
 
