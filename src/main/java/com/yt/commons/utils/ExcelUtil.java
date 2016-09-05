@@ -1,5 +1,7 @@
 package com.yt.commons.utils;
 
+import com.yt.commons.IUtil;
+import com.yt.commons.exceptions.CustomException;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -7,8 +9,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -27,8 +27,7 @@ import java.util.regex.Pattern;
  * @version 1.0.0
  * @date 2016/7/22 9:32
  */
-public class ExcelUtils {
-    public static final Logger log= LoggerFactory.getLogger(ExcelUtils.class);
+public class ExcelUtil implements IUtil {
 
     /**
      * 半角转全角
@@ -93,7 +92,7 @@ public class ExcelUtils {
             Sheet sheet=workbook.getSheetAt(sheetNum);
             int totleRow= sheet.getLastRowNum();
             if(beginRow<0 || beginRow>totleRow)
-                throw new Exception("读取excel数据开始于:"+beginRow+"行,该行数据不存在！") ;
+                throw new RuntimeException("读取excel数据开始于:"+beginRow+"行,该行数据不存在！") ;
             Row row;
             Cell cell;
             int countCell=0;
@@ -122,10 +121,9 @@ public class ExcelUtils {
             }
         }
         catch (FileNotFoundException ex){
-             throw new RuntimeException("找不到文件!") ;
+             throw new CustomException(50016,"找不到Excel文件！");
         }catch (Exception ex){
-            log.error("读取Excel文件异常，详细错误："+ex);
-            throw new RuntimeException("读取Excel文件异常！");
+            throw new CustomException(50017,"读取Excel文件异常！",ex);
         }  finally {
             try {
                 if(null!=inputStream)
@@ -177,11 +175,11 @@ public class ExcelUtils {
                 break;
             case Cell.CELL_TYPE_BLANK:// 空值
                 value = "";
-                log.error("excel出现空值");
+                log.error("excel出现空值！");
                 break;
             case Cell.CELL_TYPE_ERROR:// 故障
                 value = String.valueOf(cell.getErrorCellValue());
-                log.error("excel出现故障");
+                log.error("excel出现故障！");
                 break;
             default:
                 value = cell.getStringCellValue().toString();
@@ -241,11 +239,9 @@ public class ExcelUtils {
 
             }
         } catch (NoSuchMethodException ex){
-            log.error("反射读取数据异常，找不到类中对应的方法，详细错误："+ex);
-            throw new RuntimeException("读取数据错误!") ;
+            throw new CustomException(50018,"读取数据错误！",ex) ;
         }catch (Exception ex){
-            log.error("通过反射读取数据异常，详细错误："+ex);
-            throw new RuntimeException("读取数据错误!") ;
+            throw new CustomException(50019,"读取数据错误！",ex) ;
         }
 
         return  t;
@@ -259,7 +255,7 @@ public class ExcelUtils {
      * @return
      */
     public static <T>T getObjectValue(T t,Object[] objects){
-            String mesg="";
+
         try {
             Class<?>  tClass=t.getClass();
             Field[] tFields=tClass.getDeclaredFields() ;
@@ -299,66 +295,64 @@ public class ExcelUtils {
 
             }
         } catch (NoSuchMethodException ex){
-            log.error("反射读取数据异常，找不到类中对应的方法，详细错误："+ex);
-            throw new RuntimeException("读取数据错误!") ;
+            throw new CustomException(50018,"读取数据错误！",ex) ;
         }catch (Exception ex){
-            log.error("通过反射读取数据异常，详细错误："+ex);
-            throw new RuntimeException("读取数据错误!") ;
+            throw new CustomException(50019,"读取数据错误！",ex) ;
         }
 
         return  t;
     }
 
     public static Boolean isMatchType(String fieldType,Object o) {
-        boolean b=false;
+        boolean isMatch=false;
 
         try {
             switch (fieldType) {
                 case "java.lang.String":
                     notNullValueToString(o);
-                    b=true;
+                    isMatch=true;
                     break;
                 case "java.lang.Integer":
                     Integer.parseInt(notNullValueToString(o));
-                    b=true;
+                    isMatch=true;
                     break;
                 case "java.lang.Long":
                     Long.parseLong(notNullValueToString(o));
-                    b=true;
+                    isMatch=true;
                     break;
                 case "java.lang.Float":
                     Float.parseFloat(notNullValueToString(o));
-                    b=true;
+                    isMatch=true;
                     break;
                 case "java.lang.Double":
                     Double.parseDouble(notNullValueToString(o));
-                    b=true;
+                    isMatch=true;
                     break;
                 case "java.lang.Boolean":
                     Boolean.parseBoolean(notNullValueToString(o));
-                    b=true;
+                    isMatch=true;
                     break;
                 case "java.lang.Byte":
                     Byte.parseByte(notNullValueToString(o));
-                    b=true;
+                    isMatch=true;
                     break;
                 case "java.lang.Short":
                     Short.parseShort(notNullValueToString(o));
-                    b=true;
+                    isMatch=true;
                     break;
                 case "java.math.BigDecimal":BigDecimal.valueOf(Double.valueOf(notNullValueToString(o)));
-                    b=true;
+                    isMatch=true;
                     break;
                 case "java.util.Date":
-                    b=isDate(o);
+                    isMatch=isDate(o);
                     break;
                 default:notNullValueToString(o);
-                    b=true;
+                    isMatch=true;
             }
         }catch (Exception ex){
-            b=false;
+            isMatch=false;
         }
-        return b ;
+        return isMatch ;
     }
 
     private static String getSetMethodName(String fildeName){
@@ -377,7 +371,7 @@ public class ExcelUtils {
 
     private static String notNullValueToString(Object o){
         if(null==o || null==o.toString() || o.toString().length()==0){
-            throw new RuntimeException("数据不能为空值！");
+            throw new CustomException(50020,"数据不能为空值！") ;
         }
         return o.toString();
     }
@@ -401,7 +395,7 @@ public class ExcelUtils {
         Pattern p=Pattern.compile("^((\\d{2}(([02468][048])|([13579][26]))[\\-\\/\\.]?((((0?[13578])|(1[02]))[\\-\\/\\.]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\.]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\.]?((0?[1-9])|([1-2][0-9])))))|(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-\\/\\.]?((((0?[13578])|(1[02]))[\\-\\/\\.]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\.]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\.]?((0?[1-9])|(1[0-9])|(2[0-8]))))))(\\s(((0?[0-9])|([1-2][0-3]))\\:([0-5]?[0-9])((\\s)|(\\:([0-5]?[0-9])))))?$", Pattern.CASE_INSENSITIVE|Pattern.MULTILINE);
          Date date=null;
         if(!dataStr.isEmpty() && p.matcher(dataStr).matches()){
-            date= DateUtils.stringToDate(dataStr) ;
+            date= DateUtil.stringToDate(dataStr) ;
         }
         else {
             date=(Date)o;

@@ -1,8 +1,7 @@
 package com.yt.commons.utils;
 
 import com.yt.commons.ContextType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.yt.commons.exceptions.CustomException;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -14,8 +13,7 @@ import java.io.IOException;
  * @version 1.0.0
  * @date 2016/8/26 14:10
  */
-public final class ResponseUtils {
-    public static final Logger log= LoggerFactory.getLogger(ResponseUtils.class) ;
+public final class ResponseUtil {
 
     public static void  renderText(HttpServletResponse response,String text){
         render(response, ContextType.TXT+";charset=UTF-8",text) ;
@@ -38,7 +36,7 @@ public final class ResponseUtils {
         try {
             response.getWriter().write(text);
         } catch (IOException ex){
-            log.error(ex.getMessage());
+            throw new CustomException(50032,"返回数据失败！",ex);
         }
 
     }

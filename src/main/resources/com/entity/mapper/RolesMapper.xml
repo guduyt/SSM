@@ -189,4 +189,11 @@
       <![CDATA[LIMIT #{limit} OFFSET #{offset}]]>
     </if>
   </select>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into roles (id,role_name) 
+    values 
+    <foreach collection="list" item="item" index="index" separator="," > 
+        (#{item.id,jdbcType=INTEGER},#{item.roleName,jdbcType=VARCHAR}) 
+   </foreach>
+  </insert>
 </mapper>

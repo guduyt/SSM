@@ -1,6 +1,7 @@
 package com.yt.commons.utils;
 
 import com.yt.commons.ContextType;
+import com.yt.commons.exceptions.CustomException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,9 +25,9 @@ import java.util.UUID;
  * @version 1.0.0
  * @date 2016/7/22 11:00
  */
-public class FileUtils implements ContextType {
+public class FileUtil implements ContextType {
 
-    public static final Logger log= LoggerFactory.getLogger(FileUtils.class);
+    public static final Logger log= LoggerFactory.getLogger(FileUtil.class);
 
     /**
      * web项目中，得到web的绝对路径
@@ -55,7 +56,7 @@ public class FileUtils implements ContextType {
      */
     public static Boolean isRealPath(HttpServletRequest request,String path){
         if(null==path)
-            throw new  RuntimeException("文件路径不能为空！") ;
+            throw new CustomException(50021,"文件路径不能为空！") ;
 
         if( path.indexOf(request.getSession().getServletContext().getRealPath("/")) ==0){
             return true;
@@ -72,7 +73,7 @@ public class FileUtils implements ContextType {
         CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(request.getSession().getServletContext()) ;
 
         if(null==multipartResolver)
-            throw new  RuntimeException("上传文件解析异常，在HttpServletRequest请求找不到MultipartResolver解析文件！");
+            throw new   CustomException(50022,"上传文件解析异常，在HttpServletRequest请求找不到上传文件！");
 
         if(multipartResolver.isMultipart(request)) {
             MultipartHttpServletRequest multipartHttpServletRequest=(MultipartHttpServletRequest)request;
@@ -81,11 +82,11 @@ public class FileUtils implements ContextType {
             while(iterator.hasNext()){
                 MultipartFile file=  multipartHttpServletRequest.getFile(iterator.next());
                 if(null==file || file.isEmpty())
-                    throw new  RuntimeException("没有找到上传文件！") ;
+                    throw new  CustomException(50023,"没有找到上传文件！") ;
 
                 String fileName=file.getOriginalFilename() ;
                 if(null==fileName ||fileName.isEmpty())
-                    throw new  RuntimeException("上传文件不存在！");
+                    throw new  CustomException(50024,"上传文件不存在！");
 
                 String fileType=fileName.substring(fileName.lastIndexOf("."));
                 String name=fileName.substring(0,fileName.lastIndexOf("."));
@@ -97,8 +98,7 @@ public class FileUtils implements ContextType {
                     file.transferTo(localFile);
                     return realPath;
                 }   catch (Exception ex){
-                    log.error("保存文件失败，详细错误：s%"+ex);
-                    throw new  RuntimeException("保存文件失败！");
+                    throw new  CustomException(50025,"保存上传文件失败！",ex);
                 }
             }
         }
@@ -116,7 +116,7 @@ public class FileUtils implements ContextType {
         CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(request.getSession().getServletContext()) ;
 
         if(null==multipartResolver)
-            throw new  RuntimeException("上传文件解析异常，在HttpServletRequest请求找不到MultipartResolver解析文件！");
+            throw new   CustomException(50022,"上传文件解析异常，在HttpServletRequest请求找不到上传文件！");
 
         if(multipartResolver.isMultipart(request)) {
             MultipartHttpServletRequest multipartHttpServletRequest=(MultipartHttpServletRequest)request;
@@ -125,12 +125,12 @@ public class FileUtils implements ContextType {
             while(iterator.hasNext()){
                 MultipartFile file=  multipartHttpServletRequest.getFile(iterator.next());
                 if(null==file || file.isEmpty())
-                    throw new  RuntimeException("没有找到上传文件！") ;
+                    throw new  CustomException(50023,"没有找到上传文件！") ;
 
                 if(null==fileName)
                     fileName=file.getOriginalFilename() ;
                 if(null==fileName ||fileName.isEmpty())
-                    throw new  RuntimeException("上传文件不存在！");
+                    throw new  CustomException(50024,"上传文件不存在！");
 
                 String fileType=fileName.substring(fileName.lastIndexOf("."));
                 String name=fileName.substring(0,fileName.lastIndexOf("."));
@@ -144,8 +144,7 @@ public class FileUtils implements ContextType {
                     file.transferTo(localFile);
                     return realPath;
                 }   catch (Exception ex){
-                    log.error("保存文件失败，详细错误：s%"+ex);
-                    throw new  RuntimeException("保存文件失败！");
+                    throw new  CustomException(50025,"保存上传文件失败！",ex);
                 }
             }
         }
@@ -162,7 +161,7 @@ public class FileUtils implements ContextType {
         CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(request.getSession().getServletContext()) ;
 
         if(null==multipartResolver)
-            throw new  RuntimeException("上传文件解析异常，在HttpServletRequest请求找不到MultipartResolver解析文件！");
+            throw new   CustomException(50022,"上传文件解析异常，在HttpServletRequest请求找不到上传文件！");
 
         if(multipartResolver.isMultipart(request)) {
             MultipartHttpServletRequest multipartHttpServletRequest=(MultipartHttpServletRequest)request;
@@ -171,11 +170,11 @@ public class FileUtils implements ContextType {
             while(iterator.hasNext()){
                 MultipartFile file=  multipartHttpServletRequest.getFile(iterator.next());
                 if(null==file || file.isEmpty())
-                    throw new  RuntimeException("没有找到上传文件！") ;
+                    throw new  CustomException(50023,"没有找到上传文件！") ;
 
                 String fileName=file.getOriginalFilename() ;
                 if(null==fileName ||fileName.isEmpty())
-                    throw new  RuntimeException("上传文件不存在！");
+                    throw new  CustomException(50024,"上传文件不存在！");
 
                 String fileType=fileName.substring(fileName.lastIndexOf("."));
                 String name=fileName.substring(0,fileName.lastIndexOf("."));
@@ -187,8 +186,7 @@ public class FileUtils implements ContextType {
                     file.transferTo(localFile);
                     list.add(realPath);
                 }   catch (Exception ex){
-                    log.error("保存文件失败，详细错误：s%"+ex);
-                    throw new  RuntimeException("保存文件失败！");
+                    throw new  CustomException(50025,"保存上传文件失败！",ex);
                 }
             }
         }
@@ -209,8 +207,7 @@ public class FileUtils implements ContextType {
                 return true;
             }
         } catch (Exception ex){
-            log.error("删除文件失败，详细错误：s%"+ex);
-               throw new RuntimeException("删除文件失败！");
+            throw new  CustomException(50026,"删除文件失败！",ex);
         }
 
         return false ;
@@ -244,15 +241,14 @@ public class FileUtils implements ContextType {
             inputStream=new BufferedInputStream(stream);
             outputStream=new BufferedOutputStream(servletOutputStream);
 
-            byte[] buff=new byte[FileUtils.bufferMaxSize] ;
+            byte[] buff=new byte[FileUtil.bufferMaxSize] ;
             int bytesRead=inputStream.read(buff,0,buff.length);
             while (-1!=bytesRead){
                 outputStream.write(buff,0,bytesRead);
                 bytesRead=inputStream.read(buff,0,buff.length);
             }
         } catch (Exception ex){
-            log.error("下载文件失败，详细错误：s%"+ex);
-            throw new RuntimeException("下载文件失败！");
+            throw new  CustomException(50027,"下载文件失败！",ex);
         }   finally {
             if(null!=inputStream){
                 try {
@@ -299,15 +295,14 @@ public class FileUtils implements ContextType {
             inputStream=new BufferedInputStream(stream);
             outputStream=new BufferedOutputStream(servletOutputStream);
 
-            byte[] buff=new byte[FileUtils.bufferMaxSize] ;
+            byte[] buff=new byte[FileUtil.bufferMaxSize] ;
             int bytesRead=inputStream.read(buff,0,buff.length);
             while (-1!=bytesRead){
                 outputStream.write(buff,0,bytesRead);
                 bytesRead=inputStream.read(buff,0,buff.length);
             }
-        } catch (Exception ex){
-            log.error("下载文件失败，详细错误：s%"+ex);
-            throw new RuntimeException("下载文件失败！");
+        }  catch (Exception ex){
+            throw new  CustomException(50027,"下载文件失败！",ex);
         }   finally {
             if(null!=inputStream){
                 try {
@@ -334,11 +329,10 @@ public class FileUtils implements ContextType {
      */
     public static File getFile(File directory, String... names) {
         if (directory == null) {
-            throw new NullPointerException(
-                    "文件目录不能为空！");
+            throw new CustomException( 50028,"文件目录不能为空！");
         }
         if (names == null) {
-            throw new NullPointerException("文件名不能为空！");
+            throw new CustomException( 50029,"文件名不能为空！");
         }
         File file = directory;
         for (String name : names) {
@@ -354,7 +348,7 @@ public class FileUtils implements ContextType {
      */
     public static File getFile(String... names) {
         if (names == null) {
-            throw new NullPointerException("文件名不能为空！");
+            throw new CustomException( 50029,"文件名不能为空！");
         }
         File file = null;
         for (String name : names) {
@@ -378,21 +372,20 @@ public class FileUtils implements ContextType {
         try {
             if (file.exists()) {
                 if (file.isDirectory()) {
-                    throw new IOException("文件 '" + file
+                    throw new  RuntimeException("文件 '" + file
                             + "'存在，但是是一个目录！");
                 }
                 if (file.canRead() == false) {
-                    throw new IOException("文件 '" + file + "' 不能进行读操作！");
+                    throw new  RuntimeException("文件 '" + file + "' 不能进行读操作！");
                 }
             }
             else {
-                throw new FileNotFoundException("文件 '" + file
+                throw new  RuntimeException("文件 '" + file
                         + "' 不存在！");
             }
             return new FileInputStream(file);
         } catch (Exception ex){
-            log.error("打开读操作文件流异常，详细错误：s%"+ex);
-            throw new RuntimeException(ex.getMessage());
+            throw new  CustomException(50030,"打开读操作文件流异常！",ex);
         }
     }
 
@@ -407,11 +400,11 @@ public class FileUtils implements ContextType {
         try {
             if (file.exists()) {
                 if (file.isDirectory()) {
-                    throw new IOException("文件 '" + file
-                            + "' 存在，但是是一个目录！");
+                    throw new  RuntimeException("文件 '" + file
+                            + "'存在，但是是一个目录！");
                 }
                 if (file.canWrite() == false) {
-                    throw new IOException("文件 '" + file
+                    throw new  RuntimeException("文件 '" + file
                             + "' 不能进行写操作！");
                 }
             }
@@ -419,7 +412,7 @@ public class FileUtils implements ContextType {
                 File parent = file.getParentFile();
                 if (parent != null) {
                     if (!parent.mkdirs() && !parent.isDirectory()) {
-                        throw new IOException("目录 '" + parent
+                        throw new RuntimeException("目录 '" + parent
                                 + "' 不存在，需要创建！");
                     }
                 }
@@ -427,8 +420,7 @@ public class FileUtils implements ContextType {
             return new FileOutputStream(file, append);
 
         } catch (Exception ex){
-            log.error("打开写操作文件流异常，详细错误：s%"+ex);
-            throw new RuntimeException(ex.getMessage());
+            throw new  CustomException(50031,"打开写操作文件流异常！",ex);
         }
     }
 

@@ -12,14 +12,14 @@ import org.springframework.context.ApplicationContextAware;
  * @version 1.0.0
  * @date 2016/7/20 11:39
  */
-public class ApplicationContextUtils implements ApplicationContextAware {
+public class ApplicationContextUtil implements ApplicationContextAware {
 
     private static ApplicationContext context;
 
     @SuppressWarnings ("static-access")
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        ApplicationContextUtils.context= applicationContext;
+        ApplicationContextUtil.context= applicationContext;
     }
 
     public static ApplicationContext getContext() {

@@ -206,4 +206,11 @@
       <![CDATA[LIMIT #{limit} OFFSET #{offset}]]>
     </if>
   </select>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into users (id,name,age) 
+    values 
+    <foreach collection="list" item="item" index="index" separator="," > 
+        (#{item.id,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.age,jdbcType=INTEGER}) 
+   </foreach>
+  </insert>
 </mapper>

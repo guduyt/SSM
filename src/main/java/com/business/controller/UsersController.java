@@ -2,8 +2,8 @@ package com.business.controller;
 
 import com.business.service.UsersService;
 import com.entity.model.Users;
-import com.yt.commons.utils.ExcelUtils;
-import com.yt.commons.utils.FileUtils;
+import com.yt.commons.utils.ExcelUtil;
+import com.yt.commons.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -25,14 +25,14 @@ public class UsersController {
     @ResponseBody
     @RequestMapping(value = "/import",method = RequestMethod.POST)
     public void importExcel(HttpServletRequest request){
-      String s= FileUtils.getUploadFile(null,"test.xlsx",request) ;
-        List<Object[]> objects= ExcelUtils.getExcelData(s,1,0);
+      String s= FileUtil.getUploadFile(null, "test.xlsx", request) ;
+        List<Object[]> objects= ExcelUtil.getExcelData(s, 1, 0);
     }
 
     @ResponseBody
     @RequestMapping("/download")
     public void download(HttpServletRequest request, HttpServletResponse response) {
-        FileUtils.downloadFile("/uploadFiles/test.txt","test关键字.txt",request,response);
+        FileUtil.downloadFile("/uploadFiles/test.txt", "test关键字.txt", request, response);
 
     }
 

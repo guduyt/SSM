@@ -1,14 +1,13 @@
 package com.yt.commons;
 
 /**
- * IUtils
+ * DateFormat
  *
  * @author yitao
  * @version 1.0.0
- * @date 2016/5/27 16:46
+ * @date 2016/8/29 15:28
  */
-public interface IUtils {
-
+public interface DateFormat {
     public static final String DateFormat_DEFAULT="yyyy-MM-dd HH:mm:ss" ;
     public static final String DateFormat_MONTH="yyyy-MM";
     public static final String DateFormat_DATE_DEFAULT="yyyy-MM-dd" ;
@@ -29,5 +28,4 @@ public interface IUtils {
     public static final String DateFormat_Date_HOUR="HH";
     public static final String DateFormat_Date_MINUTE="mm";
     public static final String DateFormat_Date_SECOND="ss";
-
 }

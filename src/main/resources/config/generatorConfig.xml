@@ -26,6 +26,7 @@
         <!--<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>-->
         <plugin type="org.mybatis.generator.plugins.VirtualPrimaryKeyPlugin"></plugin>
         <plugin type="com.yt.mybatis.generator.PagePlugin"></plugin>
+        <plugin type="com.yt.mybatis.generator.BatchPlugin"></plugin>
 
         <commentGenerator>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->

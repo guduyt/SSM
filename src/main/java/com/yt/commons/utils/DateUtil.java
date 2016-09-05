@@ -1,8 +1,8 @@
 package com.yt.commons.utils;
 
-import com.yt.commons.IUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.yt.commons.DateFormat;
+import com.yt.commons.IUtil;
+import com.yt.commons.exceptions.CustomException;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,8 +15,8 @@ import java.util.regex.Pattern;
  * @version 1.0.0
  * @date 2016/5/27 16:44
  */
-public class DateUtils implements IUtils {
-    public static final Logger log= LoggerFactory.getLogger(DateUtils.class);
+public class DateUtil implements DateFormat,IUtil {
+
 
     /**
      * 判断字符串是否是空字符串
@@ -67,9 +67,9 @@ public class DateUtils implements IUtils {
         try {
             return new SimpleDateFormat(formatType).format(data);
         } catch (Exception ex){
-            log.error("dateToString()中时间转换字符串错误，详细错误："+ex);
+
+            throw  new CustomException(50011,"时间类型转换字符串失败！",ex);
         }
-        return "";
     }
 
     /**
@@ -86,7 +86,7 @@ public class DateUtils implements IUtils {
                 date=dateFormat.parse(str);
             }
         } catch (Exception ex){
-            log.error("stringToDat()中字符串转换时间错误，详细错误："+ex);
+            throw  new CustomException(50012,"字符串转换指定格式的时间类型失败！",ex);
         }
 
          return date;
@@ -108,7 +108,7 @@ public class DateUtils implements IUtils {
 
             }
         } catch (Exception ex){
-            log.error("stringToDat()中字符串转换时间错误，详细错误："+ex.getMessage());
+            throw  new CustomException(50013,"字符串转换默认格式的时间类型失败！",ex);
         }
 
         return date;
@@ -130,7 +130,7 @@ public class DateUtils implements IUtils {
 
             }
         } catch (Exception ex){
-            log.error("stringToDat()中字符串转换时间错误，详细错误："+ex.getMessage());
+            throw  new CustomException(50014,"字符串转换时间类型失败！",ex);
         }
 
         return date;
@@ -142,23 +142,23 @@ public class DateUtils implements IUtils {
      * @return
      */
     public static String getDateFormat(String s){
-        String  format= DateUtils.DateFormat_DEFAULT;
+        String  format= DateUtil.DateFormat_DEFAULT;
         Pattern p=Pattern.compile("^\\d{4}(\\-)\\d{1,2}\\1\\d{1,2}(\\s(((0?[0-9])|([1-2][0-3]))\\:([0-5]?[0-9])((\\s)|(\\:([0-5]?[0-9])))))?$");
         if(p.matcher(s).matches()) {
             p=Pattern.compile("^\\d{4}(\\-)\\d{1,2}\\1\\d{1,2}$");
             if(p.matcher(s).matches()){
-                format= DateUtils.DateFormat_DATE_DEFAULT;
+                format= DateUtil.DateFormat_DATE_DEFAULT;
             } else {
-                format= DateUtils.DateFormat_DEFAULT;
+                format= DateUtil.DateFormat_DEFAULT;
             }
         }
         p=Pattern.compile("^\\d{4}(\\/)\\d{1,2}\\1\\d{1,2}(\\s(((0?[0-9])|([1-2][0-3]))\\:([0-5]?[0-9])((\\s)|(\\:([0-5]?[0-9])))))?$");
         if(p.matcher(s).matches()){
             p=Pattern.compile("^\\d{4}(\\/)\\d{1,2}\\1\\d{1,2}$");
             if(p.matcher(s).matches()){
-                format= DateUtils.DateFormat__DATE_ONE;
+                format= DateUtil.DateFormat__DATE_ONE;
             } else {
-                format= DateUtils.DateFormat_ONE;
+                format= DateUtil.DateFormat_ONE;
             }
 
         }
@@ -166,9 +166,9 @@ public class DateUtils implements IUtils {
         if(p.matcher(s).matches()){
             p=Pattern.compile("^\\d{4}(\\.)\\d{1,2}\\1\\d{1,2}$");
             if(p.matcher(s).matches()){
-                format= DateUtils.DateFormat_DATE_TWO;
+                format= DateUtil.DateFormat_DATE_TWO;
             } else {
-                format= DateUtils.DateFormat_TWO;
+                format= DateUtil.DateFormat_TWO;
             }
 
         }

@@ -22,12 +22,6 @@ public class UsersServiceImpl implements UsersService {
     @Autowired
     private UsersMapper usersMapper;
 
-    @Autowired
-    private RolesMapper rolesMapper;
-
-
-    @Autowired
-    private ShardedJedisCache redisCache;
 
 
     @Override
@@ -46,7 +40,6 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public int insert(Users users){
-
         return usersMapper.insert(users);
     }
 

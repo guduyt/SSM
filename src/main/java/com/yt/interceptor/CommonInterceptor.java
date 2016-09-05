@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
+ * 拦截前端请求，用于权限验证
  * Created by YT on 2016/1/27.
  */
 public class CommonInterceptor extends HandlerInterceptorAdapter {
