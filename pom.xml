@@ -24,7 +24,7 @@
         <mybatis-generator-version>1.3.3</mybatis-generator-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <jdbc-config>properties/jdbc.properties</jdbc-config>
+        <jdbc-config>env/${env}.properties</jdbc-config>
         <package-path>com.entity</package-path>
         <java-file-path>${basedir}/src/main/java</java-file-path>
         <resources-path>${basedir}/src/main/resources</resources-path>
@@ -532,6 +532,9 @@
         </pluginManagement>
 
         <!--配置Maven 对resource文件 过滤 -->
+        <filters>
+            <filter>src/main/resources/env/${env}.properties</filter>
+        </filters>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -539,15 +542,16 @@
                     <include>**/*.properties</include>
                     <include>**/*.xml</include>
                 </includes>
+                <excludes>
+                    <exclude>env/**</exclude>
+                </excludes>
                 <filtering>true</filtering>
             </resource>
             <resource>
                 <directory>src/main/java</directory>
                 <includes>
-                    <include>**/*.properties</include>
                     <include>**/*.xml</include>
                 </includes>
-                <filtering>true</filtering>
             </resource>
         </resources>
         <plugins>
@@ -663,6 +667,30 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+
+        <profile>
+            <id>dev</id>
+            <properties>
+                <env>dev</env>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault><!--默认启用的是dev环境配置-->
+            </activation>
+        </profile>
+        <!-- 测试环境 -->
+        <profile>
+            <id>test</id>
+            <properties>
+                <env>test</env>
+            </properties>
+        </profile>
+        <!-- 发布环境 -->
+        <profile>
+            <id>prd</id>
+            <properties>
+                <env>prd</env>
+            </properties>
         </profile>
     </profiles>
 </project>

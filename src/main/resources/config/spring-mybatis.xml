@@ -14,7 +14,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springfr
     <!-- 引入配置文件 -->
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:properties/jdbc.properties" />
+        <property name="location" value="classpath:env/${env}.properties" />
     </bean>
     <!-- 配置数据源 -->
 	<bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
@@ -23,13 +23,13 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springfr
 		<property name="password" value="${jdbc_password}" />
 
 		<!-- 初始化连接大小 -->
-		<property name="initialSize" value="1" />
+		<property name="initialSize" value="${ds_initialSize}" />
 		<!-- 连接池最大使用连接数量 -->
-		<property name="maxActive" value="50" />
+		<property name="maxActive" value="${ds_maxActive}" />
 		<!-- 连接池最小空闲 -->
-		<property name="minIdle" value="1" />
+		<property name="minIdle" value="${ds_minIdle}" />
 		<!-- 获取连接最大等待时间 -->
-		<property name="maxWait" value="60000" />
+		<property name="maxWait" value="${ds_maxWait}" />
 
 		<!-- <property name="poolPreparedStatements" value="true" /> <property name="maxPoolPreparedStatementPerConnectionSize" value="33" /> -->
 
