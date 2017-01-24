@@ -108,24 +108,19 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.entity.auto.model.SysUser">
-    insert into sys_user (id, user_name, password, 
-      mobile, email, enable, 
-      is_lock, expire, creator, 
-      create_time, editor, edit_time, 
-      remark)
-    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}, 
-      #{isLock,jdbcType=BIT}, #{expire,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{editor,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP}, 
-      #{remark,jdbcType=VARCHAR})
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.entity.auto.model.SysUser" useGeneratedKeys="true">
+    insert into sys_user (user_name, password, mobile, 
+      email, enable, is_lock, expire, 
+      creator, create_time, editor, 
+      edit_time, remark)
+    values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}, #{isLock,jdbcType=BIT}, #{expire,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{editor,jdbcType=VARCHAR}, 
+      #{editTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.entity.auto.model.SysUser">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.entity.auto.model.SysUser" useGeneratedKeys="true">
     insert into sys_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="userName != null">
         user_name,
       </if>
@@ -164,9 +159,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
       </if>
@@ -361,4 +353,11 @@
     </if>
     <![CDATA[LIMIT #{limit} OFFSET #{offset}]]>
   </select>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into sys_user (user_name,password,mobile,email,enable,is_lock,expire,creator,create_time,editor,edit_time,remark) 
+    values 
+    <foreach collection="list" item="item" index="index" separator="," > 
+        (#{item.userName,jdbcType=VARCHAR},#{item.password,jdbcType=VARCHAR},#{item.mobile,jdbcType=VARCHAR},#{item.email,jdbcType=VARCHAR},#{item.enable,jdbcType=BIT},#{item.isLock,jdbcType=BIT},#{item.expire,jdbcType=TIMESTAMP},#{item.creator,jdbcType=VARCHAR},#{item.createTime,jdbcType=TIMESTAMP},#{item.editor,jdbcType=VARCHAR},#{item.editTime,jdbcType=TIMESTAMP},#{item.remark,jdbcType=VARCHAR}) 
+   </foreach>
+  </insert>
 </mapper>

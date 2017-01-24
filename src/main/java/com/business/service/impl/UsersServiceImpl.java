@@ -29,7 +29,6 @@ public class UsersServiceImpl implements UsersService {
        return usersMapper.selectPageByExample(usersExample);
     }
 
-
     public SysUser getById( long id) {
         return usersMapper.selectByPrimaryKey(id);
     }

@@ -98,18 +98,15 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.entity.auto.model.SysRole">
-    insert into sys_role (id, role_name, description, 
-      enable)
-    values (#{id,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{enable,jdbcType=BIT})
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.entity.auto.model.SysRole" useGeneratedKeys="true">
+    insert into sys_role (role_name, description, enable
+      )
+    values (#{roleName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.entity.auto.model.SysRole">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.entity.auto.model.SysRole" useGeneratedKeys="true">
     insert into sys_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="roleName != null">
         role_name,
       </if>
@@ -121,9 +118,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="roleName != null">
         #{roleName,jdbcType=VARCHAR},
       </if>
@@ -219,4 +213,11 @@
     </if>
     <![CDATA[LIMIT #{limit} OFFSET #{offset}]]>
   </select>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into sys_role (role_name,description,enable) 
+    values 
+    <foreach collection="list" item="item" index="index" separator="," > 
+        (#{item.roleName,jdbcType=VARCHAR},#{item.description,jdbcType=VARCHAR},#{item.enable,jdbcType=BIT}) 
+   </foreach>
+  </insert>
 </mapper>

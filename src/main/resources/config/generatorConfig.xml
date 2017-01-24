@@ -27,9 +27,9 @@
         <!--<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>-->
         <plugin type="org.mybatis.generator.plugins.VirtualPrimaryKeyPlugin"></plugin>
         <plugin type="com.yt.mybatis.generator.PagePlugin"></plugin>
-        <!--<plugin type="com.yt.mybatis.generator.BatchPlugin"></plugin>-->
+        <plugin type="com.yt.mybatis.generator.BatchPlugin"></plugin>
 
-        <commentGenerator type="com.yt.mybatis.generator.CustomCommentGenerator">
+        <commentGenerator type="com.yt.mybatis.generator.FieldCommentGenerator">
 
         </commentGenerator>
 
@@ -246,15 +246,19 @@
             &ndash;&gt;
         </table>-->
         <table tableName="sys_user">
+            <generatedKey column="id" sqlStatement="JDBC"/>
             <ignoreColumn column="last_time"></ignoreColumn>
         </table>
         <table tableName="sys_role">
+            <generatedKey column="id" sqlStatement="JDBC"/>
             <ignoreColumn column="create_time"></ignoreColumn>
         </table>
         <table tableName="sys_resource">
+            <generatedKey column="id" sqlStatement="JDBC"/>
             <ignoreColumn column="last_time"></ignoreColumn>
         </table>
         <table tableName="sys_module">
+            <generatedKey column="id" sqlStatement="JDBC"/>
             <ignoreColumn column="create_time"></ignoreColumn>
         </table>
     </context>

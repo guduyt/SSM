@@ -106,22 +106,19 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.entity.auto.model.SysModule">
-    insert into sys_module (id, module_name, module_type, 
-      description, module_path, parent_id, 
-      level, application_name, controller_name, 
-      enable, remark)
-    values (#{id,jdbcType=INTEGER}, #{moduleName,jdbcType=VARCHAR}, #{moduleType,jdbcType=TINYINT}, 
-      #{description,jdbcType=VARCHAR}, #{modulePath,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
-      #{level,jdbcType=BIT}, #{applicationName,jdbcType=VARCHAR}, #{controllerName,jdbcType=VARCHAR}, 
-      #{enable,jdbcType=BIT}, #{remark,jdbcType=VARCHAR})
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.entity.auto.model.SysModule" useGeneratedKeys="true">
+    insert into sys_module (module_name, module_type, description, 
+      module_path, parent_id, level, 
+      application_name, controller_name, enable, 
+      remark)
+    values (#{moduleName,jdbcType=VARCHAR}, #{moduleType,jdbcType=TINYINT}, #{description,jdbcType=VARCHAR}, 
+      #{modulePath,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, #{level,jdbcType=BIT}, 
+      #{applicationName,jdbcType=VARCHAR}, #{controllerName,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}, 
+      #{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.entity.auto.model.SysModule">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.entity.auto.model.SysModule" useGeneratedKeys="true">
     insert into sys_module
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="moduleName != null">
         module_name,
       </if>
@@ -154,9 +151,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="moduleName != null">
         #{moduleName,jdbcType=VARCHAR},
       </if>
@@ -329,4 +323,11 @@
     </if>
     <![CDATA[LIMIT #{limit} OFFSET #{offset}]]>
   </select>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into sys_module (module_name,module_type,description,module_path,parent_id,level,application_name,controller_name,enable,remark) 
+    values 
+    <foreach collection="list" item="item" index="index" separator="," > 
+        (#{item.moduleName,jdbcType=VARCHAR},#{item.moduleType,jdbcType=TINYINT},#{item.description,jdbcType=VARCHAR},#{item.modulePath,jdbcType=VARCHAR},#{item.parentId,jdbcType=INTEGER},#{item.level,jdbcType=BIT},#{item.applicationName,jdbcType=VARCHAR},#{item.controllerName,jdbcType=VARCHAR},#{item.enable,jdbcType=BIT},#{item.remark,jdbcType=VARCHAR}) 
+   </foreach>
+  </insert>
 </mapper>

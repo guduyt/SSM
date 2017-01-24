@@ -107,24 +107,19 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.entity.auto.model.SysResource">
-    insert into sys_resource (id, resources_name, resources_type, 
-      resource_path, description, enable, 
-      parent_id, creator, create_time, 
-      editor, edit_time, remark
-      )
-    values (#{id,jdbcType=INTEGER}, #{resourcesName,jdbcType=VARCHAR}, #{resourcesType,jdbcType=TINYINT}, 
-      #{resourcePath,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}, 
-      #{parentId,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{editor,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
-      )
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.entity.auto.model.SysResource" useGeneratedKeys="true">
+    insert into sys_resource (resources_name, resources_type, resource_path, 
+      description, enable, parent_id, 
+      creator, create_time, editor, 
+      edit_time, remark)
+    values (#{resourcesName,jdbcType=VARCHAR}, #{resourcesType,jdbcType=TINYINT}, #{resourcePath,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}, #{parentId,jdbcType=INTEGER}, 
+      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{editor,jdbcType=VARCHAR}, 
+      #{editTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.entity.auto.model.SysResource">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.entity.auto.model.SysResource" useGeneratedKeys="true">
     insert into sys_resource
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="resourcesName != null">
         resources_name,
       </if>
@@ -160,9 +155,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="resourcesName != null">
         #{resourcesName,jdbcType=VARCHAR},
       </if>
@@ -346,4 +338,11 @@
     </if>
     <![CDATA[LIMIT #{limit} OFFSET #{offset}]]>
   </select>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into sys_resource (resources_name,resources_type,resource_path,description,enable,parent_id,creator,create_time,editor,edit_time,remark) 
+    values 
+    <foreach collection="list" item="item" index="index" separator="," > 
+        (#{item.resourcesName,jdbcType=VARCHAR},#{item.resourcesType,jdbcType=TINYINT},#{item.resourcePath,jdbcType=VARCHAR},#{item.description,jdbcType=VARCHAR},#{item.enable,jdbcType=BIT},#{item.parentId,jdbcType=INTEGER},#{item.creator,jdbcType=VARCHAR},#{item.createTime,jdbcType=TIMESTAMP},#{item.editor,jdbcType=VARCHAR},#{item.editTime,jdbcType=TIMESTAMP},#{item.remark,jdbcType=VARCHAR}) 
+   </foreach>
+  </insert>
 </mapper>
