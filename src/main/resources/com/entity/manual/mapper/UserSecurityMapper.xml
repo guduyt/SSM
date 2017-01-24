@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.entity.manual.mapper.UserSecurityMapper">
+    <resultMap id="UserResultMap" type="com.entity.manual.model.User" >
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="enable" jdbcType="BIT" property="enable" />
+        <result column="is_lock" jdbcType="BIT" property="isLock" />
+        <result column="expire" jdbcType="TIMESTAMP" property="expire" />
+        <collection property="listRole" resultMap="RoleResultMap" />
+    </resultMap>
+
+    <resultMap id="RoleResultMap" type="com.entity.manual.model.Role">
+        <id column="role_id" jdbcType="INTEGER" property="id" />
+        <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+        <result column="enable" jdbcType="BIT" property="enable" />
+    </resultMap>
+
+    <select id="queryUserAndRoles" resultMap="UserResultMap" parameterType="String">
+        SELECT u.`id`,
+        u.`user_name`,
+        u.`password`,
+        u.`mobile`,
+        u.`email`,
+        u.`enable`,
+        u.`is_lock`,
+        u.`expire`,
+        r.`id` `role_id`,
+        r.`role_name`,
+        r.`enable`
+        FROM `sys_user` AS u
+        LEFT JOIN `sys_user_role` ur ON ur.`user_id` =u.`id`
+        LEFT JOIN `sys_role` AS r ON ur.`role_id`=r.`id`
+        <if test="username != null">
+            where  u.`user_name` = #{username,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="queryAllUserAndRoles" resultMap="UserResultMap">
+        SELECT u.`id`,
+        u.`user_name`,
+        u.`password`,
+        u.`mobile`,
+        u.`email`,
+        u.`enable`,
+        u.`is_lock`,
+        u.`expire`,
+        r.`id` `role_id`,
+        r.`role_name`,
+        r.`enable`
+        FROM `sys_user` AS u
+        LEFT JOIN `sys_user_role` ur ON ur.`user_id` =u.`id`
+        LEFT JOIN `sys_role` AS r ON ur.`role_id`=r.`id`
+    </select>
+</mapper>

@@ -1,6 +1,6 @@
 package com.business.service;
 
-import com.entity.model.Users;
+import com.entity.auto.model.SysUser;
 
 import java.util.List;
 
@@ -9,9 +9,9 @@ import java.util.List;
  */
 public interface UsersService {
 
-    List<Users> getUsers();
-    Users getById(String id);
-    int insert(Users users);
-    int update(Users users);
-    int delete(Users users);
+    List<SysUser> getUsers();
+    SysUser getById(long id);
+    int insert(SysUser sysUsers);
+    int update(SysUser sysUsers);
+    int delete(SysUser sysUsers);
 }

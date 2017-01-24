@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/beans 
-http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 http://www.springframework.org/schema/context 
-http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+http://www.springframework.org/schema/context/spring-context-4.0.xsd
 http://www.springframework.org/schema/mvc 
-http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->  
 	<context:component-scan base-package="com.business.controller" >
@@ -52,20 +52,31 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 		</property>
 	</bean>
 
-	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
-	<!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/" p:suffix=".jsp" />-->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <!-- 这里的配置我的理解是自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->
-        <property name="prefix" value="" />
-        <property name="suffix" value=".jsp" />
-        <property name="order" value="1" />
+    <bean id="templateResolver"
+          class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+        <property name="prefix" value="/www/" />
+        <property name="suffix" value=".html" />
+        <property name="templateMode" value="HTML5" />
+        <property name="cacheable" value="false" />
+        <property name="characterEncoding" value="utf-8"/>
     </bean>
 
-    <bean id="velocityViewResolver" class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
-        <property name="contentType" value="text/html;charset=UTF-8" />
-        <property name="prefix" value="" />
+    <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+        <property name="templateEngine">
+            <bean class="org.thymeleaf.spring4.SpringTemplateEngine">
+                <property name="templateResolver" ref="templateResolver" />
+            </bean>
+        </property>
+        <!--<property name="viewNames" value="thymeleaf/*"/>-->
+        <property name="order" value="1"/>
+        <property name="characterEncoding" value="UTF-8"/>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/" />
+        <property name="viewNames" value="" />
         <property name="suffix" value=".html" />
-        <property name="order" value="0" />
+        <property name="order" value="0"/>
     </bean>
 
     <bean id="exceptionInterceptor" class="com.yt.interceptor.exception.ExceptionInterceptor"  ></bean>

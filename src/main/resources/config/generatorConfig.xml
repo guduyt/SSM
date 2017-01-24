@@ -5,6 +5,7 @@
 <generatorConfiguration>
     <properties resource="${jdbc-config}"/>
     <classPathEntry location="${location_jar}" />
+
     <context id="mysql" targetRuntime="MyBatis3">
         <!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表；
             一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖-->
@@ -26,12 +27,10 @@
         <!--<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>-->
         <plugin type="org.mybatis.generator.plugins.VirtualPrimaryKeyPlugin"></plugin>
         <plugin type="com.yt.mybatis.generator.PagePlugin"></plugin>
-        <plugin type="com.yt.mybatis.generator.BatchPlugin"></plugin>
+        <!--<plugin type="com.yt.mybatis.generator.BatchPlugin"></plugin>-->
 
-        <commentGenerator>
-            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
-            <property name="suppressDate" value="false"/>
-            <property name="suppressAllComments" value="true"/>
+        <commentGenerator type="com.yt.mybatis.generator.CustomCommentGenerator">
+
         </commentGenerator>
 
         <!-- 数据库链接URL、用户名、密码 -->
@@ -61,8 +60,7 @@
         targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录
      	-->
         <javaModelGenerator targetPackage="${package-path}.model" targetProject="${java-file-path}">
-            
-            <property name="rootClass" value="com.yt.mybatis.model.BaseModel"></property>
+            <!--<property name="rootClass" value="com.zto.mybatis.model.BaseModel"></property>-->
             <!--  for MyBatis3/MyBatis3Simple自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter；
              -->
             <property name="constructorBased" value="false"/>
@@ -83,8 +81,6 @@
 
             <!-- 设置是否在getter方法中，对String类型字段调用trim()方法 -->
             <property name="trimStrings" value="true"/>
-            <!-- 从数据库返回的值被清理前后的空格  -->
-            <property name="trimStrings" value="true" />
         </javaModelGenerator>
 
         <!--对应的mapper.xml文件  -->
@@ -98,7 +94,7 @@
             <!-- 可以为所有生成的接口添加一个父接口，但是MBG只负责生成，不负责检查
         <property name="rootInterface" value=""/>
          -->
-            <property name="rootInterface" value="com.yt.mybatis.model.BaseMapper"/>
+            <!--<property name="rootInterface" value="com.zto.mybatis.model.BaseMapper"/>-->
         </javaClientGenerator>
 
 
@@ -140,50 +136,50 @@
 
         注意，table里面很多参数都是对javaModelGenerator，context等元素的默认属性的一个复写；
      -->
-        <table tableName="users" >
+        <!--<table tableName="user" >
 
-            <!-- 参考 javaModelGenerator 的 constructorBased属性-->
+            &lt;!&ndash; 参考 javaModelGenerator 的 constructorBased属性&ndash;&gt;
             <property name="constructorBased" value="false"/>
 
-            <!-- 默认为false，如果设置为true，在生成的SQL中，table名字不会加上catalog或schema； -->
+            &lt;!&ndash; 默认为false，如果设置为true，在生成的SQL中，table名字不会加上catalog或schema； &ndash;&gt;
             <property name="ignoreQualifiersAtRuntime" value="false"/>
 
-            <!-- 参考 javaModelGenerator 的 immutable 属性 -->
+            &lt;!&ndash; 参考 javaModelGenerator 的 immutable 属性 &ndash;&gt;
             <property name="immutable" value="false"/>
 
-            <!-- 指定是否只生成domain类，如果设置为true，只生成domain类，如果还配置了sqlMapGenerator，那么在mapper XML文件中，只生成resultMap元素 -->
+            &lt;!&ndash; 指定是否只生成domain类，如果设置为true，只生成domain类，如果还配置了sqlMapGenerator，那么在mapper XML文件中，只生成resultMap元素 &ndash;&gt;
             <property name="modelOnly" value="false"/>
 
-            <!-- 参考 javaModelGenerator 的 rootClass 属性
+            &lt;!&ndash; 参考 javaModelGenerator 的 rootClass 属性
             <property name="rootClass" value=""/>
-             -->
+             &ndash;&gt;
 
-            <!-- 参考javaClientGenerator 的  rootInterface 属性
+            &lt;!&ndash; 参考javaClientGenerator 的  rootInterface 属性
             <property name="rootInterface" value=""/>
-            -->
+            &ndash;&gt;
 
-            <!-- 如果设置了runtimeCatalog，那么在生成的SQL中，使用该指定的catalog，而不是table元素上的catalog
+            &lt;!&ndash; 如果设置了runtimeCatalog，那么在生成的SQL中，使用该指定的catalog，而不是table元素上的catalog
             <property name="runtimeCatalog" value=""/>
-            -->
+            &ndash;&gt;
 
-            <!-- 如果设置了runtimeSchema，那么在生成的SQL中，使用该指定的schema，而不是table元素上的schema
+            &lt;!&ndash; 如果设置了runtimeSchema，那么在生成的SQL中，使用该指定的schema，而不是table元素上的schema
             <property name="runtimeSchema" value=""/>
-            -->
+            &ndash;&gt;
 
-            <!-- 如果设置了runtimeTableName，那么在生成的SQL中，使用该指定的tablename，而不是table元素上的tablename
+            &lt;!&ndash; 如果设置了runtimeTableName，那么在生成的SQL中，使用该指定的tablename，而不是table元素上的tablename
             <property name="runtimeTableName" value=""/>
-            -->
+            &ndash;&gt;
 
-            <!-- 注意，该属性只针对MyBatis3Simple有用；
+            &lt;!&ndash; 注意，该属性只针对MyBatis3Simple有用；
                 如果选择的runtime是MyBatis3Simple，那么会生成一个SelectAll方法，如果指定了selectAllOrderByClause，那么会在该SQL中添加指定的这个order条件；
-             -->
+             &ndash;&gt;
             <property name="selectAllOrderByClause" value="age desc,name asc"/>
 
-            <!-- 如果设置为true，生成的model类会直接使用column本身的名字，而不会再使用驼峰命名方法，比如BORN_DATE，生成的属性名字就是BORN_DATE,而不会是bornDate -->
+            &lt;!&ndash; 如果设置为true，生成的model类会直接使用column本身的名字，而不会再使用驼峰命名方法，比如BORN_DATE，生成的属性名字就是BORN_DATE,而不会是bornDate &ndash;&gt;
             <property name="useActualColumnNames" value="false"/>
 
 
-            <!-- generatedKey用于生成生成主键的方法，
+            &lt;!&ndash; generatedKey用于生成生成主键的方法，
                 如果设置了该元素，MBG会在生成的<insert>元素中生成一条正确的<selectKey>元素，该元素可选
                 column:主键的列名；
                 sqlStatement：要生成的selectKey语句，有以下可选项：
@@ -198,9 +194,9 @@
                     SYBASE      :相当于selectKey的SQL为：SELECT @@IDENTITY
                     JDBC      :相当于在生成的insert元素上添加useGeneratedKeys="true"和keyProperty属性
             <generatedKey column="" sqlStatement=""/>
-             -->
+             &ndash;&gt;
 
-            <!--
+            &lt;!&ndash;
                 该元素会在根据表中列名计算对象属性名之前先重命名列名，非常适合用于表中的列都有公用的前缀字符串的时候，
                 比如列名为：CUST_ID,CUST_NAME,CUST_EMAIL,CUST_ADDRESS等；
                 那么就可以设置searchString为"^CUST_"，并使用空白替换，那么生成的Customer对象中的属性名称就不是
@@ -210,45 +206,56 @@
                 如果使用了columnOverride元素，该属性无效；
 
             <columnRenamingRule searchString="" replaceString=""/>
-             -->
+             &ndash;&gt;
 
 
-            <!-- 用来修改表中某个列的属性，MBG会使用修改后的列来生成domain的属性；
+            &lt;!&ndash; 用来修改表中某个列的属性，MBG会使用修改后的列来生成domain的属性；
                 column:要重新设置的列名；
                 注意，一个table元素中可以有多个columnOverride元素哈~
-             -->
-            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+             &ndash;&gt;
+            &lt;!&ndash;<generatedKey column="id" sqlStatement="Mysql" identity="true"/>&ndash;&gt;
             <columnOverride column="name">
-                <!-- 使用property属性来指定列要生成的属性名称 -->
+                &lt;!&ndash; 使用property属性来指定列要生成的属性名称 &ndash;&gt;
                 <property name="property" value="userName"/>
 
-                <!-- javaType用于指定生成的domain的属性类型，使用类型的全限定名
+                &lt;!&ndash; javaType用于指定生成的domain的属性类型，使用类型的全限定名
                 <property name="javaType" value=""/>
-                 -->
+                 &ndash;&gt;
 
-                <!-- jdbcType用于指定该列的JDBC类型
+                &lt;!&ndash; jdbcType用于指定该列的JDBC类型
                 <property name="jdbcType" value=""/>
-                 -->
+                 &ndash;&gt;
 
-                <!-- typeHandler 用于指定该列使用到的TypeHandler，如果要指定，配置类型处理器的全限定名
+                &lt;!&ndash; typeHandler 用于指定该列使用到的TypeHandler，如果要指定，配置类型处理器的全限定名
                     注意，mybatis中，不会生成到mybatis-config.xml中的typeHandler
                     只会生成类似：where id = #{id,jdbcType=BIGINT,typeHandler=com._520it.mybatis.MyTypeHandler}的参数描述
                 <property name="jdbcType" value=""/>
-                -->
+                &ndash;&gt;
 
-                <!-- 参考table元素的delimitAllColumns配置，默认为false
+                &lt;!&ndash; 参考table元素的delimitAllColumns配置，默认为false
                 <property name="delimitedColumnName" value=""/>
-                 -->
+                 &ndash;&gt;
             </columnOverride>
 
-            <!-- ignoreColumn设置一个MGB忽略的列，如果设置了改列，那么在生成的domain中，生成的SQL中，都不会有该列出现
+            &lt;!&ndash; ignoreColumn设置一个MGB忽略的列，如果设置了改列，那么在生成的domain中，生成的SQL中，都不会有该列出现
                 column:指定要忽略的列的名字；
                 delimitedColumnName：参考table元素的delimitAllColumns配置，默认为false
 
                 注意，一个table元素中可以有多个ignoreColumn元素
             <ignoreColumn column="deptId" delimitedColumnName=""/>
-            -->
+            &ndash;&gt;
+        </table>-->
+        <table tableName="sys_user">
+            <ignoreColumn column="last_time"></ignoreColumn>
         </table>
-        <table tableName="roles"></table>
+        <table tableName="sys_role">
+            <ignoreColumn column="create_time"></ignoreColumn>
+        </table>
+        <table tableName="sys_resource">
+            <ignoreColumn column="last_time"></ignoreColumn>
+        </table>
+        <table tableName="sys_module">
+            <ignoreColumn column="create_time"></ignoreColumn>
+        </table>
     </context>
 </generatorConfiguration> 

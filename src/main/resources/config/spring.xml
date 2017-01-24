@@ -16,6 +16,8 @@
     <context:component-scan base-package="com.business.service" >
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
+    <context:component-scan base-package="com.yt.security" >
+    </context:component-scan>
     <context:component-scan base-package="com.yt" >
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
@@ -24,7 +26,7 @@
     </context:component-scan>
 
     <import resource="classpath*:config/spring-mybatis.xml"></import>
-    <import resource="classpath*:config/cache/redis.xml"></import>
-
+    <!--<import resource="classpath*:config/cache/redis.xml"></import>-->
+    <import resource="classpath*:config/spring-security.xml"></import>
 
 </beans>

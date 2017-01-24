@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+         xmlns:b="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans
+		   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		   http://www.springframework.org/schema/security
+		   http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+<!-- 配置不过滤的资源（静态资源及登录相关） -->
+    <http pattern="/**/*.css" security="none"></http>
+    <http pattern="/**/*.jpg" security="none"></http>
+    <http pattern="/**/*.jpeg" security="none"></http>
+    <http pattern="/**/*.gif" security="none"></http>
+    <http pattern="/**/*.png" security="none"></http>
+    <http pattern="/**/*.js" security="none"></http>
+    <http pattern="/login.html" security="none"></http>
+    <http pattern="/getCode" security="none" /><!-- 不过滤验证码 -->
+
+    <filter-chain pattern="/**" filters="concurrentSessionFilter,securityContextPersistenceFilter,logoutFilter,usernamePasswordAuthenticationFilter,rememberMeAuthenticationFilter,sessionManagementFilter,anonymousAuthFilter,exceptionTranslationFilter,filterSecurityInterceptor" />
+
+    <http auto-config="true" use-expressions="true"  entry-point-ref="sysLoginUrlAuthenticationEntryPoint">
+        <!--<intercept-url pattern="/login.html" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <http-basic />
+        <form-login login-page="/login.html" login-processing-url="/login"  authentication-success-handler-ref="successHandler" username-parameter="username" password-parameter="password" />
+
+        <logout logout-success-url="/login.html" logout-url="/logout" invalidate-session="true" delete-cookies="JSESSIONID"/>
+
+        <remember-me remember-me-parameter="rememberMe"   data-source-ref="dataSource"  />
+        <csrf disabled="true"/>
+
+        <custom-filter ref="sysFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
+        <anonymous enabled="true" key="doesNotMatter" username="游客" granted-authority="ROLE_ANONYMOUS"/>
+
+        <session-management session-fixation-protection="migrateSession">
+            <concurrency-control  max-sessions="1" error-if-maximum-exceeded="true"/>
+        </session-management>
+        <access-denied-handler ref="accessDeniedHandler" />
+    </http>
+
+    <b:bean id="successHandler"  class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+        <b:property name="defaultTargetUrl" value="/index.html"/>
+    </b:bean>
+    <b:bean id="f" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+        <b:property name="defaultFailureUrl" value="/login.html?error=true"/>
+    </b:bean>
+
+    <b:bean id="accessDeniedHandler"
+                class="org.springframework.security.web.access.AccessDeniedHandlerImpl">
+        <b:property name="errorPage" value="/www/error/accessDenied.html"/>
+    </b:bean>
+
+    <b:bean id="sysLoginUrlAuthenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <b:constructor-arg name="loginFormUrl" value="/login.html"></b:constructor-arg>
+    </b:bean>
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="sysUserDetailsService">
+           <!-- <password-encoder ref="md5PasswordEncoder">
+                <salt-source ref="saltSource"/>
+            </password-encoder>-->
+        </authentication-provider>
+    </authentication-manager>
+    <b:bean id="md5PasswordEncoder"
+            class="org.springframework.security.authentication.encoding.Md5PasswordEncoder">
+    </b:bean>
+
+    <b:bean id="saltSource"
+          class="org.springframework.security.authentication.dao.ReflectionSaltSource">
+        <b:property name="userPropertyToUse" value="username" />
+    </b:bean>
+</b:beans>
+

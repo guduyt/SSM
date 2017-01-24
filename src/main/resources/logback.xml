@@ -2,7 +2,7 @@
 <configuration >
     <jmxConfigurator />
     <property name="log_name" value="web_log" />
-    <property name="log_path" value="E:/Git/logs" />
+    <property name="log_path" value="C:/Git/logs" />
     <property name="log_level" value="INFO"/>
     <property name="log_level_other" value="DEBUG"/>
 
@@ -12,7 +12,7 @@
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <Target>System.err</Target>
         <encoder>
-            <pattern>%date [%level] [%thread] %logger{250}[%file :%line]   %msg%n</pattern>
+            <pattern>%date [%level] [%thread] %logger{50}[%file :%line]   %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -74,29 +74,14 @@
     </appender>
 
 
-
+        <logger name="java.sql.PreparedStatement" value="${log_level_other}" />
+        <logger name="java.sql.Connection" value="${log_level_other}" />
+        <logger name="java.sql.Statement" value="${log_level_other}" />
         <logger name="com.entity" value="${log_level_other}" />
         <logger name="com.ibatis"  value="${log_level_other}" ></logger>
         <logger name="com.ibatis.common.jdbc.SimpleDataSource"  value="${log_level_other}" ></logger>
         <logger name="com.ibatis.common.jdbc.ScriptRunner"  value="${log_level_other}" ></logger>
         <logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate"  value="${log_level_other}" ></logger>
-
-        <logger name="java.sql.Connection" additivity="true">
-            <level value="DEBUG" />
-            <appender-ref ref="console" />
-        </logger>
-        <logger name="java.sql.Statement" additivity="true">
-            <level value="DEBUG" />
-            <appender-ref ref="console" />
-        </logger>
-        <logger name="java.sql.PreparedStatement" additivity="true">
-            <level value="DEBUG" />
-            <appender-ref ref="console" />
-        </logger>
-        <logger name="java.sql.ResultSet" additivity="true">
-            <level value="DEBUG" />
-            <appender-ref ref="console" />
-        </logger>
 
     <root level="${log_level}">
         <appender-ref ref="console"/>

@@ -45,7 +45,6 @@ public class BatchExecutor<T extends BaseModel> implements IBatchExecutor<T> {
 
 
 
-    @Override
     public int batchInsert(List<T> list) {
         int insertNumber=0;
         sqlSessionFactory.getConfiguration().addMapper(BaseMapper.class);
@@ -53,7 +52,6 @@ public class BatchExecutor<T extends BaseModel> implements IBatchExecutor<T> {
             int listSize=list.size();
             List<T> insertList=new ArrayList<>();
             for (int i=0;i<listSize;i++) {
-
                 insertNumber++;
                 T t=list.get(i) ;
                 if(null==this.mapper){
@@ -64,11 +62,11 @@ public class BatchExecutor<T extends BaseModel> implements IBatchExecutor<T> {
                     this.mapper=(BaseMapper)sqlSession.getMapper(tClass);
                 }
                 insertList.add(t);
-                if(i!=0 && (i%this.batchSize==0 || i==listSize-1)){
-                    this.mapper.insertBatch(insertList);
+                if(listSize==1 || (i!=0 && (i%this.batchSize==0 || i==listSize-1))){
+                    /*this.mapper.insertBatch(insertList);
                     sqlSession.commit();
                     sqlSession.clearCache();
-                    insertList.clear();
+                    insertList.clear();*/
                 }
             };
         }

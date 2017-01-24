@@ -79,7 +79,7 @@ public class ExcelUtil implements IUtil {
      */
     public static List<Object[]> getExcelData(String realPath,int beginRow,int sheetNum){
 
-        List<Object[]> list=new ArrayList<>();
+        List<Object[]> list=new ArrayList<Object[]>();
         FileInputStream inputStream=null;
         try {
             inputStream =new FileInputStream(realPath) ;

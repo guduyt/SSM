@@ -12,14 +12,14 @@ import com.yt.commons.utils.MessageUtil;
 public class BaseException extends RuntimeException {
 
     /*异常的错误码*/
-    private int messageCode;
+    private int code;
 
-    public int getMessageCode() {
-        return messageCode;
+    public int getCode() {
+        return code;
     }
 
-    public void setMessageCode(int messageCode) {
-        this.messageCode = messageCode;
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public BaseException(){
@@ -30,27 +30,32 @@ public class BaseException extends RuntimeException {
         super(message);
     }
 
-    public BaseException(int messageCode,String message){
-        super(MessageUtil.generate(messageCode, message));
-        this.messageCode=messageCode;
+    public BaseException(int code){
+        super("自定义异常，请联系相关工程师");
+        this.code = code;
+    }
+
+    public BaseException(int code, String message){
+        super(MessageUtil.generate(code, message));
+        this.code = code;
     }
 
 
     public BaseException(String message,Throwable cause){
         super(message,cause);
     }
-    public BaseException(int messageCode,String message,Throwable cause){
-        super(MessageUtil.generate(messageCode, message),cause);
-        this.messageCode=messageCode;
+    public BaseException(int code, String message, Throwable cause){
+        super(MessageUtil.generate(code, message),cause);
+        this.code = code;
     }
 
 
     public BaseException(Throwable cause){
         super(cause);
     }
-    public BaseException(int messageCode,Throwable cause){
+    public BaseException(int code, Throwable cause){
         super(cause);
-        this.messageCode=messageCode;
+        this.code = code;
     }
 
 }

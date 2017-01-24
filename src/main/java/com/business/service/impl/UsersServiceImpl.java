@@ -1,12 +1,10 @@
 package com.business.service.impl;
 
 import com.business.service.UsersService;
-import com.entity.mapper.RolesMapper;
-import com.entity.mapper.UsersMapper;
-import com.entity.model.Users;
-import com.entity.model.UsersExample;
+import com.entity.auto.mapper.SysUserMapper;
+import com.entity.auto.model.SysUser;
+import com.entity.auto.model.SysUserExample;
 import com.yt.commons.Page;
-import com.yt.commons.cache.ShardedJedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,36 +18,33 @@ import java.util.List;
 public class UsersServiceImpl implements UsersService {
 
     @Autowired
-    private UsersMapper usersMapper;
+    private SysUserMapper usersMapper;
 
 
-
-    @Override
-    public List<Users> getUsers() {
-        UsersExample usersExample=new UsersExample();
+    public List<SysUser> getUsers() {
+        SysUserExample usersExample=new SysUserExample();
         Page page=new Page();
-        usersExample.setPage(page);
+        usersExample.setCurrentPage(page.getCurrentPage());
+        usersExample.setPageSize(page.getPageSize());
        return usersMapper.selectPageByExample(usersExample);
     }
 
-    @Override
-    public Users getById( String id) {
 
-        return usersMapper.selectByPrimaryKey( id);
+    public SysUser getById( long id) {
+        return usersMapper.selectByPrimaryKey(id);
     }
 
-    @Override
-    public int insert(Users users){
+
+    public int insert(SysUser users){
         return usersMapper.insert(users);
     }
 
-    @Override
-    public int update(Users users){
+
+    public int update(SysUser users){
         return usersMapper.updateByPrimaryKey(users);
     }
 
-    @Override
-    public int delete(Users users){
+    public int delete(SysUser users){
         return usersMapper.deleteByPrimaryKey(users.getId());
     }
 }

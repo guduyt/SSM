@@ -1,0 +1,14 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title> 页面</title>
+</head>
+<body>
+userName:<input type="text" name="userName" th:text="${userInfo.userName}">
+  我是 page易涛 --${name}
+  <input type="text" name="name" th:text="${name}">
+  <input type="text" name="cookie" th:text="'cookie:' + ${cookie}">
+  <p th:text="'Hello, ' + ${name} + ' with thymeleaf !'" /> <br/>
+</body>
+</html>

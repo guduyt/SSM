@@ -21,20 +21,20 @@
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
 
-    <!-- shiro 安全过滤器 -->
-    <!--<filter>
-        <filter-name>shiroFilter</filter-name>
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-        <async-supported>true</async-supported>
-        <init-param>
-            <param-name>targetFilterLifecycle</param-name>
-            <param-value>true</param-value>
-        </init-param>
     </filter>
     <filter-mapping>
-        <filter-name>shiroFilter</filter-name>
+        <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>-->
+    </filter-mapping>
+
+    <listener>
+        <listener-class>
+            org.springframework.security.web.session.HttpSessionEventPublisher
+        </listener-class>
+    </listener>
 
     <!-- 配置log4j配置文件路径 -->
     <!--<context-param>
@@ -190,22 +190,27 @@
     </servlet-mapping>
 
     <!-- 错误页 -->
-   <!-- <error-page>
-        <error-code>404</error-code>
-        <location>/page/404</location>
+    <error-page>
+        <error-code>400</error-code>
+        <location>/www/error/400.html</location>
     </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/www/error/403.html</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/www/error/404.html</location>
+    </error-page>
+
     <error-page>
         <error-code>500</error-code>
-        <location>/page/500</location>
+        <location>/www/error/500.html</location>
     </error-page>
     <error-page>
-       <exception-type>java.lang.NullException</exception-type>
-       <location>/error.jsp</location>
-   </error-page>
-    <error-page>
-        <exception-type>org.apache.shiro.authz.AuthorizationException</exception-type>
-        <location>/page/401</location>
-    </error-page>-->
+        <exception-type>org.springframework.security.access.AccessDeniedException</exception-type>
+        <location>/www/error/401.html</location>
+    </error-page>
 	
 	<!-- 配置session超时时间，单位分钟 -->
 	<session-config>

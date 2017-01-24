@@ -89,7 +89,7 @@ public class DateUtil implements DateFormat,IUtil {
             throw  new CustomException(50012,"字符串转换指定格式的时间类型失败！",ex);
         }
 
-         return date;
+        return date;
     }
 
     /**
@@ -176,9 +176,9 @@ public class DateUtil implements DateFormat,IUtil {
         if(p.matcher(s).matches()){
             p=Pattern.compile("^\\d{4}\\d{1,2}\\d{1,2}$");
             if(p.matcher(s).matches()){
-                format="yyyyMMdd";
+                format=DateUtil.DateFormat_DATE_THREE;
             } else {
-                format="yyyyMMddHHmmss" ;
+                format=DateUtil.DateFormat_THREE ;
             }
 
         }

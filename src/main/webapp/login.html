@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <!-- <meta name="_csrf" content="${_csrf.token}"/>
+     <meta name="_csrf_header" content="${_csrf.headerName}"/>-->
+    <link href="static/css/boot/bootstrap.css" rel="stylesheet">
+    <link href="static/css/sign.css" rel="stylesheet">
+    <link href="static/css/checkbox.css" rel="stylesheet">
+    <title>登录页面</title>
+</head>
+<body>
+<div class="sign-in">
+    <div class="sign-in-head "><img src="./static/images/login/head_120.png" alt="" class="img-class"></div>
+    <form action="/login" method="post" class="form-sign-in" >
+        <div>
+        <span>
+        <i class="i-user"></i>
+        <input type="text" name="username" class="form-control" placeholder="用户名/手机号/邮箱" required autofocus/>
+        </span>
+        <span>
+            <i class="i-user"></i>
+            <input type="password" name="password" class="form-control" placeholder="密码" required/>
+            </span>
+        </div>
+
+        <div>
+            <label class="checkbox">
+                <input type="checkbox" name="rememberMe">  记住我
+            </label></div>
+        <button class="btn btn-lg btn-warning btn-block" type="submit">登录</button>
+
+    </form>
+    <div class="register">
+        <label class="">
+            <a href="logout.html" class="label-left" >注册账号</a>
+        </label>
+        <label>
+            <a href="logout.html" class="label-right" >忘记密码</a>
+        </label>
+    </div>
+</div>
+
+
+<script src="static/js/jquery/jquery-3.0.0.js"></script>
+<script src="static/js/bootstrap/bootstrap.js"></script>
+</body>
+</html>

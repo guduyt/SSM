@@ -43,7 +43,11 @@ public class ExceptionInterceptor extends AbstractHandlerMethodExceptionResolver
         }else  if(ClassUtils.isAssignable(exClass, IllegalArgumentException.class)) {//方法的参数错误
             message=((IllegalArgumentException)e).getMessage() ;
 
-        }else if (ClassUtils.isAssignable(exClass,NullPointerException.class) ||ClassUtils.isAssignable(exClass,ArrayIndexOutOfBoundsException.class)) { //未经初始化的对象
+        }/*else if ( ClassUtils.isAssignable(exClass,AuthenticationException.class)
+                || ClassUtils.isAssignable(exClass,AccessDeniedException.class)){
+            message="登录失败，用户名或密码错误！" ;
+        }*/
+        else if (ClassUtils.isAssignable(exClass,NullPointerException.class) ||ClassUtils.isAssignable(exClass,ArrayIndexOutOfBoundsException.class)) { //未经初始化的对象
             message="运行时访问数据失败！" ;
 
         }else if (ClassUtils.isAssignable(exClass,DataAccessException.class)) { //数据库操作
@@ -80,7 +84,7 @@ public class ExceptionInterceptor extends AbstractHandlerMethodExceptionResolver
             ResponseUtil.renderJson(httpServletResponse, JSON.toJSONString(map));
         }
         else {
-            ModelAndView modelAndView=new ModelAndView("redirect:/500.html");
+            ModelAndView modelAndView=new ModelAndView("redirect:/www/error/500.html");
             modelAndView.getView();
             modelAndView.addObject("message",message) ;
             return modelAndView;

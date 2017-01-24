@@ -1,0 +1,131 @@
+body {
+	background:url(../images/login/login_bg_0.jpg) #f8f6e9;
+}
+
+.sign-in {
+	width:360px;
+	height:445px;
+	background: #F7F7F7;
+	margin:0 auto;
+    box-shadow: inset 0 0 0 2px rgba(105, 202, 98, 0.5);
+	position:absolute;
+	top:50%;
+	left:50%;
+	margin-top:-223px;
+	margin-left:-181px;
+}
+
+.register{
+    display: block;
+    margin: 25px;
+}
+
+.register label{
+    display: inline;
+    padding: 15px;
+    font-size: 16px;
+}
+
+.register .label-left{
+    float: left;
+}
+
+.register .label-right{
+    float: right;
+}
+
+.sign-in-head {
+	margin:0 auto;
+    text-align: center;
+	padding-top:30px;
+	width:100px;
+
+    overflow:hidden;
+}
+
+
+.sign-in-head .img-class{
+    border-radius: 50%;
+    max-width:100px;
+    filter:alpha(opacity=75);
+    -moz-opacity:0.75;
+    -khtml-opacity: 0.75;
+    opacity: 0.75;
+}
+
+.form-sign-in {
+  max-width: 270px;
+  padding: 30px 15px 15px 15px;
+  margin: 0 auto;
+}
+
+.form-sign-in span{
+    display: inline;
+}
+
+.form-sign-in .checkbox {
+    margin-bottom: 10px;
+    display: inline;
+}
+.form-sign-in .checkbox {
+  font-weight: normal;
+}
+
+.form-sign-in .forget-password{
+    float: right;
+    padding-right: 30px;
+}
+.form-sign-in .form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.form-sign-in .form-control:focus {
+  z-index: 2;
+}
+
+.form-sign-in  .i-user{
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 22px;
+    border-radius: 0;
+    background: url(../images/login/login_user.png) 0 0 #FFFFFF no-repeat;
+    float: left;
+}
+.form-sign-in  .i-password{
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 22px;
+    border-radius: 0;
+    background: url(../images/login/login_pas.png) 0 0 #FFFFFF no-repeat;
+    float: left;
+}
+.form-sign-in div{
+    display: block;
+    text-align: center;
+    margin: 15px 0;
+}
+.form-sign-in input[type="text"] {
+  margin-bottom: 14px;
+  border-radius: 0;
+    width: 196px;
+  padding-left:10px;
+  color:#000000;
+}
+.form-sign-in input[type="password"] {
+  margin-bottom: 10px;
+  border-radius: 0;
+    width: 196px;
+  padding-left:10px;
+  color:#000000;
+}
+.form-sign-in button {
+  border-radius: 0;
+}
+

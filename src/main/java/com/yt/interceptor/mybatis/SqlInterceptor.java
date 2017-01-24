@@ -19,7 +19,7 @@ import java.util.Properties;
 @Intercepts({@Signature(type=StatementHandler.class,method="prepare",args={Connection.class,Integer.class})})
 public class SqlInterceptor implements Interceptor {
 
-    @Override
+
     public Object intercept(Invocation invocation) throws Throwable {
         if (!(invocation.getTarget() instanceof RoutingStatementHandler))
             return invocation.proceed();
@@ -36,12 +36,12 @@ public class SqlInterceptor implements Interceptor {
         return invocation.proceed();
     }
 
-    @Override
+
     public Object plugin(Object o) {
         return (o instanceof StatementHandler)?Plugin.wrap(o, this):o;
     }
 
-    @Override
+
     public void setProperties(Properties properties) {
 
     }

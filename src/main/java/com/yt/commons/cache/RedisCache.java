@@ -1,7 +1,5 @@
 package com.yt.commons.cache;
 
-import org.springframework.stereotype.Service;
-
 /**
  * RedisCache
  *
@@ -9,7 +7,7 @@ import org.springframework.stereotype.Service;
  * @version 1.0.0
  * @date 2016/7/12 15:57
  */
-@Service("RedisCache")
+/*@Service("RedisCache")*/
 public class RedisCache {
 
    /* @Autowired

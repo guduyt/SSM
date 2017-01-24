@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <properties>
-        <java-version>1.8.0_60</java-version>
+        <java-version>1.8</java-version>
         <org.springframework-version>4.2.6.RELEASE</org.springframework-version>
         <org.aspectj-version>1.8.9</org.aspectj-version>
         <org.slf4j-version>1.7.6</org.slf4j-version>
@@ -17,15 +17,14 @@
         <httpclient-version>4.1.2</httpclient-version>
         <!--<shiro-version>1.2.3</shiro-version>-->
         <jackson-version>2.7.4</jackson-version>
-        <!--<mapper-version>3.3.6</mapper-version>-->
-       <!-- <activiti-version>5.18.0</activiti-version>-->
         <logback-version>1.1.7</logback-version>
+        <thymeleaf-version>3.0.2.RELEASE</thymeleaf-version>
         <poi-version>3.14</poi-version>
         <mybatis-generator-version>1.3.3</mybatis-generator-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <jdbc-config>env/${env}.properties</jdbc-config>
-        <package-path>com.entity</package-path>
+        <package-path>com.entity.auto</package-path>
         <java-file-path>${basedir}/src/main/java</java-file-path>
         <resources-path>${basedir}/src/main/resources</resources-path>
     </properties>
@@ -114,12 +113,38 @@
             <artifactId>spring-expression</artifactId>
             <version>${org.springframework-version}</version>
         </dependency>
+
         <dependency>
-            <groupId>org.freemarker</groupId>
-            <artifactId>freemarker</artifactId>
-            <version>2.3.20</version>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+            <version>${thymeleaf-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring4</artifactId>
+            <version>${thymeleaf-version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>4.1.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>4.1.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>4.1.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>4.1.3.RELEASE</version>
+        </dependency>
 
         <!-- mybatis -->
         <dependency>
@@ -164,8 +189,8 @@
         <!-- Servlet -->
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -429,7 +454,8 @@
             <artifactId>mybatis-plugin</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!--mybatis-plugin插件必须依赖-->
+
+        <!--mybatis-plugin插件依赖-->
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
@@ -454,8 +480,8 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.5</version>
                     <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
+                        <source>${java-version}</source>
+                        <target>${java-version}</target>
                         <encoding>${project.build.sourceEncoding}</encoding>
                         <compilerArgument>-Xlint:all</compilerArgument>
                         <showWarnings>true</showWarnings>
@@ -554,6 +580,12 @@
                 </includes>
             </resource>
         </resources>
+        <!--<testResources>
+            <testResource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>-->
         <plugins>
 
             <plugin>
@@ -599,6 +631,7 @@
                         <artifactId>mybatis-plugin</artifactId>
                         <version>1.0-SNAPSHOT</version>
                     </dependency>
+
                 </dependencies>
             </plugin>
             <plugin>

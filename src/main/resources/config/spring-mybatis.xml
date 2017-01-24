@@ -12,10 +12,10 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springfr
 	<!-- JNDI方式配置数据源 -->
 	<!-- <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> <property name="jndiName" value="${jndiName}"></property> </bean> -->
     <!-- 引入配置文件 -->
-    <bean id="propertyConfigurer"
+    <!--<bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:env/${env}.properties" />
-    </bean>
+    </bean>-->
     <!-- 配置数据源 -->
 	<bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
 		<property name="url" value="${jdbc_url}" />
@@ -34,7 +34,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springfr
 		<!-- <property name="poolPreparedStatements" value="true" /> <property name="maxPoolPreparedStatementPerConnectionSize" value="33" /> -->
 
 		<property name="validationQuery" value="${validationQuery}" />
-		<property name="testOnBorrow" value="false" />
+		<property name="testOnBorrow" value="true" />
 		<property name="testOnReturn" value="false" />
 		<property name="testWhileIdle" value="true" />
 
@@ -60,7 +60,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springfr
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
-        <property name="mapperLocations" value="classpath:com/entity/mapper/*.xml" />
+        <property name="mapperLocations" value="classpath:com/entity/auto/mapper/*.xml,com/entity/manual/*.xml" />
         <property name="plugins">
              <list>
                  <bean name="getSql" class="com.yt.interceptor.mybatis.SqlInterceptor">
@@ -73,7 +73,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springfr
 
     <!-- spring与mybatis整合配置，扫描所有dao -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.entity.mapper" />
+        <property name="basePackage" value="com.entity.auto.mapper,com.entity.manual.mapper" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
 
@@ -124,7 +124,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springfr
         <property name="patterns">
 			<list>
 				<value>com.business.service.*</value>
-                <value>com.entity.model.*</value>
+                <value>com.entity.*.model.*</value>
 			</list>
 		</property>
 	</bean>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.entity.manual.mapper.ResourceSecurityMapper">
+    <resultMap id="ResourceResultMap" type="com.entity.manual.model.Resource">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="resources_name" jdbcType="VARCHAR" property="resourcesName" />
+        <result column="resources_type" jdbcType="TINYINT" property="resourcesType" />
+        <result column="resource_path" jdbcType="VARCHAR" property="resourcePath" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="enable" jdbcType="BIT" property="enable" />
+        <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+        <collection property="listRole" resultMap="RoleResultMap" />
+    </resultMap>
+    <resultMap id="RoleResultMap" type="com.entity.manual.model.Role">
+        <id column="role_id" jdbcType="INTEGER" property="id" />
+        <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+        <result column="enable" jdbcType="BIT" property="enable" />
+    </resultMap>
+
+    <select id="queryResourcesAndRoles"  resultMap="ResourceResultMap" parameterType="String" >
+        SELECT r.`id`,
+        r.`resources_name`,
+        r.`resources_type`,
+        r.`resource_path`,
+        r.`description`,
+        r.`enable`,
+        r.`parent_id`,
+        ro.`id` `role_id`,
+        ro.`role_name`,
+        ro.`enable`
+        FROM
+        `sys_resource` AS r
+        LEFT JOIN `sys_role_resource` AS rr ON rr.`resources_id`=r.`id`
+        LEFT JOIN  `sys_role` AS ro ON ro.`id`=rr.`role_id`
+        <if test="resourcesName != null">
+            WHERE  r.`resources_name`= #{resourcesName,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="queryAllResourcesAndRoles"  resultMap="ResourceResultMap">
+        SELECT r.`id`,
+        r.`resources_name`,
+        r.`resources_type`,
+        r.`resource_path`,
+        r.`description`,
+        r.`enable`,
+        r.`parent_id`,
+        ro.`id` `role_id`,
+        ro.`role_name`,
+        ro.`enable`
+        FROM
+        `sys_resource` AS r
+        LEFT JOIN `sys_role_resource` AS rr ON rr.`resources_id`=r.`id`
+        LEFT JOIN  `sys_role` AS ro ON ro.`id`=rr.`role_id`
+    </select>
+</mapper>

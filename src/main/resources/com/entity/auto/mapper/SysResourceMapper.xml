@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.entity.auto.mapper.SysResourceMapper">
+  <resultMap id="BaseResultMap" type="com.entity.auto.model.SysResource">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="resources_name" jdbcType="VARCHAR" property="resourcesName" />
+    <result column="resources_type" jdbcType="TINYINT" property="resourcesType" />
+    <result column="resource_path" jdbcType="VARCHAR" property="resourcePath" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="enable" jdbcType="BIT" property="enable" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="editor" jdbcType="VARCHAR" property="editor" />
+    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, resources_name, resources_type, resource_path, description, enable, parent_id, 
+    creator, create_time, editor, edit_time, remark
+  </sql>
+  <select id="selectByExample" parameterType="com.entity.auto.model.SysResourceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_resource
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_resource
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_resource
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.entity.auto.model.SysResourceExample">
+    delete from sys_resource
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.entity.auto.model.SysResource">
+    insert into sys_resource (id, resources_name, resources_type, 
+      resource_path, description, enable, 
+      parent_id, creator, create_time, 
+      editor, edit_time, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{resourcesName,jdbcType=VARCHAR}, #{resourcesType,jdbcType=TINYINT}, 
+      #{resourcePath,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}, 
+      #{parentId,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{editor,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.auto.model.SysResource">
+    insert into sys_resource
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="resourcesName != null">
+        resources_name,
+      </if>
+      <if test="resourcesType != null">
+        resources_type,
+      </if>
+      <if test="resourcePath != null">
+        resource_path,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="enable != null">
+        enable,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="editor != null">
+        editor,
+      </if>
+      <if test="editTime != null">
+        edit_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="resourcesName != null">
+        #{resourcesName,jdbcType=VARCHAR},
+      </if>
+      <if test="resourcesType != null">
+        #{resourcesType,jdbcType=TINYINT},
+      </if>
+      <if test="resourcePath != null">
+        #{resourcePath,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null">
+        #{enable,jdbcType=BIT},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editor != null">
+        #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null">
+        #{editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.entity.auto.model.SysResourceExample" resultType="java.lang.Integer">
+    select count(1) from 
+    <if test="distinct">
+      (select  distinct  
+      <include refid="Base_Column_List" />
+          from  sys_resource
+          <if test="_parameter != null">
+              <include refid="Example_Where_Clause" />
+          </if>) AS c
+    </if>
+    <if test="!distinct">
+              sys_resource
+        <if test="_parameter != null">
+          <include refid="Example_Where_Clause" />
+        </if>
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_resource
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.resourcesName != null">
+        resources_name = #{record.resourcesName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resourcesType != null">
+        resources_type = #{record.resourcesType,jdbcType=TINYINT},
+      </if>
+      <if test="record.resourcePath != null">
+        resource_path = #{record.resourcePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enable != null">
+        enable = #{record.enable,jdbcType=BIT},
+      </if>
+      <if test="record.parentId != null">
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.creator != null">
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.editor != null">
+        editor = #{record.editor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.editTime != null">
+        edit_time = #{record.editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_resource
+    set id = #{record.id,jdbcType=INTEGER},
+      resources_name = #{record.resourcesName,jdbcType=VARCHAR},
+      resources_type = #{record.resourcesType,jdbcType=TINYINT},
+      resource_path = #{record.resourcePath,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      enable = #{record.enable,jdbcType=BIT},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      editor = #{record.editor,jdbcType=VARCHAR},
+      edit_time = #{record.editTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.auto.model.SysResource">
+    update sys_resource
+    <set>
+      <if test="resourcesName != null">
+        resources_name = #{resourcesName,jdbcType=VARCHAR},
+      </if>
+      <if test="resourcesType != null">
+        resources_type = #{resourcesType,jdbcType=TINYINT},
+      </if>
+      <if test="resourcePath != null">
+        resource_path = #{resourcePath,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null">
+        enable = #{enable,jdbcType=BIT},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editor != null">
+        editor = #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null">
+        edit_time = #{editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.auto.model.SysResource">
+    update sys_resource
+    set resources_name = #{resourcesName,jdbcType=VARCHAR},
+      resources_type = #{resourcesType,jdbcType=TINYINT},
+      resource_path = #{resourcePath,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      enable = #{enable,jdbcType=BIT},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      editor = #{editor,jdbcType=VARCHAR},
+      edit_time = #{editTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectPageByExample" parameterType="com.entity.auto.model.SysResourceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+     from sys_resource
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+       order by ${orderByClause} 
+    </if>
+    <![CDATA[LIMIT #{limit} OFFSET #{offset}]]>
+  </select>
+</mapper>
