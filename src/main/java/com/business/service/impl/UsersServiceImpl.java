@@ -20,30 +20,32 @@ public class UsersServiceImpl implements UsersService {
     @Autowired
     private SysUserMapper usersMapper;
 
-
+    @Override
     public List<SysUser> getUsers() {
-        SysUserExample usersExample=new SysUserExample();
-        Page page=new Page();
+        SysUserExample usersExample = new SysUserExample();
+        Page page = new Page();
         usersExample.setCurrentPage(page.getCurrentPage());
         usersExample.setPageSize(page.getPageSize());
-       return usersMapper.selectPageByExample(usersExample);
+        return usersMapper.selectPageByExample(usersExample);
     }
 
-    public SysUser getById( long id) {
+    @Override
+    public SysUser getById(long id) {
         return usersMapper.selectByPrimaryKey(id);
     }
 
-
-    public int insert(SysUser users){
+    @Override
+    public int insert(SysUser users) {
         return usersMapper.insert(users);
     }
 
-
-    public int update(SysUser users){
+    @Override
+    public int update(SysUser users) {
         return usersMapper.updateByPrimaryKey(users);
     }
 
-    public int delete(SysUser users){
+    @Override
+    public int delete(SysUser users) {
         return usersMapper.deleteByPrimaryKey(users.getId());
     }
 }

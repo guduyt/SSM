@@ -76,12 +76,6 @@ public class SysUser extends BaseModel implements Serializable {
     private String editor;
 
     /**
-    * 修改时间
-    */
-    @Column(name="edit_time")
-    private Date editTime;
-
-    /**
     * 备注
     */
     @Column(name="remark")
@@ -175,14 +169,6 @@ public class SysUser extends BaseModel implements Serializable {
 
     public void setEditor(String editor) {
         this.editor = editor == null ? null : editor.trim();
-    }
-
-    public Date getEditTime() {
-        return editTime;
-    }
-
-    public void setEditTime(Date editTime) {
-        this.editTime = editTime;
     }
 
     public String getRemark() {

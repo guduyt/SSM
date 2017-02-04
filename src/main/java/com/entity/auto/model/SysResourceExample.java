@@ -246,52 +246,52 @@ public class SysResourceExample extends BaseExample {
             return (Criteria) this;
         }
 
-        public Criteria andResourcesTypeEqualTo(Byte value) {
+        public Criteria andResourcesTypeEqualTo(Boolean value) {
             addCriterion("resources_type =", value, "resourcesType");
             return (Criteria) this;
         }
 
-        public Criteria andResourcesTypeNotEqualTo(Byte value) {
+        public Criteria andResourcesTypeNotEqualTo(Boolean value) {
             addCriterion("resources_type <>", value, "resourcesType");
             return (Criteria) this;
         }
 
-        public Criteria andResourcesTypeGreaterThan(Byte value) {
+        public Criteria andResourcesTypeGreaterThan(Boolean value) {
             addCriterion("resources_type >", value, "resourcesType");
             return (Criteria) this;
         }
 
-        public Criteria andResourcesTypeGreaterThanOrEqualTo(Byte value) {
+        public Criteria andResourcesTypeGreaterThanOrEqualTo(Boolean value) {
             addCriterion("resources_type >=", value, "resourcesType");
             return (Criteria) this;
         }
 
-        public Criteria andResourcesTypeLessThan(Byte value) {
+        public Criteria andResourcesTypeLessThan(Boolean value) {
             addCriterion("resources_type <", value, "resourcesType");
             return (Criteria) this;
         }
 
-        public Criteria andResourcesTypeLessThanOrEqualTo(Byte value) {
+        public Criteria andResourcesTypeLessThanOrEqualTo(Boolean value) {
             addCriterion("resources_type <=", value, "resourcesType");
             return (Criteria) this;
         }
 
-        public Criteria andResourcesTypeIn(List<Byte> values) {
+        public Criteria andResourcesTypeIn(List<Boolean> values) {
             addCriterion("resources_type in", values, "resourcesType");
             return (Criteria) this;
         }
 
-        public Criteria andResourcesTypeNotIn(List<Byte> values) {
+        public Criteria andResourcesTypeNotIn(List<Boolean> values) {
             addCriterion("resources_type not in", values, "resourcesType");
             return (Criteria) this;
         }
 
-        public Criteria andResourcesTypeBetween(Byte value1, Byte value2) {
+        public Criteria andResourcesTypeBetween(Boolean value1, Boolean value2) {
             addCriterion("resources_type between", value1, value2, "resourcesType");
             return (Criteria) this;
         }
 
-        public Criteria andResourcesTypeNotBetween(Byte value1, Byte value2) {
+        public Criteria andResourcesTypeNotBetween(Boolean value1, Boolean value2) {
             addCriterion("resources_type not between", value1, value2, "resourcesType");
             return (Criteria) this;
         }

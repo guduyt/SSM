@@ -19,15 +19,19 @@ public class UserDAOImpl implements UserDAO {
     @Autowired
     private ResourceSecurityMapper resourceSecurityMapper;
 
-    public List<User> queryUserAndRoles(String username){
+    @Override
+    public List<User> queryUserAndRoles(String username) {
 
         return userSecurityMapper.queryUserAndRoles(username);
     }
-    public List<Resource> queryResourcesAndRoles(String name){
-        return   resourceSecurityMapper.queryResourcesAndRoles(name);
+
+    @Override
+    public List<Resource> queryResourcesAndRoles(String name) {
+        return resourceSecurityMapper.queryResourcesAndRoles(name);
     }
 
-    public List<Resource> queryResourcesAndRoles(){
-        return null /*resourceSecurityMapper.queryAllResourcesAndRoles()*/;
+    @Override
+    public List<Resource> queryResourcesAndRoles() {
+        return  resourceSecurityMapper.queryAllResourcesAndRoles();
     }
 }

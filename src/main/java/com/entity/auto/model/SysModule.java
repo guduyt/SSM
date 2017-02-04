@@ -24,7 +24,7 @@ public class SysModule extends BaseModel implements Serializable {
     * 模块类型
     */
     @Column(name="module_type")
-    private Byte moduleType;
+    private Boolean moduleType;
 
     /**
     * 描述
@@ -92,11 +92,11 @@ public class SysModule extends BaseModel implements Serializable {
         this.moduleName = moduleName == null ? null : moduleName.trim();
     }
 
-    public Byte getModuleType() {
+    public Boolean getModuleType() {
         return moduleType;
     }
 
-    public void setModuleType(Byte moduleType) {
+    public void setModuleType(Boolean moduleType) {
         this.moduleType = moduleType;
     }
 

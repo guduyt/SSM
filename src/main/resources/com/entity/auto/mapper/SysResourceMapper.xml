@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.entity.auto.model.SysResource">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="resources_name" jdbcType="VARCHAR" property="resourcesName" />
-    <result column="resources_type" jdbcType="TINYINT" property="resourcesType" />
+    <result column="resources_type" jdbcType="BIT" property="resourcesType" />
     <result column="resource_path" jdbcType="VARCHAR" property="resourcePath" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="enable" jdbcType="BIT" property="enable" />
@@ -112,7 +112,7 @@
       description, enable, parent_id, 
       creator, create_time, editor, 
       edit_time, remark)
-    values (#{resourcesName,jdbcType=VARCHAR}, #{resourcesType,jdbcType=TINYINT}, #{resourcePath,jdbcType=VARCHAR}, 
+    values (#{resourcesName,jdbcType=VARCHAR}, #{resourcesType,jdbcType=BIT}, #{resourcePath,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}, #{parentId,jdbcType=INTEGER}, 
       #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{editor,jdbcType=VARCHAR}, 
       #{editTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
@@ -159,7 +159,7 @@
         #{resourcesName,jdbcType=VARCHAR},
       </if>
       <if test="resourcesType != null">
-        #{resourcesType,jdbcType=TINYINT},
+        #{resourcesType,jdbcType=BIT},
       </if>
       <if test="resourcePath != null">
         #{resourcePath,jdbcType=VARCHAR},
@@ -217,7 +217,7 @@
         resources_name = #{record.resourcesName,jdbcType=VARCHAR},
       </if>
       <if test="record.resourcesType != null">
-        resources_type = #{record.resourcesType,jdbcType=TINYINT},
+        resources_type = #{record.resourcesType,jdbcType=BIT},
       </if>
       <if test="record.resourcePath != null">
         resource_path = #{record.resourcePath,jdbcType=VARCHAR},
@@ -255,7 +255,7 @@
     update sys_resource
     set id = #{record.id,jdbcType=INTEGER},
       resources_name = #{record.resourcesName,jdbcType=VARCHAR},
-      resources_type = #{record.resourcesType,jdbcType=TINYINT},
+      resources_type = #{record.resourcesType,jdbcType=BIT},
       resource_path = #{record.resourcePath,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
       enable = #{record.enable,jdbcType=BIT},
@@ -276,7 +276,7 @@
         resources_name = #{resourcesName,jdbcType=VARCHAR},
       </if>
       <if test="resourcesType != null">
-        resources_type = #{resourcesType,jdbcType=TINYINT},
+        resources_type = #{resourcesType,jdbcType=BIT},
       </if>
       <if test="resourcePath != null">
         resource_path = #{resourcePath,jdbcType=VARCHAR},
@@ -311,7 +311,7 @@
   <update id="updateByPrimaryKey" parameterType="com.entity.auto.model.SysResource">
     update sys_resource
     set resources_name = #{resourcesName,jdbcType=VARCHAR},
-      resources_type = #{resourcesType,jdbcType=TINYINT},
+      resources_type = #{resourcesType,jdbcType=BIT},
       resource_path = #{resourcePath,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       enable = #{enable,jdbcType=BIT},
@@ -342,7 +342,7 @@
     insert into sys_resource (resources_name,resources_type,resource_path,description,enable,parent_id,creator,create_time,editor,edit_time,remark) 
     values 
     <foreach collection="list" item="item" index="index" separator="," > 
-        (#{item.resourcesName,jdbcType=VARCHAR},#{item.resourcesType,jdbcType=TINYINT},#{item.resourcePath,jdbcType=VARCHAR},#{item.description,jdbcType=VARCHAR},#{item.enable,jdbcType=BIT},#{item.parentId,jdbcType=INTEGER},#{item.creator,jdbcType=VARCHAR},#{item.createTime,jdbcType=TIMESTAMP},#{item.editor,jdbcType=VARCHAR},#{item.editTime,jdbcType=TIMESTAMP},#{item.remark,jdbcType=VARCHAR}) 
+        (#{item.resourcesName,jdbcType=VARCHAR},#{item.resourcesType,jdbcType=BIT},#{item.resourcePath,jdbcType=VARCHAR},#{item.description,jdbcType=VARCHAR},#{item.enable,jdbcType=BIT},#{item.parentId,jdbcType=INTEGER},#{item.creator,jdbcType=VARCHAR},#{item.createTime,jdbcType=TIMESTAMP},#{item.editor,jdbcType=VARCHAR},#{item.editTime,jdbcType=TIMESTAMP},#{item.remark,jdbcType=VARCHAR}) 
    </foreach>
   </insert>
 </mapper>

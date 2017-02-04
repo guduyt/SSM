@@ -23,7 +23,15 @@ import java.util.*;
  */
 @Service("sysSecurityMetadataSource")
 public class SysSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
-    public static final Logger log= LoggerFactory.getLogger(SysSecurityMetadataSource.class);
+    @Autowired
+    private UserDAO userDAO;
+
+    private Map<String, Collection<ConfigAttribute>> resourceMap = null;
+    private RequestMatcher requestMatcher;
+    private SessionRegistry sessionRegistry;
+
+    public static final Logger log = LoggerFactory.getLogger(SysSecurityMetadataSource.class);
+
     public UserDAO getUserDAO() {
         return userDAO;
     }
@@ -48,57 +56,50 @@ public class SysSecurityMetadataSource implements FilterInvocationSecurityMetada
         this.sessionRegistry = sessionRegistry;
     }
 
-    @Autowired
-    private UserDAO userDAO;
-
-    private Map<String, Collection<ConfigAttribute>> resourceMap = null;
-    private RequestMatcher requestMatcher;
-    private SessionRegistry sessionRegistry;
-
-
-    public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
-         if(null==resourceMap || resourceMap.size()==0)
-             resourceMap=loadResource();
-        Collection<ConfigAttribute> collection = new ArrayList<ConfigAttribute>();
+    @Override
+    public Collection<ConfigAttribute> getAttributes(Object object){
+        if (null == resourceMap || resourceMap.size() == 0)
+            resourceMap = loadResource();
+        Collection<ConfigAttribute> collection = new ArrayList<>();
 
         HttpServletRequest request = ((FilterInvocation) object).getRequest();
 
         Iterator<String> iterator = resourceMap.keySet().iterator();
         while (iterator.hasNext()) {
             String requestURL = iterator.next().trim();
-            RequestMatcher requestMatcher = new AntPathRequestMatcher(requestURL);
-            if (requestMatcher.matches(request)) {
+            RequestMatcher requestMatcherRole = new AntPathRequestMatcher(requestURL);
+            if (requestMatcherRole.matches(request)) {
                 //获得该uri所需要的角色列表
-                collection.addAll(resourceMap.get(requestURL))  ;
+                collection.addAll(resourceMap.get(requestURL));
             }
         }
         return collection;
     }
 
 
-
+    @Override
     public Collection<ConfigAttribute> getAllConfigAttributes() {
         return null;
     }
 
-
+    @Override
     public boolean supports(Class<?> clazz) {
         return true;
     }
 
-    public HashMap<String,Collection<ConfigAttribute>> loadResource(){
-             List<Resource> list=userDAO.queryResourcesAndRoles(null);
-        HashMap<String,Collection<ConfigAttribute>> hashMap=new HashMap<>();
-        list.forEach(p->{
-            if(hashMap.containsKey(p.getResourcePath())) {
-                Collection<ConfigAttribute> collects=hashMap.get(p.getResourcePath());
+    public Map<String, Collection<ConfigAttribute>> loadResource() {
+        List<Resource> list = userDAO.queryResourcesAndRoles(null);
+        Map<String, Collection<ConfigAttribute>> hashMap = new HashMap<>();
+        list.forEach(p -> {
+            if (hashMap.containsKey(p.getResourcePath())) {
+                Collection<ConfigAttribute> collects = hashMap.get(p.getResourcePath());
 
                 collects.addAll(rolesToCollection(p.getListRole()));
-                hashMap.put(p.getResourcePath(),collects);
-            }else {
-                Collection<ConfigAttribute> collects=new ArrayList<>();
+                hashMap.put(p.getResourcePath(), collects);
+            } else {
+                Collection<ConfigAttribute> collects = new ArrayList<>();
                 collects.addAll(rolesToCollection(p.getListRole()));
-                hashMap.put(p.getResourcePath(),collects);
+                hashMap.put(p.getResourcePath(), collects);
             }
 
         });
@@ -107,14 +108,14 @@ public class SysSecurityMetadataSource implements FilterInvocationSecurityMetada
     }
 
     private Collection<ConfigAttribute> rolesToCollection(List<Role> list) {
-        List<ConfigAttribute> configAttributes = new ArrayList<ConfigAttribute>();
+        List<ConfigAttribute> configAttributes = new ArrayList<>();
         for (Role role : list)
             configAttributes.add(new SecurityConfig(role.getRoleName()));
         return configAttributes;
     }
 
-    public void  Refresh(){
+    public void refresh() {
         resourceMap.clear();
-        resourceMap= loadResource();
+        resourceMap = loadResource();
     }
 }

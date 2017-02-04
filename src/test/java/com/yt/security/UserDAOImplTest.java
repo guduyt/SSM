@@ -7,7 +7,7 @@ import com.entity.manual.mapper.UserSecurityMapper;
 import com.entity.manual.model.Resource;
 import com.entity.manual.model.User;
 import com.yt.commons.Page;
-import com.yt.commons.utils.Util;
+import com.yt.commons.utils.LogUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +52,7 @@ public class UserDAOImplTest {
     @Test
     public void testMapper(){
         SysRoleExample sysRolesExample=new SysRoleExample();
-        Util.log.info("数据"+ sysRolesMapper.countByExample(sysRolesExample));
+       LogUtils.LOGGER.info("数据"+ sysRolesMapper.countByExample(sysRolesExample));
         SysRole sysRoles= sysRolesMapper.selectByPrimaryKey(4);
         sysRoles.setDescription("test");
         sysRoles.setEnable(false);

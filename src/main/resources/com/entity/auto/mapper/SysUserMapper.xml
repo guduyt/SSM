@@ -13,7 +13,6 @@
     <result column="creator" jdbcType="VARCHAR" property="creator" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="editor" jdbcType="VARCHAR" property="editor" />
-    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -76,7 +75,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, user_name, password, mobile, email, enable, is_lock, expire, creator, create_time, 
-    editor, edit_time, remark
+    editor, remark
   </sql>
   <select id="selectByExample" parameterType="com.entity.auto.model.SysUserExample" resultMap="BaseResultMap">
     select
@@ -112,11 +111,11 @@
     insert into sys_user (user_name, password, mobile, 
       email, enable, is_lock, expire, 
       creator, create_time, editor, 
-      edit_time, remark)
+      remark)
     values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}, #{isLock,jdbcType=BIT}, #{expire,jdbcType=TIMESTAMP}, 
       #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{editor,jdbcType=VARCHAR}, 
-      #{editTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+      #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.entity.auto.model.SysUser" useGeneratedKeys="true">
     insert into sys_user
@@ -150,9 +149,6 @@
       </if>
       <if test="editor != null">
         editor,
-      </if>
-      <if test="editTime != null">
-        edit_time,
       </if>
       <if test="remark != null">
         remark,
@@ -188,9 +184,6 @@
       </if>
       <if test="editor != null">
         #{editor,jdbcType=VARCHAR},
-      </if>
-      <if test="editTime != null">
-        #{editTime,jdbcType=TIMESTAMP},
       </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
@@ -250,9 +243,6 @@
       <if test="record.editor != null">
         editor = #{record.editor,jdbcType=VARCHAR},
       </if>
-      <if test="record.editTime != null">
-        edit_time = #{record.editTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="record.remark != null">
         remark = #{record.remark,jdbcType=VARCHAR},
       </if>
@@ -274,7 +264,6 @@
       creator = #{record.creator,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       editor = #{record.editor,jdbcType=VARCHAR},
-      edit_time = #{record.editTime,jdbcType=TIMESTAMP},
       remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -313,9 +302,6 @@
       <if test="editor != null">
         editor = #{editor,jdbcType=VARCHAR},
       </if>
-      <if test="editTime != null">
-        edit_time = #{editTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
@@ -334,7 +320,6 @@
       creator = #{creator,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       editor = #{editor,jdbcType=VARCHAR},
-      edit_time = #{editTime,jdbcType=TIMESTAMP},
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -354,10 +339,10 @@
     <![CDATA[LIMIT #{limit} OFFSET #{offset}]]>
   </select>
   <insert id="insertBatch" parameterType="java.util.List">
-    insert into sys_user (user_name,password,mobile,email,enable,is_lock,expire,creator,create_time,editor,edit_time,remark) 
+    insert into sys_user (user_name,password,mobile,email,enable,is_lock,expire,creator,create_time,editor,remark) 
     values 
     <foreach collection="list" item="item" index="index" separator="," > 
-        (#{item.userName,jdbcType=VARCHAR},#{item.password,jdbcType=VARCHAR},#{item.mobile,jdbcType=VARCHAR},#{item.email,jdbcType=VARCHAR},#{item.enable,jdbcType=BIT},#{item.isLock,jdbcType=BIT},#{item.expire,jdbcType=TIMESTAMP},#{item.creator,jdbcType=VARCHAR},#{item.createTime,jdbcType=TIMESTAMP},#{item.editor,jdbcType=VARCHAR},#{item.editTime,jdbcType=TIMESTAMP},#{item.remark,jdbcType=VARCHAR}) 
+        (#{item.userName,jdbcType=VARCHAR},#{item.password,jdbcType=VARCHAR},#{item.mobile,jdbcType=VARCHAR},#{item.email,jdbcType=VARCHAR},#{item.enable,jdbcType=BIT},#{item.isLock,jdbcType=BIT},#{item.expire,jdbcType=TIMESTAMP},#{item.creator,jdbcType=VARCHAR},#{item.createTime,jdbcType=TIMESTAMP},#{item.editor,jdbcType=VARCHAR},#{item.remark,jdbcType=VARCHAR}) 
    </foreach>
   </insert>
 </mapper>

@@ -25,7 +25,7 @@ public class SysResource extends BaseModel implements Serializable {
     * 资源类型
     */
     @Column(name="resources_type")
-    private Byte resourcesType;
+    private Boolean resourcesType;
 
     /**
     * 资源
@@ -99,11 +99,11 @@ public class SysResource extends BaseModel implements Serializable {
         this.resourcesName = resourcesName == null ? null : resourcesName.trim();
     }
 
-    public Byte getResourcesType() {
+    public Boolean getResourcesType() {
         return resourcesType;
     }
 
-    public void setResourcesType(Byte resourcesType) {
+    public void setResourcesType(Boolean resourcesType) {
         this.resourcesType = resourcesType;
     }
 

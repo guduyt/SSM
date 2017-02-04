@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.entity.auto.model.SysModule">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="module_name" jdbcType="VARCHAR" property="moduleName" />
-    <result column="module_type" jdbcType="TINYINT" property="moduleType" />
+    <result column="module_type" jdbcType="BIT" property="moduleType" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="module_path" jdbcType="VARCHAR" property="modulePath" />
     <result column="parent_id" jdbcType="INTEGER" property="parentId" />
@@ -111,7 +111,7 @@
       module_path, parent_id, level, 
       application_name, controller_name, enable, 
       remark)
-    values (#{moduleName,jdbcType=VARCHAR}, #{moduleType,jdbcType=TINYINT}, #{description,jdbcType=VARCHAR}, 
+    values (#{moduleName,jdbcType=VARCHAR}, #{moduleType,jdbcType=BIT}, #{description,jdbcType=VARCHAR}, 
       #{modulePath,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, #{level,jdbcType=BIT}, 
       #{applicationName,jdbcType=VARCHAR}, #{controllerName,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}, 
       #{remark,jdbcType=VARCHAR})
@@ -155,7 +155,7 @@
         #{moduleName,jdbcType=VARCHAR},
       </if>
       <if test="moduleType != null">
-        #{moduleType,jdbcType=TINYINT},
+        #{moduleType,jdbcType=BIT},
       </if>
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
@@ -210,7 +210,7 @@
         module_name = #{record.moduleName,jdbcType=VARCHAR},
       </if>
       <if test="record.moduleType != null">
-        module_type = #{record.moduleType,jdbcType=TINYINT},
+        module_type = #{record.moduleType,jdbcType=BIT},
       </if>
       <if test="record.description != null">
         description = #{record.description,jdbcType=VARCHAR},
@@ -245,7 +245,7 @@
     update sys_module
     set id = #{record.id,jdbcType=INTEGER},
       module_name = #{record.moduleName,jdbcType=VARCHAR},
-      module_type = #{record.moduleType,jdbcType=TINYINT},
+      module_type = #{record.moduleType,jdbcType=BIT},
       description = #{record.description,jdbcType=VARCHAR},
       module_path = #{record.modulePath,jdbcType=VARCHAR},
       parent_id = #{record.parentId,jdbcType=INTEGER},
@@ -265,7 +265,7 @@
         module_name = #{moduleName,jdbcType=VARCHAR},
       </if>
       <if test="moduleType != null">
-        module_type = #{moduleType,jdbcType=TINYINT},
+        module_type = #{moduleType,jdbcType=BIT},
       </if>
       <if test="description != null">
         description = #{description,jdbcType=VARCHAR},
@@ -297,7 +297,7 @@
   <update id="updateByPrimaryKey" parameterType="com.entity.auto.model.SysModule">
     update sys_module
     set module_name = #{moduleName,jdbcType=VARCHAR},
-      module_type = #{moduleType,jdbcType=TINYINT},
+      module_type = #{moduleType,jdbcType=BIT},
       description = #{description,jdbcType=VARCHAR},
       module_path = #{modulePath,jdbcType=VARCHAR},
       parent_id = #{parentId,jdbcType=INTEGER},
@@ -327,7 +327,7 @@
     insert into sys_module (module_name,module_type,description,module_path,parent_id,level,application_name,controller_name,enable,remark) 
     values 
     <foreach collection="list" item="item" index="index" separator="," > 
-        (#{item.moduleName,jdbcType=VARCHAR},#{item.moduleType,jdbcType=TINYINT},#{item.description,jdbcType=VARCHAR},#{item.modulePath,jdbcType=VARCHAR},#{item.parentId,jdbcType=INTEGER},#{item.level,jdbcType=BIT},#{item.applicationName,jdbcType=VARCHAR},#{item.controllerName,jdbcType=VARCHAR},#{item.enable,jdbcType=BIT},#{item.remark,jdbcType=VARCHAR}) 
+        (#{item.moduleName,jdbcType=VARCHAR},#{item.moduleType,jdbcType=BIT},#{item.description,jdbcType=VARCHAR},#{item.modulePath,jdbcType=VARCHAR},#{item.parentId,jdbcType=INTEGER},#{item.level,jdbcType=BIT},#{item.applicationName,jdbcType=VARCHAR},#{item.controllerName,jdbcType=VARCHAR},#{item.enable,jdbcType=BIT},#{item.remark,jdbcType=VARCHAR}) 
    </foreach>
   </insert>
 </mapper>

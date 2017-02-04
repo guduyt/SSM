@@ -1,6 +1,6 @@
 package com.yt.commons.exceptions;
 
-import com.yt.commons.utils.MessageUtil;
+import com.yt.commons.utils.MessageUtils;
 
 /**
  * 自定义异常
@@ -8,14 +8,15 @@ import com.yt.commons.utils.MessageUtil;
  */
 public class CustomException extends BaseException {
 
-    public CustomException(int messageCode,String message){
-        super(messageCode,message);
+    public CustomException(int messageCode, String message) {
+        super(messageCode, message);
     }
 
-    public CustomException(int messageCode,String message,Throwable cause){
-        super(messageCode,message,cause);
+    public CustomException(int messageCode, String message, Throwable cause) {
+        super(messageCode, message, cause);
     }
-    public CustomException(int messageCode,String messageTemplate ,Object... args){
-        super(messageCode, MessageUtil.generate(messageTemplate, args));
+
+    public CustomException(int messageCode, String messageTemplate, Object... args) {
+        super(messageCode, MessageUtils.generate(messageTemplate, args));
     }
 }

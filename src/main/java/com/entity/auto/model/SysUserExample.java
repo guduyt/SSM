@@ -826,66 +826,6 @@ public class SysUserExample extends BaseExample {
             return (Criteria) this;
         }
 
-        public Criteria andEditTimeIsNull() {
-            addCriterion("edit_time is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andEditTimeIsNotNull() {
-            addCriterion("edit_time is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andEditTimeEqualTo(Date value) {
-            addCriterion("edit_time =", value, "editTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andEditTimeNotEqualTo(Date value) {
-            addCriterion("edit_time <>", value, "editTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andEditTimeGreaterThan(Date value) {
-            addCriterion("edit_time >", value, "editTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andEditTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("edit_time >=", value, "editTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andEditTimeLessThan(Date value) {
-            addCriterion("edit_time <", value, "editTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andEditTimeLessThanOrEqualTo(Date value) {
-            addCriterion("edit_time <=", value, "editTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andEditTimeIn(List<Date> values) {
-            addCriterion("edit_time in", values, "editTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andEditTimeNotIn(List<Date> values) {
-            addCriterion("edit_time not in", values, "editTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andEditTimeBetween(Date value1, Date value2) {
-            addCriterion("edit_time between", value1, value2, "editTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andEditTimeNotBetween(Date value1, Date value2) {
-            addCriterion("edit_time not between", value1, value2, "editTime");
-            return (Criteria) this;
-        }
-
         public Criteria andRemarkIsNull() {
             addCriterion("remark is null");
             return (Criteria) this;

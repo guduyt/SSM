@@ -49,11 +49,12 @@ public class SysFilter extends AbstractSecurityInterceptor implements Filter {
         return FilterInvocation.class;
     }
 
-
+     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
     }
 
+    @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         FilterInvocation fi = new FilterInvocation(servletRequest, servletResponse, filterChain);
         InterceptorStatusToken token = super.beforeInvocation(fi);
@@ -69,6 +70,7 @@ public class SysFilter extends AbstractSecurityInterceptor implements Filter {
 
     }
 
+    @Override
     public void destroy() {
 
     }

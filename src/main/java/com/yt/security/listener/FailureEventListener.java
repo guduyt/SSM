@@ -1,6 +1,6 @@
 package com.yt.security.listener;
 
-import com.yt.commons.utils.Util;
+import com.yt.commons.utils.LogUtils;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
 import org.springframework.stereotype.Component;
@@ -12,6 +12,6 @@ import org.springframework.stereotype.Component;
 public class FailureEventListener implements ApplicationListener<AuthenticationFailureBadCredentialsEvent> {
     @Override
     public void onApplicationEvent(AuthenticationFailureBadCredentialsEvent authenticationFailureBadCredentialsEvent) {
-        Util.log.info("登录失败");
+        LogUtils.LOGGER.info("登录失败");
     }
 }

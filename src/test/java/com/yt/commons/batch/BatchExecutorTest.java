@@ -2,8 +2,8 @@ package com.yt.commons.batch;
 
 import com.entity.auto.mapper.SysUserMapper;
 import com.entity.auto.model.SysUser;
-import com.yt.commons.utils.DateUtil;
-import com.yt.commons.utils.Util;
+import com.yt.commons.utils.DateUtils;
+import com.yt.commons.utils.LogUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,13 +39,13 @@ public class BatchExecutorTest {
             users.setCreator("test");
             users.setCreateTime(new Date());
             users.setRemark("123");
-            users.setExpire(DateUtil.stringToDateForFormat("2020-01-01"));
+            users.setExpire(DateUtils.stringToDateForFormat("2020-01-01"));
             sysUsersMapper.insert(users);
             list.add(users) ;
         }
         long start= System.currentTimeMillis();
         int result=1;//batchExecutor.batchInsert(list);
-        Util.log.info("总共时间："+(System.currentTimeMillis()-start));
+        LogUtils.LOGGER.info("总共时间："+(System.currentTimeMillis()-start));
 
         Assert.assertEquals(list.size(),result);
     }

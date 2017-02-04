@@ -245,52 +245,52 @@ public class SysModuleExample extends BaseExample {
             return (Criteria) this;
         }
 
-        public Criteria andModuleTypeEqualTo(Byte value) {
+        public Criteria andModuleTypeEqualTo(Boolean value) {
             addCriterion("module_type =", value, "moduleType");
             return (Criteria) this;
         }
 
-        public Criteria andModuleTypeNotEqualTo(Byte value) {
+        public Criteria andModuleTypeNotEqualTo(Boolean value) {
             addCriterion("module_type <>", value, "moduleType");
             return (Criteria) this;
         }
 
-        public Criteria andModuleTypeGreaterThan(Byte value) {
+        public Criteria andModuleTypeGreaterThan(Boolean value) {
             addCriterion("module_type >", value, "moduleType");
             return (Criteria) this;
         }
 
-        public Criteria andModuleTypeGreaterThanOrEqualTo(Byte value) {
+        public Criteria andModuleTypeGreaterThanOrEqualTo(Boolean value) {
             addCriterion("module_type >=", value, "moduleType");
             return (Criteria) this;
         }
 
-        public Criteria andModuleTypeLessThan(Byte value) {
+        public Criteria andModuleTypeLessThan(Boolean value) {
             addCriterion("module_type <", value, "moduleType");
             return (Criteria) this;
         }
 
-        public Criteria andModuleTypeLessThanOrEqualTo(Byte value) {
+        public Criteria andModuleTypeLessThanOrEqualTo(Boolean value) {
             addCriterion("module_type <=", value, "moduleType");
             return (Criteria) this;
         }
 
-        public Criteria andModuleTypeIn(List<Byte> values) {
+        public Criteria andModuleTypeIn(List<Boolean> values) {
             addCriterion("module_type in", values, "moduleType");
             return (Criteria) this;
         }
 
-        public Criteria andModuleTypeNotIn(List<Byte> values) {
+        public Criteria andModuleTypeNotIn(List<Boolean> values) {
             addCriterion("module_type not in", values, "moduleType");
             return (Criteria) this;
         }
 
-        public Criteria andModuleTypeBetween(Byte value1, Byte value2) {
+        public Criteria andModuleTypeBetween(Boolean value1, Boolean value2) {
             addCriterion("module_type between", value1, value2, "moduleType");
             return (Criteria) this;
         }
 
-        public Criteria andModuleTypeNotBetween(Byte value1, Byte value2) {
+        public Criteria andModuleTypeNotBetween(Boolean value1, Boolean value2) {
             addCriterion("module_type not between", value1, value2, "moduleType");
             return (Criteria) this;
         }
