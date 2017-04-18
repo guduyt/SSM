@@ -99,6 +99,9 @@ public class ExcelUtil implements IUtil {
 
             for(int i=beginRow;i<=totleRow;i++){
                 row=sheet.getRow(i);
+                if(row == null){
+				continue;
+			    }
                 countCell=row.getLastCellNum();
                 if(countCell<1){
                     continue;
