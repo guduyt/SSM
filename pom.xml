@@ -9,19 +9,20 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <properties>
-        <java-version>1.8</java-version>
-        <org.springframework-version>4.2.6.RELEASE</org.springframework-version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <org.springframework-version>4.3.5.RELEASE</org.springframework-version>
         <org.aspectj-version>1.8.9</org.aspectj-version>
         <org.slf4j-version>1.7.6</org.slf4j-version>
         <org.log4j-version>1.2.15</org.log4j-version>
         <httpclient-version>4.1.2</httpclient-version>
         <!--<shiro-version>1.2.3</shiro-version>-->
-        <jackson-version>2.7.4</jackson-version>
+        <jackson-version>2.8.6</jackson-version>
         <logback-version>1.1.7</logback-version>
         <thymeleaf-version>3.0.2.RELEASE</thymeleaf-version>
         <poi-version>3.14</poi-version>
         <mybatis-generator-version>1.3.3</mybatis-generator-version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <jdbc-config>env/${env}.properties</jdbc-config>
         <package-path>com.entity.auto</package-path>
@@ -114,17 +115,8 @@
             <version>${org.springframework-version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.thymeleaf</groupId>
-            <artifactId>thymeleaf</artifactId>
-            <version>${thymeleaf-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.thymeleaf</groupId>
-            <artifactId>thymeleaf-spring4</artifactId>
-            <version>${thymeleaf-version}</version>
-        </dependency>
 
+        <!-- spring-security -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
@@ -146,6 +138,25 @@
             <version>4.1.3.RELEASE</version>
         </dependency>
 
+
+
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+            <version>${thymeleaf-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring4</artifactId>
+            <version>${thymeleaf-version}</version>
+        </dependency>
+
+        <!-- 连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.0.20</version>
+        </dependency>
         <!-- mybatis -->
         <dependency>
             <groupId>org.mybatis</groupId>
@@ -168,15 +179,45 @@
             <version>0.9.5</version>
         </dependency>
 
-        <!--<dependency>
-            <groupId>org.mybatis.generator</groupId>
-            <artifactId>mybatis-generator</artifactId>
-            <version>${mybatis-generator-version}</version>
-        </dependency>-->
         <dependency>
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator-core</artifactId>
             <version>${mybatis-generator-version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.yt</groupId>
+            <artifactId>mybatis-plugin</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <!--mybatis-plugin插件必须依赖-->
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+
+        <!--校验-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.3.4.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>1.1.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>2.2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>2.2.4</version>
         </dependency>
 
         <!-- @Inject -->
@@ -195,21 +236,14 @@
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.1</version>
+            <artifactId>javax.servlet.jsp-api</artifactId>
+            <version>2.3.2-b02</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-            <version>2.1</version>
         </dependency>
 
         <!-- AspectJ -->
@@ -269,50 +303,41 @@
             <version>${org.slf4j-version}</version>
             <scope>runtime</scope>
         </dependency>
-        <!--<dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${org.slf4j-version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>-->
-            <!--<groupId>log4j</groupId>-->
-            <!--<artifactId>log4j</artifactId>-->
-            <!--<version>${org.log4j-version}</version>-->
-            <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<groupId>javax.mail</groupId>-->
-                    <!--<artifactId>mail</artifactId>-->
-                <!--</exclusion>-->
-                <!--<exclusion>-->
-                    <!--<groupId>javax.jms</groupId>-->
-                    <!--<artifactId>jms</artifactId>-->
-                <!--</exclusion>-->
-                <!--<exclusion>-->
-                    <!--<groupId>com.sun.jdmk</groupId>-->
-                    <!--<artifactId>jmxtools</artifactId>-->
-                <!--</exclusion>-->
-                <!--<exclusion>-->
-                    <!--<groupId>com.sun.jmx</groupId>-->
-                    <!--<artifactId>jmxri</artifactId>-->
-                <!--</exclusion>-->
-            <!--</exclusions>-->
-            <!--<scope>runtime</scope>-->
-        <!--</dependency>-->
 
 
+        <!--json处理-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.16</version>
         </dependency>
 
-        <!-- 映入JSON -->
         <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.9.13</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson-version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-jaxb-annotations</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
+
 
         <!-- Test -->
         <dependency>
@@ -321,21 +346,7 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>1.0.20</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
-        </dependency>
+
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
@@ -389,31 +400,6 @@
             <version>${httpclient-version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>${jackson-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>${jackson-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-json-provider</artifactId>
-            <version>${jackson-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-jaxb-annotations</artifactId>
-            <version>${jackson-version}</version>
-        </dependency>
 
 
         <dependency>
@@ -449,25 +435,18 @@
             <version>${poi-version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.yt</groupId>
-            <artifactId>mybatis-plugin</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
 
-        <!--mybatis-plugin插件依赖-->
+        <!--工具类-->
         <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>persistence-api</artifactId>
-            <version>1.0.2</version>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>21.0</version>
         </dependency>
-
         <dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz</artifactId>
-            <version>2.2.3</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.5</version>
         </dependency>
-
     </dependencies>
 
 
@@ -480,8 +459,8 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.5</version>
                     <configuration>
-                        <source>${java-version}</source>
-                        <target>${java-version}</target>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
                         <encoding>${project.build.sourceEncoding}</encoding>
                         <compilerArgument>-Xlint:all</compilerArgument>
                         <showWarnings>true</showWarnings>
