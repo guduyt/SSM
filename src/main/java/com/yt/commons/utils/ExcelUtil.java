@@ -1,6 +1,5 @@
 package com.yt.commons.utils;
 
-import com.yt.commons.IUtil;
 import com.yt.commons.exceptions.CustomException;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -9,6 +8,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,7 +18,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -27,7 +32,8 @@ import java.util.regex.Pattern;
  * @version 1.0.0
  * @date 2016/7/22 9:32
  */
-public class ExcelUtil implements IUtil {
+public class ExcelUtil {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LogUtils.class);
 
     /**
      * 半角转全角
@@ -178,11 +184,11 @@ public class ExcelUtil implements IUtil {
                 break;
             case Cell.CELL_TYPE_BLANK:// 空值
                 value = "";
-                log.error("excel出现空值！");
+                LOGGER.error("excel出现空值！");
                 break;
             case Cell.CELL_TYPE_ERROR:// 故障
                 value = String.valueOf(cell.getErrorCellValue());
-                log.error("excel出现故障！");
+                LOGGER.error("excel出现故障！");
                 break;
             default:
                 value = cell.getStringCellValue().toString();
@@ -398,7 +404,7 @@ public class ExcelUtil implements IUtil {
         Pattern p=Pattern.compile("^((\\d{2}(([02468][048])|([13579][26]))[\\-\\/\\.]?((((0?[13578])|(1[02]))[\\-\\/\\.]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\.]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\.]?((0?[1-9])|([1-2][0-9])))))|(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-\\/\\.]?((((0?[13578])|(1[02]))[\\-\\/\\.]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\.]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\.]?((0?[1-9])|(1[0-9])|(2[0-8]))))))(\\s(((0?[0-9])|([1-2][0-3]))\\:([0-5]?[0-9])((\\s)|(\\:([0-5]?[0-9])))))?$", Pattern.CASE_INSENSITIVE|Pattern.MULTILINE);
          Date date=null;
         if(!dataStr.isEmpty() && p.matcher(dataStr).matches()){
-            date= DateUtil.stringToDate(dataStr) ;
+            date= DateUtils.stringToDate(dataStr) ;
         }
         else {
             date=(Date)o;
