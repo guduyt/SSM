@@ -624,9 +624,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <warName>${project.artifactId}</warName>
-                </configuration>
             </plugin>
 
             <!-- 增加更多的Source和Test Source目录插件 -->
