@@ -1,7 +1,14 @@
 package com.yt.security;
 
-import com.entity.manual.model.Resource;
-import com.entity.manual.model.Role;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +21,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import com.entity.manual.model.Resource;
+import com.entity.manual.model.Role;
 
 /**
  * Created by yt on 2016-10-14.

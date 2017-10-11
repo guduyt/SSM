@@ -1,5 +1,14 @@
 package com.yt.security;
 
+
+import java.util.List;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import com.entity.auto.mapper.SysRoleMapper;
 import com.entity.auto.model.SysRole;
 import com.entity.auto.model.SysRoleExample;
@@ -8,13 +17,6 @@ import com.entity.manual.model.Resource;
 import com.entity.manual.model.User;
 import com.yt.commons.Page;
 import com.yt.commons.utils.LogUtils;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:config/spring.xml" })
@@ -27,7 +29,7 @@ public class UserDAOImplTest {
     private UserSecurityMapper mapper;
 
     @Autowired
-    private  SysRoleMapper sysRole;
+    private SysRoleMapper sysRole;
 
     @Test
     public void TestRole(){
