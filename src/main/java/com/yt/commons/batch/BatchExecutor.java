@@ -12,7 +12,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,53 +33,59 @@ public class BatchExecutor<T extends BaseModel> implements IBatchExecutor<T> {
         this.sqlSessionFactory = ApplicationContextUtils.getBeanByClass(SqlSessionFactory.class);
     }
 
-    public BatchExecutor(BaseMapper mapper) {
-        this.mapper = mapper;
-        this.sqlSessionFactory = ApplicationContextUtils.getBeanByClass(SqlSessionFactory.class);
-    }
-
-    public BatchExecutor(BaseMapper mapper, int batchSize) {
-        this.mapper = mapper;
+    public BatchExecutor(int batchSize) {
         this.batchSize = batchSize;
         this.sqlSessionFactory = ApplicationContextUtils.getBeanByClass(SqlSessionFactory.class);
     }
 
-
     @Override
-    public int batchInsert(List<T> list) {
-        int insertNumber = 0;
-        sqlSessionFactory.getConfiguration().addMapper(BaseMapper.class);
+    public List<T> batchInsertSelective(List<T> list){
+        if(list==null && list.isEmpty())
+            return list;
+
+        int count = list.size();
         try (SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false)) {
-            int count = list.size();
-            List<T> data = new ArrayList<>();
+            setMapper(list.get(0),sqlSession);
             for (int i = 0; i < count; i++) {
-                insertNumber++;
-                T t = list.get(i);
-                this.batchInsertProcess(data,t,sqlSession,i,count) ;
+                mapper.insertSelective(list.get(i));
+                batchInsertProcessCommit(sqlSession,i+1,count) ;
             }
         }
-        return insertNumber;
+        return list;
+        
     }
 
-    private void batchInsertProcess( List<T> data,T t,SqlSession sqlSession,int number,int count){
-        if (null == this.mapper) {
-            Class<?> tClass = getMapperClass(t.getClass().getName());
-            if (null == tClass) {
-                throw new BusinessException(50001, t.getClass().getName() + "实体对应的Mapper加载类失败！");
+    @Override
+    public List<T> batchInsert(List<T> list) {
+        if(list==null && list.isEmpty())
+            return list;
+        
+        int count = list.size();
+        try (SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false)) {
+            setMapper(list.get(0),sqlSession);
+            for (int i = 0; i < count; i++) {
+                mapper.insert(list.get(i));
+                batchInsertProcessCommit(sqlSession,i+1,count) ;
             }
-            this.mapper = (BaseMapper) sqlSession.getMapper(tClass);
         }
-        data.add(t);
-        if (count == 1 || (number != 0 && (number % this.batchSize == 0 || number == count - 1))) {
+        return list;
+    }
 
-            this.mapper.insertBatch(data);
-            sqlSession.commit();
+    private void batchInsertProcessCommit( SqlSession sqlSession,int number,int count){
+        if (count == 1 || (number != 0 && (number % this.batchSize == 0 || number == count))) {
+            sqlSession.commit(true);
             sqlSession.clearCache();
-
-            if(LOGGER.isDebugEnabled())
-                LOGGER.info("数据保存成功，成功保存"+data.size()+"条数据");
-            data.clear();
+            //if(LOGGER.isDebugEnabled())
+                LOGGER.info("数据保存成功，成功保存{}条数据",count == 1?count:(number % this.batchSize == 0?this.batchSize:count % this.batchSize));
         }
+    }
+
+    private void setMapper(T t,SqlSession sqlSession) {
+        Class<?> tClass = getMapperClass(t.getClass().getName());
+        if (null == tClass) {
+            throw new BusinessException(50001, t.getClass().getName() + "实体对应的Mapper加载类失败！");
+        }
+        this.mapper = (BaseMapper) sqlSession.getMapper(tClass);
     }
 
     //当没有初始化BaseMapper时，通过model获得对应mapper的类路径;要求MBG生成的model、mapper文件的相对路径默认没有改变。
@@ -98,10 +103,6 @@ public class BatchExecutor<T extends BaseModel> implements IBatchExecutor<T> {
 
     public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
         this.sqlSessionFactory = sqlSessionFactory;
-    }
-
-    public void setMapper(BaseMapper mapper) {
-        this.mapper = mapper;
     }
 
     public void setBatchSize(int batchSize) {

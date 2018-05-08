@@ -1,7 +1,9 @@
 package com.yt.commons.batch;
 
 import com.entity.auto.mapper.SysUserMapper;
+import com.entity.auto.model.SysRole;
 import com.entity.auto.model.SysUser;
+import com.google.common.collect.Lists;
 import com.yt.commons.utils.DateUtils;
 import com.yt.commons.utils.LogUtils;
 import org.junit.Assert;
@@ -24,10 +26,17 @@ public class BatchExecutorTest {
     /*批量插入数据测试用例*/
     @Test
     public void testBatchInsert() throws Exception {
-        BatchExecutor batchExecutor=new BatchExecutor();
+        BatchExecutor batchExecutor=new BatchExecutor(3);
 
         List<SysUser> list=new ArrayList<>();
-        for (int i=51;i<52;i++){
+        List<SysRole> roles= Lists.newArrayList();
+        SysRole sysRole=new SysRole();
+        sysRole.setRoleName("test"+System.currentTimeMillis());
+        sysRole.setDescription(sysRole.getRoleName());
+        sysRole.setEnable(true);
+        roles.add(sysRole);
+        
+        for (int i=41;i<52;i++){
             SysUser users=new SysUser();
             users.setId((long)i);
             users.setPassword("test" + i);
@@ -38,13 +47,15 @@ public class BatchExecutorTest {
             users.setEnable(true);
             users.setCreator("test");
             users.setCreateTime(new Date());
-            users.setRemark("123");
+            users.setRemark(null);
             users.setExpire(DateUtils.stringToDateForFormat("2020-01-01"));
-            sysUsersMapper.insert(users);
+            //sysUsersMapper.insert(users);
             list.add(users) ;
         }
         long start= System.currentTimeMillis();
-        int result=1;//batchExecutor.batchInsert(list);
+        int result=list.size();
+
+        batchExecutor.batchInsertSelective(list);
         LogUtils.LOGGER.info("总共时间："+(System.currentTimeMillis()-start));
 
         Assert.assertEquals(list.size(),result);

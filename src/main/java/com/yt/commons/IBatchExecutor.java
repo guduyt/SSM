@@ -7,5 +7,7 @@ import java.util.List;
  */
 public interface IBatchExecutor<T> {
 
-    public int batchInsert(List<T> list) ;
+    List<T> batchInsert(List<T> list) ;
+
+    List<T> batchInsertSelective(List<T> list);
 }
