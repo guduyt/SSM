@@ -179,7 +179,7 @@ public class User implements UserDetails,CredentialsContainer {
         sb.append("IsLock: ").append(this.isLock).append("; ");
         sb.append("Expire: ").append(this.expire).append("; ");
 
-        if (!listRole.isEmpty()) {
+        if (listRole!=null && !listRole.isEmpty()) {
             sb.append("Granted Authorities: ");
 
             boolean first = true;
