@@ -15,11 +15,11 @@ import java.util.Date;
  */
 public class DemoVO implements Serializable {
     private int id;
-    @Length(min = 1,max = 5,message = "名称不能太长",groups = Insert.class)
+    @Length(min = 1, max = 5, message = "名称不能太长", groups = Insert.class)
     private String name;
     private Date date;
 
-    @Range(min = -1,max = 8,message = "价格必须在区间{min}-{max}" ,groups = Insert.class)
+    @Range(min = -1, max = 8, message = "价格必须在区间{min}-{max}", groups = Insert.class)
     private double price;
 
     public int getId() {
@@ -54,6 +54,19 @@ public class DemoVO implements Serializable {
         this.price = price;
     }
 
-  public interface Insert{}
-    public interface  Update{}
+    public String getOrder() {
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
+    }
+
+    private String order;
+
+    public interface Insert {
+    }
+
+    public interface Update {
+    }
 }
