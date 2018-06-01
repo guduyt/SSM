@@ -1,6 +1,5 @@
 package com.business.service.impl;
 
-import com.business.service.UsersService;
 import com.entity.auto.mapper.SysUserMapper;
 import com.entity.auto.model.SysUser;
 import com.entity.auto.model.SysUserExample;
@@ -14,16 +13,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
 
 import static org.mockito.Mockito.verify;
 
-/**
+/**  @InjectMocks  @Mock @Spy @Autowired demo
  * Created by yt on 2018/4/9.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,19 +28,16 @@ import static org.mockito.Mockito.verify;
 public class UsersServiceImplTest {
 
     @InjectMocks
-    @Autowired
-    private UsersService usersService;
-
+    private UsersServiceImpl usersService;
+    
     @Mock
     private SysUserMapper usersMapper;
-
-    
 
     @Before
     public void init(){
         MockitoAnnotations.initMocks(this);
-        usersService=new UsersServiceImpl();
-        ReflectionTestUtils.setField(usersService,"usersMapper",usersMapper);
+        
+        //ReflectionTestUtils.setField(usersService,"usersMapper",usersMapper);
     }
     
     @Test

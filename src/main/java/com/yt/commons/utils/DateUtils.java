@@ -1,10 +1,12 @@
 package com.yt.commons.utils;
 
-import com.yt.commons.DateFormat;
+import com.yt.commons.DateFormatType;
 import com.yt.commons.exceptions.CustomException;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -14,7 +16,7 @@ import java.util.regex.Pattern;
  * @version 1.0.0
  * @date 2016/5/27 16:44
  */
-public class DateUtils implements DateFormat {
+public class DateUtils extends org.apache.commons.lang3.time.DateUtils implements DateFormatType {
 
 
     /**
@@ -155,7 +157,7 @@ public class DateUtils implements DateFormat {
         if(p.matcher(s).matches()){
             p=Pattern.compile("^\\d{4}(\\/)\\d{1,2}\\1\\d{1,2}$");
             if(p.matcher(s).matches()){
-                format= DateUtils.DateFormat__DATE_ONE;
+                format= DateUtils.DateFormat_DATE_ONE;
             } else {
                 format= DateUtils.DateFormat_ONE;
             }
@@ -185,4 +187,32 @@ public class DateUtils implements DateFormat {
         return format;
     }
 
+
+    public static class DateFormatPool {
+        public static final Map<String, ThreadLocal<java.text.DateFormat>> DATE_FORMAT_POOL = new HashMap<String, ThreadLocal<java.text.DateFormat>>();
+
+        static java.text.DateFormat getDateFormat(String format) {
+            ThreadLocal<java.text.DateFormat> threadLocal = DATE_FORMAT_POOL.get(format);
+            if (threadLocal == null)
+                threadLocal = initThreadLocal(format);
+            return threadLocal.get();
+        }
+
+        private static synchronized ThreadLocal<java.text.DateFormat> initThreadLocal(final String format) {
+            ThreadLocal<java.text.DateFormat> threadLocal = DATE_FORMAT_POOL.get(format);
+            if (threadLocal == null) {
+                threadLocal = new ThreadLocal<java.text.DateFormat>() {
+                    @Override
+                    protected java.text.DateFormat initialValue() {
+                        return new SimpleDateFormat(format);
+                    }
+                };
+                DATE_FORMAT_POOL.put(format, threadLocal);
+            }
+            return threadLocal;
+        }
+    }
+
 }
+
+

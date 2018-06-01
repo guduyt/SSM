@@ -11,6 +11,7 @@ import com.yt.commons.utils.MessageUtils;
  * @date 2016/8/29 16:04
  */
 public class BusinessException extends BaseException {
+    private static final long serialVersionUID =1L;
 
     public BusinessException(String message) {
         super(message);

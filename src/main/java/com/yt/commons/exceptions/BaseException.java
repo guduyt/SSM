@@ -10,22 +10,22 @@ import com.yt.commons.utils.MessageUtils;
  * @version 1.0.0
  * @date 2016/8/26 10:44
  */
-public class BaseException extends RuntimeException {
+public abstract class BaseException extends RuntimeException {
+
+    private static final long serialVersionUID =1L;
 
     /*异常的错误码*/
     private int code;
 
+    private static final String defaultMessage="应用程序错误,请联系工程师！";
 
-    public BaseException() {
-        super("自定义异常，请联系相关工程师");
-    }
 
     public BaseException(String message) {
         super(message);
     }
 
     public BaseException(int code) {
-        super("自定义异常，请联系相关工程师");
+        super(defaultMessage);
         this.code = code;
     }
 

@@ -1,6 +1,13 @@
 package com.yt.commons.utils;
 
 import com.yt.commons.Regular;
+import com.yt.commons.exceptions.ValidateException;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import java.util.Set;
 
 /**
  * Created by yt on 2016-10-19.
@@ -233,6 +240,35 @@ public class ValidatorUtils implements Regular {
      */
     public static boolean matches(String str, String regex) {
         return str.matches(regex);
+    }
+
+    /**
+     * 针对实体校验
+     * @param o 校验的实体
+     */
+    public static boolean validate(Object o) {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Object>> constraintViolations = validator.validate(o);
+        constraintViolations.forEach(constraintViolation -> {
+            throw new ValidateException(Integer.parseInt(constraintViolation.getMessage()));
+        });
+        return true;
+    }
+
+    /**
+     * 针对实体校验
+     * @param o 校验的实体
+     * @param groups 校验的分组
+     */
+    public static boolean validate(Object o, Class<?>... groups) {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Object>> constraintViolations = validator.validate(o, groups);
+        constraintViolations.forEach(constraintViolation -> {
+            throw new ValidateException(Integer.parseInt(constraintViolation.getMessage()));
+        });
+        return true;
     }
 
 }
