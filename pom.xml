@@ -19,7 +19,7 @@
         <org.log4j-version>1.2.15</org.log4j-version>
         <httpclient-version>4.1.2</httpclient-version>
         <!--<shiro-version>1.2.3</shiro-version>-->
-        <jackson-version>2.8.6</jackson-version>
+        <jackson-version>2.9.8</jackson-version>
         <logback-version>1.1.7</logback-version>
         <thymeleaf-version>3.0.2.RELEASE</thymeleaf-version>
         <poi-version>3.14</poi-version>
@@ -310,7 +310,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.16</version>
+            <version>1.2.57</version>
         </dependency>
 
         <dependency>
@@ -398,7 +398,7 @@
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-            <version>1.3.1</version>
+            <version>1.4</version>
         </dependency>
 
         <dependency>
