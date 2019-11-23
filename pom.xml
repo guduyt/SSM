@@ -23,7 +23,7 @@
         <logback-version>1.1.7</logback-version>
         <thymeleaf-version>3.0.2.RELEASE</thymeleaf-version>
         <poi-version>3.14</poi-version>
-        <mybatis-generator-version>1.3.3</mybatis-generator-version>
+        <mybatis-generator-version>1.3.7</mybatis-generator-version>
 
         <jdbc-config>env/${env}.properties</jdbc-config>
         <package-path>com.entity.auto</package-path>
@@ -162,12 +162,12 @@
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
-            <version>3.4.0</version>
+            <version>3.4.6</version>
         </dependency>
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
-            <version>1.3.0</version>
+            <version>1.3.3</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -341,6 +341,13 @@
 
 
         <!-- Test -->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.28.0</version>
+            <scope>test</scope>
+        </dependency>
+        
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -651,7 +658,6 @@
                     </includes>
                 </configuration>
             </plugin>
-
             <!-- mybatis-generator插件 -->
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
@@ -667,7 +673,7 @@
                     <dependency>
                         <groupId>org.mybatis</groupId>
                         <artifactId>mybatis</artifactId>
-                        <version>3.4.0</version>
+                        <version>3.4.6</version>
                     </dependency>
                     <dependency>
                         <groupId>mysql</groupId>

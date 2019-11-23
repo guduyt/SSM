@@ -22,6 +22,7 @@
 
         <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"></plugin>
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"></plugin>
         <!--<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>-->
         <plugin type="org.mybatis.generator.plugins.VirtualPrimaryKeyPlugin"></plugin>
         <plugin type="com.yt.mybatis.generator.PagePlugin"></plugin>
@@ -243,7 +244,16 @@
             <ignoreColumn column="deptId" delimitedColumnName=""/>
             &ndash;&gt;
         </table>-->
-        <table tableName="sys_user">
+
+        <table tableName="sys_app">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+            <ignoreColumn column="last_time"></ignoreColumn>
+        </table>
+        <table tableName="sys_module">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+            <ignoreColumn column="last_time"></ignoreColumn>
+        </table>
+        <!--<table tableName="sys_user">
             <generatedKey column="id" sqlStatement="JDBC"/>
             <ignoreColumn column="last_time"></ignoreColumn>
         </table>
@@ -258,6 +268,6 @@
         <table tableName="sys_module">
             <generatedKey column="id" sqlStatement="JDBC"/>
             <ignoreColumn column="create_time"></ignoreColumn>
-        </table>
+        </table>-->
     </context>
 </generatorConfiguration> 
