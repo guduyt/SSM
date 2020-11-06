@@ -3,17 +3,23 @@
 <mapper namespace="com.entity.auto.mapper.SysResourceMapper">
   <resultMap id="BaseResultMap" type="com.entity.auto.model.SysResource">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="app_id" jdbcType="INTEGER" property="appId" />
     <result column="resources_name" jdbcType="VARCHAR" property="resourcesName" />
-    <result column="resources_type" jdbcType="BIT" property="resourcesType" />
     <result column="resource_path" jdbcType="VARCHAR" property="resourcePath" />
+    <result column="request_path" jdbcType="VARCHAR" property="requestPath" />
+    <result column="request_type" jdbcType="VARCHAR" property="requestType" />
+    <result column="java_class" jdbcType="VARCHAR" property="javaClass" />
+    <result column="short_method" jdbcType="VARCHAR" property="shortMethod" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="enable" jdbcType="BIT" property="enable" />
+    <result column="resources_type" jdbcType="TINYINT" property="resourcesType" />
     <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="creator" jdbcType="VARCHAR" property="creator" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="editor" jdbcType="VARCHAR" property="editor" />
     <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -74,8 +80,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, resources_name, resources_type, resource_path, description, enable, parent_id, 
-    creator, create_time, editor, edit_time, remark
+    `id`, `app_id`, `resources_name`, `resource_path`, `request_path`, `request_type`, 
+    `java_class`, `short_method`, `method`, `description`, `enable`, `resources_type`, 
+    `parent_id`, `remark`, `creator`, `create_time`, `editor`, `edit_time`
   </sql>
   <select id="selectByExample" parameterType="com.entity.auto.model.SysResourceExample" resultMap="BaseResultMap">
     select
@@ -95,11 +102,11 @@
     select 
     <include refid="Base_Column_List" />
     from sys_resource
-    where id = #{id,jdbcType=INTEGER}
+    where `id` = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sys_resource
-    where id = #{id,jdbcType=INTEGER}
+    where `id` = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.entity.auto.model.SysResourceExample">
     delete from sys_resource
@@ -108,61 +115,98 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.entity.auto.model.SysResource" useGeneratedKeys="true">
-    insert into sys_resource (resources_name, resources_type, resource_path, 
-      description, enable, parent_id, 
-      creator, create_time, editor, 
-      edit_time, remark)
-    values (#{resourcesName,jdbcType=VARCHAR}, #{resourcesType,jdbcType=BIT}, #{resourcePath,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}, #{parentId,jdbcType=INTEGER}, 
-      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{editor,jdbcType=VARCHAR}, 
-      #{editTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+    insert into sys_resource (`app_id`, `resources_name`, `resource_path`, 
+      `request_path`, `request_type`, `java_class`, 
+      `short_method`, `method`, `description`, 
+      `enable`, `resources_type`, `parent_id`, 
+      `remark`, `creator`, `create_time`, 
+      `editor`, `edit_time`)
+    values (#{appId,jdbcType=INTEGER}, #{resourcesName,jdbcType=VARCHAR}, #{resourcePath,jdbcType=VARCHAR}, 
+      #{requestPath,jdbcType=VARCHAR}, #{requestType,jdbcType=VARCHAR}, #{javaClass,jdbcType=VARCHAR}, 
+      #{shortMethod,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{enable,jdbcType=BIT}, #{resourcesType,jdbcType=TINYINT}, #{parentId,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{editor,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.entity.auto.model.SysResource" useGeneratedKeys="true">
     insert into sys_resource
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="resourcesName != null">
-        resources_name,
+      <if test="appId != null">
+        `app_id`,
       </if>
-      <if test="resourcesType != null">
-        resources_type,
+      <if test="resourcesName != null">
+        `resources_name`,
       </if>
       <if test="resourcePath != null">
-        resource_path,
+        `resource_path`,
+      </if>
+      <if test="requestPath != null">
+        `request_path`,
+      </if>
+      <if test="requestType != null">
+        `request_type`,
+      </if>
+      <if test="javaClass != null">
+        `java_class`,
+      </if>
+      <if test="shortMethod != null">
+        `short_method`,
+      </if>
+      <if test="method != null">
+        `method`,
       </if>
       <if test="description != null">
-        description,
+        `description`,
       </if>
       <if test="enable != null">
-        enable,
+        `enable`,
+      </if>
+      <if test="resourcesType != null">
+        `resources_type`,
       </if>
       <if test="parentId != null">
-        parent_id,
-      </if>
-      <if test="creator != null">
-        creator,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="editor != null">
-        editor,
-      </if>
-      <if test="editTime != null">
-        edit_time,
+        `parent_id`,
       </if>
       <if test="remark != null">
-        remark,
+        `remark`,
+      </if>
+      <if test="creator != null">
+        `creator`,
+      </if>
+      <if test="createTime != null">
+        `create_time`,
+      </if>
+      <if test="editor != null">
+        `editor`,
+      </if>
+      <if test="editTime != null">
+        `edit_time`,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="appId != null">
+        #{appId,jdbcType=INTEGER},
+      </if>
       <if test="resourcesName != null">
         #{resourcesName,jdbcType=VARCHAR},
       </if>
-      <if test="resourcesType != null">
-        #{resourcesType,jdbcType=BIT},
-      </if>
       <if test="resourcePath != null">
         #{resourcePath,jdbcType=VARCHAR},
+      </if>
+      <if test="requestPath != null">
+        #{requestPath,jdbcType=VARCHAR},
+      </if>
+      <if test="requestType != null">
+        #{requestType,jdbcType=VARCHAR},
+      </if>
+      <if test="javaClass != null">
+        #{javaClass,jdbcType=VARCHAR},
+      </if>
+      <if test="shortMethod != null">
+        #{shortMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        #{method,jdbcType=VARCHAR},
       </if>
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
@@ -170,8 +214,14 @@
       <if test="enable != null">
         #{enable,jdbcType=BIT},
       </if>
+      <if test="resourcesType != null">
+        #{resourcesType,jdbcType=TINYINT},
+      </if>
       <if test="parentId != null">
         #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
       </if>
       <if test="creator != null">
         #{creator,jdbcType=VARCHAR},
@@ -185,12 +235,9 @@
       <if test="editTime != null">
         #{editTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.entity.auto.model.SysResourceExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.entity.auto.model.SysResourceExample" resultType="java.lang.Long">
     select count(1) from 
     <if test="distinct">
       (select  distinct  
@@ -211,40 +258,58 @@
     update sys_resource
     <set>
       <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+        `id` = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.appId != null">
+        `app_id` = #{record.appId,jdbcType=INTEGER},
       </if>
       <if test="record.resourcesName != null">
-        resources_name = #{record.resourcesName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.resourcesType != null">
-        resources_type = #{record.resourcesType,jdbcType=BIT},
+        `resources_name` = #{record.resourcesName,jdbcType=VARCHAR},
       </if>
       <if test="record.resourcePath != null">
-        resource_path = #{record.resourcePath,jdbcType=VARCHAR},
+        `resource_path` = #{record.resourcePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestPath != null">
+        `request_path` = #{record.requestPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestType != null">
+        `request_type` = #{record.requestType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.javaClass != null">
+        `java_class` = #{record.javaClass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shortMethod != null">
+        `short_method` = #{record.shortMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.method != null">
+        `method` = #{record.method,jdbcType=VARCHAR},
       </if>
       <if test="record.description != null">
-        description = #{record.description,jdbcType=VARCHAR},
+        `description` = #{record.description,jdbcType=VARCHAR},
       </if>
       <if test="record.enable != null">
-        enable = #{record.enable,jdbcType=BIT},
+        `enable` = #{record.enable,jdbcType=BIT},
+      </if>
+      <if test="record.resourcesType != null">
+        `resources_type` = #{record.resourcesType,jdbcType=TINYINT},
       </if>
       <if test="record.parentId != null">
-        parent_id = #{record.parentId,jdbcType=INTEGER},
-      </if>
-      <if test="record.creator != null">
-        creator = #{record.creator,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.editor != null">
-        editor = #{record.editor,jdbcType=VARCHAR},
-      </if>
-      <if test="record.editTime != null">
-        edit_time = #{record.editTime,jdbcType=TIMESTAMP},
+        `parent_id` = #{record.parentId,jdbcType=INTEGER},
       </if>
       <if test="record.remark != null">
-        remark = #{record.remark,jdbcType=VARCHAR},
+        `remark` = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null">
+        `creator` = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        `create_time` = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.editor != null">
+        `editor` = #{record.editor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.editTime != null">
+        `edit_time` = #{record.editTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -253,18 +318,24 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update sys_resource
-    set id = #{record.id,jdbcType=INTEGER},
-      resources_name = #{record.resourcesName,jdbcType=VARCHAR},
-      resources_type = #{record.resourcesType,jdbcType=BIT},
-      resource_path = #{record.resourcePath,jdbcType=VARCHAR},
-      description = #{record.description,jdbcType=VARCHAR},
-      enable = #{record.enable,jdbcType=BIT},
-      parent_id = #{record.parentId,jdbcType=INTEGER},
-      creator = #{record.creator,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      editor = #{record.editor,jdbcType=VARCHAR},
-      edit_time = #{record.editTime,jdbcType=TIMESTAMP},
-      remark = #{record.remark,jdbcType=VARCHAR}
+    set `id` = #{record.id,jdbcType=INTEGER},
+      `app_id` = #{record.appId,jdbcType=INTEGER},
+      `resources_name` = #{record.resourcesName,jdbcType=VARCHAR},
+      `resource_path` = #{record.resourcePath,jdbcType=VARCHAR},
+      `request_path` = #{record.requestPath,jdbcType=VARCHAR},
+      `request_type` = #{record.requestType,jdbcType=VARCHAR},
+      `java_class` = #{record.javaClass,jdbcType=VARCHAR},
+      `short_method` = #{record.shortMethod,jdbcType=VARCHAR},
+      `method` = #{record.method,jdbcType=VARCHAR},
+      `description` = #{record.description,jdbcType=VARCHAR},
+      `enable` = #{record.enable,jdbcType=BIT},
+      `resources_type` = #{record.resourcesType,jdbcType=TINYINT},
+      `parent_id` = #{record.parentId,jdbcType=INTEGER},
+      `remark` = #{record.remark,jdbcType=VARCHAR},
+      `creator` = #{record.creator,jdbcType=VARCHAR},
+      `create_time` = #{record.createTime,jdbcType=TIMESTAMP},
+      `editor` = #{record.editor,jdbcType=VARCHAR},
+      `edit_time` = #{record.editTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -272,56 +343,80 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.entity.auto.model.SysResource">
     update sys_resource
     <set>
-      <if test="resourcesName != null">
-        resources_name = #{resourcesName,jdbcType=VARCHAR},
+      <if test="appId != null">
+        `app_id` = #{appId,jdbcType=INTEGER},
       </if>
-      <if test="resourcesType != null">
-        resources_type = #{resourcesType,jdbcType=BIT},
+      <if test="resourcesName != null">
+        `resources_name` = #{resourcesName,jdbcType=VARCHAR},
       </if>
       <if test="resourcePath != null">
-        resource_path = #{resourcePath,jdbcType=VARCHAR},
+        `resource_path` = #{resourcePath,jdbcType=VARCHAR},
+      </if>
+      <if test="requestPath != null">
+        `request_path` = #{requestPath,jdbcType=VARCHAR},
+      </if>
+      <if test="requestType != null">
+        `request_type` = #{requestType,jdbcType=VARCHAR},
+      </if>
+      <if test="javaClass != null">
+        `java_class` = #{javaClass,jdbcType=VARCHAR},
+      </if>
+      <if test="shortMethod != null">
+        `short_method` = #{shortMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        `method` = #{method,jdbcType=VARCHAR},
       </if>
       <if test="description != null">
-        description = #{description,jdbcType=VARCHAR},
+        `description` = #{description,jdbcType=VARCHAR},
       </if>
       <if test="enable != null">
-        enable = #{enable,jdbcType=BIT},
+        `enable` = #{enable,jdbcType=BIT},
+      </if>
+      <if test="resourcesType != null">
+        `resources_type` = #{resourcesType,jdbcType=TINYINT},
       </if>
       <if test="parentId != null">
-        parent_id = #{parentId,jdbcType=INTEGER},
-      </if>
-      <if test="creator != null">
-        creator = #{creator,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="editor != null">
-        editor = #{editor,jdbcType=VARCHAR},
-      </if>
-      <if test="editTime != null">
-        edit_time = #{editTime,jdbcType=TIMESTAMP},
+        `parent_id` = #{parentId,jdbcType=INTEGER},
       </if>
       <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
+        `remark` = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        `creator` = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editor != null">
+        `editor` = #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null">
+        `edit_time` = #{editTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where `id` = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.entity.auto.model.SysResource">
     update sys_resource
-    set resources_name = #{resourcesName,jdbcType=VARCHAR},
-      resources_type = #{resourcesType,jdbcType=BIT},
-      resource_path = #{resourcePath,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR},
-      enable = #{enable,jdbcType=BIT},
-      parent_id = #{parentId,jdbcType=INTEGER},
-      creator = #{creator,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      editor = #{editor,jdbcType=VARCHAR},
-      edit_time = #{editTime,jdbcType=TIMESTAMP},
-      remark = #{remark,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    set `app_id` = #{appId,jdbcType=INTEGER},
+      `resources_name` = #{resourcesName,jdbcType=VARCHAR},
+      `resource_path` = #{resourcePath,jdbcType=VARCHAR},
+      `request_path` = #{requestPath,jdbcType=VARCHAR},
+      `request_type` = #{requestType,jdbcType=VARCHAR},
+      `java_class` = #{javaClass,jdbcType=VARCHAR},
+      `short_method` = #{shortMethod,jdbcType=VARCHAR},
+      `method` = #{method,jdbcType=VARCHAR},
+      `description` = #{description,jdbcType=VARCHAR},
+      `enable` = #{enable,jdbcType=BIT},
+      `resources_type` = #{resourcesType,jdbcType=TINYINT},
+      `parent_id` = #{parentId,jdbcType=INTEGER},
+      `remark` = #{remark,jdbcType=VARCHAR},
+      `creator` = #{creator,jdbcType=VARCHAR},
+      `create_time` = #{createTime,jdbcType=TIMESTAMP},
+      `editor` = #{editor,jdbcType=VARCHAR},
+      `edit_time` = #{editTime,jdbcType=TIMESTAMP}
+    where `id` = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectPageByExample" parameterType="com.entity.auto.model.SysResourceExample" resultMap="BaseResultMap">
     select
@@ -339,10 +434,10 @@
     <![CDATA[LIMIT #{limit} , #{offset}]]>
   </select>
   <insert id="insertBatch" parameterType="java.util.List">
-    insert into sys_resource (resources_name,resources_type,resource_path,description,enable,parent_id,creator,create_time,editor,edit_time,remark) 
+    insert into sys_resource (`app_id`,`resources_name`,`resource_path`,`request_path`,`request_type`,`java_class`,`short_method`,`method`,`description`,`enable`,`resources_type`,`parent_id`,`remark`,`creator`,`create_time`,`editor`,`edit_time`) 
     values 
     <foreach collection="list" item="item" index="index" separator="," > 
-        (#{item.resourcesName,jdbcType=VARCHAR},#{item.resourcesType,jdbcType=BIT},#{item.resourcePath,jdbcType=VARCHAR},#{item.description,jdbcType=VARCHAR},#{item.enable,jdbcType=BIT},#{item.parentId,jdbcType=INTEGER},#{item.creator,jdbcType=VARCHAR},#{item.createTime,jdbcType=TIMESTAMP},#{item.editor,jdbcType=VARCHAR},#{item.editTime,jdbcType=TIMESTAMP},#{item.remark,jdbcType=VARCHAR}) 
+        (#{item.appId,jdbcType=INTEGER},#{item.resourcesName,jdbcType=VARCHAR},#{item.resourcePath,jdbcType=VARCHAR},#{item.requestPath,jdbcType=VARCHAR},#{item.requestType,jdbcType=VARCHAR},#{item.javaClass,jdbcType=VARCHAR},#{item.shortMethod,jdbcType=VARCHAR},#{item.method,jdbcType=VARCHAR},#{item.description,jdbcType=VARCHAR},#{item.enable,jdbcType=BIT},#{item.resourcesType,jdbcType=TINYINT},#{item.parentId,jdbcType=INTEGER},#{item.remark,jdbcType=VARCHAR},#{item.creator,jdbcType=VARCHAR},#{item.createTime,jdbcType=TIMESTAMP},#{item.editor,jdbcType=VARCHAR},#{item.editTime,jdbcType=TIMESTAMP}) 
    </foreach>
   </insert>
 </mapper>

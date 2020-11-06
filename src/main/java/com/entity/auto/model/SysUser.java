@@ -3,83 +3,89 @@ package com.entity.auto.model;
 import com.yt.mybatis.model.BaseModel;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.*;
 
-@Entity
-@Table(name = "sys_user")
+/**
+* 数据表:sys_user
+* 用户表
+*/
 public class SysUser extends BaseModel implements Serializable {
     /**
+    * 字段:sys_user.id
     * 用户主键
     */
-    @Column(name="id")
-    @Id
     private Long id;
 
     /**
+    * 字段:sys_user.user_name
     * 用户名
     */
-    @Column(name="user_name")
     private String userName;
 
     /**
+    * 字段:sys_user.password
     * 密码
     */
-    @Column(name="password")
     private String password;
 
     /**
+    * 字段:sys_user.mobile
     * 手机号
     */
-    @Column(name="mobile")
     private String mobile;
 
     /**
+    * 字段:sys_user.email
     * 邮箱
     */
-    @Column(name="email")
     private String email;
 
     /**
-    * 启用标志
+    * 字段:sys_user.enable
+    * 启用标志 0禁用1启用
     */
-    @Column(name="enable")
     private Boolean enable;
 
     /**
-    * 锁定标志
+    * 字段:sys_user.is_lock
+    * 锁定标志 0锁定1启用
     */
-    @Column(name="is_lock")
     private Boolean isLock;
 
     /**
+    * 字段:sys_user.expire
     * 过期时间
     */
-    @Column(name="expire")
     private Date expire;
 
     /**
+    * 字段:sys_user.remark
+    * 备注
+    */
+    private String remark;
+
+    /**
+    * 字段:sys_user.creator
     * 创建人
     */
-    @Column(name="creator")
     private String creator;
 
     /**
+    * 字段:sys_user.create_time
     * 创建时间
     */
-    @Column(name="create_time")
     private Date createTime;
 
     /**
+    * 字段:sys_user.editor
     * 修改人
     */
-    @Column(name="editor")
     private String editor;
 
     /**
-    * 备注
+    * 字段:sys_user.edit_time
+    * 修改时间
     */
-    @Column(name="remark")
-    private String remark;
+    private Date editTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -147,6 +153,14 @@ public class SysUser extends BaseModel implements Serializable {
         this.expire = expire;
     }
 
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
+    }
+
     public String getCreator() {
         return creator;
     }
@@ -171,11 +185,11 @@ public class SysUser extends BaseModel implements Serializable {
         this.editor = editor == null ? null : editor.trim();
     }
 
-    public String getRemark() {
-        return remark;
+    public Date getEditTime() {
+        return editTime;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
+    public void setEditTime(Date editTime) {
+        this.editTime = editTime;
     }
 }

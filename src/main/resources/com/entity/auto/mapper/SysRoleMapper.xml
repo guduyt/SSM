@@ -3,9 +3,12 @@
 <mapper namespace="com.entity.auto.mapper.SysRoleMapper">
   <resultMap id="BaseResultMap" type="com.entity.auto.model.SysRole">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="app_id" jdbcType="INTEGER" property="appId" />
     <result column="role_name" jdbcType="VARCHAR" property="roleName" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="enable" jdbcType="BIT" property="enable" />
+    <result column="order" jdbcType="TINYINT" property="order" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, role_name, description, enable
+    `id`, `app_id`, `role_name`, `description`, `enable`, `order`, `creator`
   </sql>
   <select id="selectByExample" parameterType="com.entity.auto.model.SysRoleExample" resultMap="BaseResultMap">
     select
@@ -86,11 +89,11 @@
     select 
     <include refid="Base_Column_List" />
     from sys_role
-    where id = #{id,jdbcType=INTEGER}
+    where `id` = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sys_role
-    where id = #{id,jdbcType=INTEGER}
+    where `id` = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.entity.auto.model.SysRoleExample">
     delete from sys_role
@@ -99,25 +102,37 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.entity.auto.model.SysRole" useGeneratedKeys="true">
-    insert into sys_role (role_name, description, enable
-      )
-    values (#{roleName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}
-      )
+    insert into sys_role (`app_id`, `role_name`, `description`, 
+      `enable`, `order`, `creator`)
+    values (#{appId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{enable,jdbcType=BIT}, #{order,jdbcType=TINYINT}, #{creator,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.entity.auto.model.SysRole" useGeneratedKeys="true">
     insert into sys_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="appId != null">
+        `app_id`,
+      </if>
       <if test="roleName != null">
-        role_name,
+        `role_name`,
       </if>
       <if test="description != null">
-        description,
+        `description`,
       </if>
       <if test="enable != null">
-        enable,
+        `enable`,
+      </if>
+      <if test="order != null">
+        `order`,
+      </if>
+      <if test="creator != null">
+        `creator`,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="appId != null">
+        #{appId,jdbcType=INTEGER},
+      </if>
       <if test="roleName != null">
         #{roleName,jdbcType=VARCHAR},
       </if>
@@ -127,9 +142,15 @@
       <if test="enable != null">
         #{enable,jdbcType=BIT},
       </if>
+      <if test="order != null">
+        #{order,jdbcType=TINYINT},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.entity.auto.model.SysRoleExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.entity.auto.model.SysRoleExample" resultType="java.lang.Long">
     select count(1) from 
     <if test="distinct">
       (select  distinct  
@@ -150,16 +171,25 @@
     update sys_role
     <set>
       <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+        `id` = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.appId != null">
+        `app_id` = #{record.appId,jdbcType=INTEGER},
       </if>
       <if test="record.roleName != null">
-        role_name = #{record.roleName,jdbcType=VARCHAR},
+        `role_name` = #{record.roleName,jdbcType=VARCHAR},
       </if>
       <if test="record.description != null">
-        description = #{record.description,jdbcType=VARCHAR},
+        `description` = #{record.description,jdbcType=VARCHAR},
       </if>
       <if test="record.enable != null">
-        enable = #{record.enable,jdbcType=BIT},
+        `enable` = #{record.enable,jdbcType=BIT},
+      </if>
+      <if test="record.order != null">
+        `order` = #{record.order,jdbcType=TINYINT},
+      </if>
+      <if test="record.creator != null">
+        `creator` = #{record.creator,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -168,10 +198,13 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update sys_role
-    set id = #{record.id,jdbcType=INTEGER},
-      role_name = #{record.roleName,jdbcType=VARCHAR},
-      description = #{record.description,jdbcType=VARCHAR},
-      enable = #{record.enable,jdbcType=BIT}
+    set `id` = #{record.id,jdbcType=INTEGER},
+      `app_id` = #{record.appId,jdbcType=INTEGER},
+      `role_name` = #{record.roleName,jdbcType=VARCHAR},
+      `description` = #{record.description,jdbcType=VARCHAR},
+      `enable` = #{record.enable,jdbcType=BIT},
+      `order` = #{record.order,jdbcType=TINYINT},
+      `creator` = #{record.creator,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -179,24 +212,36 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.entity.auto.model.SysRole">
     update sys_role
     <set>
+      <if test="appId != null">
+        `app_id` = #{appId,jdbcType=INTEGER},
+      </if>
       <if test="roleName != null">
-        role_name = #{roleName,jdbcType=VARCHAR},
+        `role_name` = #{roleName,jdbcType=VARCHAR},
       </if>
       <if test="description != null">
-        description = #{description,jdbcType=VARCHAR},
+        `description` = #{description,jdbcType=VARCHAR},
       </if>
       <if test="enable != null">
-        enable = #{enable,jdbcType=BIT},
+        `enable` = #{enable,jdbcType=BIT},
+      </if>
+      <if test="order != null">
+        `order` = #{order,jdbcType=TINYINT},
+      </if>
+      <if test="creator != null">
+        `creator` = #{creator,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where `id` = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.entity.auto.model.SysRole">
     update sys_role
-    set role_name = #{roleName,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR},
-      enable = #{enable,jdbcType=BIT}
-    where id = #{id,jdbcType=INTEGER}
+    set `app_id` = #{appId,jdbcType=INTEGER},
+      `role_name` = #{roleName,jdbcType=VARCHAR},
+      `description` = #{description,jdbcType=VARCHAR},
+      `enable` = #{enable,jdbcType=BIT},
+      `order` = #{order,jdbcType=TINYINT},
+      `creator` = #{creator,jdbcType=VARCHAR}
+    where `id` = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectPageByExample" parameterType="com.entity.auto.model.SysRoleExample" resultMap="BaseResultMap">
     select
@@ -214,10 +259,10 @@
     <![CDATA[LIMIT #{limit} , #{offset}]]>
   </select>
   <insert id="insertBatch" parameterType="java.util.List">
-    insert into sys_role (role_name,description,enable) 
+    insert into sys_role (`app_id`,`role_name`,`description`,`enable`,`order`,`creator`) 
     values 
     <foreach collection="list" item="item" index="index" separator="," > 
-        (#{item.roleName,jdbcType=VARCHAR},#{item.description,jdbcType=VARCHAR},#{item.enable,jdbcType=BIT}) 
+        (#{item.appId,jdbcType=INTEGER},#{item.roleName,jdbcType=VARCHAR},#{item.description,jdbcType=VARCHAR},#{item.enable,jdbcType=BIT},#{item.order,jdbcType=TINYINT},#{item.creator,jdbcType=VARCHAR}) 
    </foreach>
   </insert>
 </mapper>

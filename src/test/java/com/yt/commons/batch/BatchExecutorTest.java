@@ -24,6 +24,7 @@ public class BatchExecutorTest {
     @Autowired
     private SysUserMapper sysUsersMapper;
     /*批量插入数据测试用例*/
+    
     @Test
     public void testBatchInsert() throws Exception {
         BatchExecutor batchExecutor=new BatchExecutor(3);
@@ -41,8 +42,8 @@ public class BatchExecutorTest {
             users.setId((long)i);
             users.setPassword("test" + i);
             users.setUserName("test" + i);
-            users.setMobile("123");
-            users.setEmail("123");
+            users.setMobile("123"+i);
+            users.setEmail("123"+i);
             users.setIsLock(true);
             users.setEnable(true);
             users.setCreator("test");

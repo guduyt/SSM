@@ -34,7 +34,7 @@
 
         <!-- 数据库链接URL、用户名、密码 -->
         <jdbcConnection driverClass="${driver_classname}"
-                        connectionURL="${jdbc_url}"
+                        connectionURL="${generator_jdbc_url}"
                         userId="${jdbc_username}"
                         password="${jdbc_password}">
         </jdbcConnection>
@@ -245,29 +245,29 @@
             &ndash;&gt;
         </table>-->
 
-        <table tableName="sys_app">
+       <!-- <table tableName="sys_app">
             <generatedKey column="id" sqlStatement="JDBC"/>
             <ignoreColumn column="last_time"></ignoreColumn>
-        </table>
-        <table tableName="sys_module">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-            <ignoreColumn column="last_time"></ignoreColumn>
-        </table>
-        <!--<table tableName="sys_user">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-            <ignoreColumn column="last_time"></ignoreColumn>
-        </table>
-        <table tableName="sys_role">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-            <ignoreColumn column="create_time"></ignoreColumn>
-        </table>
-        <table tableName="sys_resource">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-            <ignoreColumn column="last_time"></ignoreColumn>
-        </table>
-        <table tableName="sys_module">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-            <ignoreColumn column="create_time"></ignoreColumn>
         </table>-->
+        <table tableName="sys_module" delimitAllColumns="true">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+            <ignoreColumn column="last_time"></ignoreColumn>
+        </table>
+        <table tableName="sys_user" delimitAllColumns="true">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+            <ignoreColumn column="last_time"></ignoreColumn>
+        </table>
+        <table tableName="sys_role" delimitAllColumns="true">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+            <ignoreColumn column="create_time"></ignoreColumn>
+        </table>
+        <table tableName="sys_resource" delimitAllColumns="true">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+            <ignoreColumn column="last_time"></ignoreColumn>
+        </table>
+        <table tableName="sys_module" delimitAllColumns="true">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+            <ignoreColumn column="create_time"></ignoreColumn>
+        </table>
     </context>
 </generatorConfiguration> 

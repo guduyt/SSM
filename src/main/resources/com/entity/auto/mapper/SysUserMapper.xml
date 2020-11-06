@@ -10,10 +10,11 @@
     <result column="enable" jdbcType="BIT" property="enable" />
     <result column="is_lock" jdbcType="BIT" property="isLock" />
     <result column="expire" jdbcType="TIMESTAMP" property="expire" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="creator" jdbcType="VARCHAR" property="creator" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="editor" jdbcType="VARCHAR" property="editor" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -74,8 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_name, password, mobile, email, enable, is_lock, expire, creator, create_time, 
-    editor, remark
+    `id`, `user_name`, `password`, `mobile`, `email`, `enable`, `is_lock`, `expire`, 
+    `remark`, `creator`, `create_time`, `editor`, `edit_time`
   </sql>
   <select id="selectByExample" parameterType="com.entity.auto.model.SysUserExample" resultMap="BaseResultMap">
     select
@@ -95,11 +96,11 @@
     select 
     <include refid="Base_Column_List" />
     from sys_user
-    where id = #{id,jdbcType=BIGINT}
+    where `id` = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from sys_user
-    where id = #{id,jdbcType=BIGINT}
+    where `id` = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.entity.auto.model.SysUserExample">
     delete from sys_user
@@ -108,50 +109,53 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.entity.auto.model.SysUser" useGeneratedKeys="true">
-    insert into sys_user (user_name, password, mobile, 
-      email, enable, is_lock, expire, 
-      creator, create_time, editor, 
-      remark)
+    insert into sys_user (`user_name`, `password`, `mobile`, 
+      `email`, `enable`, `is_lock`, `expire`, 
+      `remark`, `creator`, `create_time`, 
+      `editor`, `edit_time`)
     values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}, #{isLock,jdbcType=BIT}, #{expire,jdbcType=TIMESTAMP}, 
-      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{editor,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR})
+      #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{editor,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.entity.auto.model.SysUser" useGeneratedKeys="true">
     insert into sys_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userName != null">
-        user_name,
+        `user_name`,
       </if>
       <if test="password != null">
-        password,
+        `password`,
       </if>
       <if test="mobile != null">
-        mobile,
+        `mobile`,
       </if>
       <if test="email != null">
-        email,
+        `email`,
       </if>
       <if test="enable != null">
-        enable,
+        `enable`,
       </if>
       <if test="isLock != null">
-        is_lock,
+        `is_lock`,
       </if>
       <if test="expire != null">
-        expire,
-      </if>
-      <if test="creator != null">
-        creator,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="editor != null">
-        editor,
+        `expire`,
       </if>
       <if test="remark != null">
-        remark,
+        `remark`,
+      </if>
+      <if test="creator != null">
+        `creator`,
+      </if>
+      <if test="createTime != null">
+        `create_time`,
+      </if>
+      <if test="editor != null">
+        `editor`,
+      </if>
+      <if test="editTime != null">
+        `edit_time`,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -176,6 +180,9 @@
       <if test="expire != null">
         #{expire,jdbcType=TIMESTAMP},
       </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="creator != null">
         #{creator,jdbcType=VARCHAR},
       </if>
@@ -185,12 +192,12 @@
       <if test="editor != null">
         #{editor,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
+      <if test="editTime != null">
+        #{editTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.entity.auto.model.SysUserExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.entity.auto.model.SysUserExample" resultType="java.lang.Long">
     select count(1) from 
     <if test="distinct">
       (select  distinct  
@@ -211,40 +218,43 @@
     update sys_user
     <set>
       <if test="record.id != null">
-        id = #{record.id,jdbcType=BIGINT},
+        `id` = #{record.id,jdbcType=BIGINT},
       </if>
       <if test="record.userName != null">
-        user_name = #{record.userName,jdbcType=VARCHAR},
+        `user_name` = #{record.userName,jdbcType=VARCHAR},
       </if>
       <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
+        `password` = #{record.password,jdbcType=VARCHAR},
       </if>
       <if test="record.mobile != null">
-        mobile = #{record.mobile,jdbcType=VARCHAR},
+        `mobile` = #{record.mobile,jdbcType=VARCHAR},
       </if>
       <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
+        `email` = #{record.email,jdbcType=VARCHAR},
       </if>
       <if test="record.enable != null">
-        enable = #{record.enable,jdbcType=BIT},
+        `enable` = #{record.enable,jdbcType=BIT},
       </if>
       <if test="record.isLock != null">
-        is_lock = #{record.isLock,jdbcType=BIT},
+        `is_lock` = #{record.isLock,jdbcType=BIT},
       </if>
       <if test="record.expire != null">
-        expire = #{record.expire,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.creator != null">
-        creator = #{record.creator,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.editor != null">
-        editor = #{record.editor,jdbcType=VARCHAR},
+        `expire` = #{record.expire,jdbcType=TIMESTAMP},
       </if>
       <if test="record.remark != null">
-        remark = #{record.remark,jdbcType=VARCHAR},
+        `remark` = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null">
+        `creator` = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        `create_time` = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.editor != null">
+        `editor` = #{record.editor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.editTime != null">
+        `edit_time` = #{record.editTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -253,18 +263,19 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update sys_user
-    set id = #{record.id,jdbcType=BIGINT},
-      user_name = #{record.userName,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
-      mobile = #{record.mobile,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR},
-      enable = #{record.enable,jdbcType=BIT},
-      is_lock = #{record.isLock,jdbcType=BIT},
-      expire = #{record.expire,jdbcType=TIMESTAMP},
-      creator = #{record.creator,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      editor = #{record.editor,jdbcType=VARCHAR},
-      remark = #{record.remark,jdbcType=VARCHAR}
+    set `id` = #{record.id,jdbcType=BIGINT},
+      `user_name` = #{record.userName,jdbcType=VARCHAR},
+      `password` = #{record.password,jdbcType=VARCHAR},
+      `mobile` = #{record.mobile,jdbcType=VARCHAR},
+      `email` = #{record.email,jdbcType=VARCHAR},
+      `enable` = #{record.enable,jdbcType=BIT},
+      `is_lock` = #{record.isLock,jdbcType=BIT},
+      `expire` = #{record.expire,jdbcType=TIMESTAMP},
+      `remark` = #{record.remark,jdbcType=VARCHAR},
+      `creator` = #{record.creator,jdbcType=VARCHAR},
+      `create_time` = #{record.createTime,jdbcType=TIMESTAMP},
+      `editor` = #{record.editor,jdbcType=VARCHAR},
+      `edit_time` = #{record.editTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -273,55 +284,59 @@
     update sys_user
     <set>
       <if test="userName != null">
-        user_name = #{userName,jdbcType=VARCHAR},
+        `user_name` = #{userName,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
+        `password` = #{password,jdbcType=VARCHAR},
       </if>
       <if test="mobile != null">
-        mobile = #{mobile,jdbcType=VARCHAR},
+        `mobile` = #{mobile,jdbcType=VARCHAR},
       </if>
       <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
+        `email` = #{email,jdbcType=VARCHAR},
       </if>
       <if test="enable != null">
-        enable = #{enable,jdbcType=BIT},
+        `enable` = #{enable,jdbcType=BIT},
       </if>
       <if test="isLock != null">
-        is_lock = #{isLock,jdbcType=BIT},
+        `is_lock` = #{isLock,jdbcType=BIT},
       </if>
       <if test="expire != null">
-        expire = #{expire,jdbcType=TIMESTAMP},
-      </if>
-      <if test="creator != null">
-        creator = #{creator,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="editor != null">
-        editor = #{editor,jdbcType=VARCHAR},
+        `expire` = #{expire,jdbcType=TIMESTAMP},
       </if>
       <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
+        `remark` = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        `creator` = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editor != null">
+        `editor` = #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null">
+        `edit_time` = #{editTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where `id` = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.entity.auto.model.SysUser">
     update sys_user
-    set user_name = #{userName,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      mobile = #{mobile,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      enable = #{enable,jdbcType=BIT},
-      is_lock = #{isLock,jdbcType=BIT},
-      expire = #{expire,jdbcType=TIMESTAMP},
-      creator = #{creator,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      editor = #{editor,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
+    set `user_name` = #{userName,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      `mobile` = #{mobile,jdbcType=VARCHAR},
+      `email` = #{email,jdbcType=VARCHAR},
+      `enable` = #{enable,jdbcType=BIT},
+      `is_lock` = #{isLock,jdbcType=BIT},
+      `expire` = #{expire,jdbcType=TIMESTAMP},
+      `remark` = #{remark,jdbcType=VARCHAR},
+      `creator` = #{creator,jdbcType=VARCHAR},
+      `create_time` = #{createTime,jdbcType=TIMESTAMP},
+      `editor` = #{editor,jdbcType=VARCHAR},
+      `edit_time` = #{editTime,jdbcType=TIMESTAMP}
+    where `id` = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectPageByExample" parameterType="com.entity.auto.model.SysUserExample" resultMap="BaseResultMap">
     select
@@ -339,10 +354,10 @@
     <![CDATA[LIMIT #{limit} , #{offset}]]>
   </select>
   <insert id="insertBatch" parameterType="java.util.List">
-    insert into sys_user (user_name,password,mobile,email,enable,is_lock,expire,creator,create_time,editor,remark) 
+    insert into sys_user (`user_name`,`password`,`mobile`,`email`,`enable`,`is_lock`,`expire`,`remark`,`creator`,`create_time`,`editor`,`edit_time`) 
     values 
     <foreach collection="list" item="item" index="index" separator="," > 
-        (#{item.userName,jdbcType=VARCHAR},#{item.password,jdbcType=VARCHAR},#{item.mobile,jdbcType=VARCHAR},#{item.email,jdbcType=VARCHAR},#{item.enable,jdbcType=BIT},#{item.isLock,jdbcType=BIT},#{item.expire,jdbcType=TIMESTAMP},#{item.creator,jdbcType=VARCHAR},#{item.createTime,jdbcType=TIMESTAMP},#{item.editor,jdbcType=VARCHAR},#{item.remark,jdbcType=VARCHAR}) 
+        (#{item.userName,jdbcType=VARCHAR},#{item.password,jdbcType=VARCHAR},#{item.mobile,jdbcType=VARCHAR},#{item.email,jdbcType=VARCHAR},#{item.enable,jdbcType=BIT},#{item.isLock,jdbcType=BIT},#{item.expire,jdbcType=TIMESTAMP},#{item.remark,jdbcType=VARCHAR},#{item.creator,jdbcType=VARCHAR},#{item.createTime,jdbcType=TIMESTAMP},#{item.editor,jdbcType=VARCHAR},#{item.editTime,jdbcType=TIMESTAMP}) 
    </foreach>
   </insert>
 </mapper>

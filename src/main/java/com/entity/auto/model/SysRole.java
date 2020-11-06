@@ -2,35 +2,53 @@ package com.entity.auto.model;
 
 import com.yt.mybatis.model.BaseModel;
 import java.io.Serializable;
-import javax.persistence.*;
 
-@Entity
-@Table(name = "sys_role")
+/**
+* 数据表:sys_role
+* 角色表
+*/
 public class SysRole extends BaseModel implements Serializable {
     /**
+    * 字段:sys_role.id
     * 角色主键
     */
-    @Column(name="id")
-    @Id
     private Integer id;
 
     /**
+    * 字段:sys_role.app_id
+    * 应用id
+    */
+    private Integer appId;
+
+    /**
+    * 字段:sys_role.role_name
     * 角色名
     */
-    @Column(name="role_name")
     private String roleName;
 
     /**
+    * 字段:sys_role.description
     * 描述
     */
-    @Column(name="description")
     private String description;
 
     /**
+    * 字段:sys_role.enable
     * 启用标志
     */
-    @Column(name="enable")
     private Boolean enable;
+
+    /**
+    * 字段:sys_role.order
+    * 排序
+    */
+    private Byte order;
+
+    /**
+    * 字段:sys_role.creator
+    * 创建人
+    */
+    private String creator;
 
     private static final long serialVersionUID = 1L;
 
@@ -40,6 +58,14 @@ public class SysRole extends BaseModel implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getAppId() {
+        return appId;
+    }
+
+    public void setAppId(Integer appId) {
+        this.appId = appId;
     }
 
     public String getRoleName() {
@@ -64,5 +90,21 @@ public class SysRole extends BaseModel implements Serializable {
 
     public void setEnable(Boolean enable) {
         this.enable = enable;
+    }
+
+    public Byte getOrder() {
+        return order;
+    }
+
+    public void setOrder(Byte order) {
+        this.order = order;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator == null ? null : creator.trim();
     }
 }

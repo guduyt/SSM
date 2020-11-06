@@ -2,77 +2,96 @@ package com.entity.auto.model;
 
 import com.yt.mybatis.model.BaseModel;
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
 
-@Entity
-@Table(name = "sys_module")
+/**
+* 数据表:sys_module
+* 菜单模块表
+*/
 public class SysModule extends BaseModel implements Serializable {
     /**
+    * 字段:sys_module.id
     * 模块主键
     */
-    @Column(name="id")
-    @Id
     private Integer id;
 
     /**
+    * 字段:sys_module.app_id
+    * 应用名称
+    */
+    private Integer appId;
+
+    /**
+    * 字段:sys_module.module_name
     * 模块名称
     */
-    @Column(name="module_name")
     private String moduleName;
 
     /**
+    * 字段:sys_module.module_type
     * 模块类型
     */
-    @Column(name="module_type")
-    private Boolean moduleType;
+    private Byte moduleType;
 
     /**
+    * 字段:sys_module.description
     * 描述
     */
-    @Column(name="description")
     private String description;
 
     /**
+    * 字段:sys_module.module_path
     * 模块路径
     */
-    @Column(name="module_path")
     private String modulePath;
 
     /**
+    * 字段:sys_module.parent_id
     * 父级模块
     */
-    @Column(name="parent_id")
     private Integer parentId;
 
     /**
+    * 字段:sys_module.level
     * 级别
     */
-    @Column(name="level")
     private Boolean level;
 
     /**
-    * 应用名称
-    */
-    @Column(name="application_name")
-    private String applicationName;
-
-    /**
+    * 字段:sys_module.controller_name
     * 控制器名称
     */
-    @Column(name="controller_name")
     private String controllerName;
 
     /**
+    * 字段:sys_module.enable
     * 启用标志
     */
-    @Column(name="enable")
     private Boolean enable;
 
     /**
+    * 字段:sys_module.order
+    * 排序
+    */
+    private Byte order;
+
+    /**
+    * 字段:sys_module.remark
     * 备注
     */
-    @Column(name="remark")
     private String remark;
+
+    /**
+    * 字段:sys_module.creator
+    * 创建人
+    */
+    private String creator;
+
+    /**
+    * 字段:sys_module.last_time
+    * 最后更新时间
+    */
+    private Date lastTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -84,6 +103,14 @@ public class SysModule extends BaseModel implements Serializable {
         this.id = id;
     }
 
+    public Integer getAppId() {
+        return appId;
+    }
+
+    public void setAppId(Integer appId) {
+        this.appId = appId;
+    }
+
     public String getModuleName() {
         return moduleName;
     }
@@ -92,11 +119,11 @@ public class SysModule extends BaseModel implements Serializable {
         this.moduleName = moduleName == null ? null : moduleName.trim();
     }
 
-    public Boolean getModuleType() {
+    public Byte getModuleType() {
         return moduleType;
     }
 
-    public void setModuleType(Boolean moduleType) {
+    public void setModuleType(Byte moduleType) {
         this.moduleType = moduleType;
     }
 
@@ -132,14 +159,6 @@ public class SysModule extends BaseModel implements Serializable {
         this.level = level;
     }
 
-    public String getApplicationName() {
-        return applicationName;
-    }
-
-    public void setApplicationName(String applicationName) {
-        this.applicationName = applicationName == null ? null : applicationName.trim();
-    }
-
     public String getControllerName() {
         return controllerName;
     }
@@ -156,11 +175,35 @@ public class SysModule extends BaseModel implements Serializable {
         this.enable = enable;
     }
 
+    public Byte getOrder() {
+        return order;
+    }
+
+    public void setOrder(Byte order) {
+        this.order = order;
+    }
+
     public String getRemark() {
         return remark;
     }
 
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator == null ? null : creator.trim();
+    }
+
+    public Date getLastTime() {
+        return lastTime;
+    }
+
+    public void setLastTime(Date lastTime) {
+        this.lastTime = lastTime;
     }
 }
