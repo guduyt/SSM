@@ -3,7 +3,7 @@
     <jmxConfigurator />
     <property name="log_path" value="D:/Java/logs" />
     <property name="log_name" value="web_log" />
-    <property name="log_level" value="INFO"/>
+    <property name="log_level" value="DEBUG"/>
     <property name="log_level_other" value="DEBUG"/>
 
     <contextName>${log_name}</contextName>

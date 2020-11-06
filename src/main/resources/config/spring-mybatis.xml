@@ -21,7 +21,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springfr
 		<property name="url" value="${jdbc_url}" />
 		<property name="username" value="${jdbc_username}" />
 		<property name="password" value="${jdbc_password}" />
-
+         <property name="driverClassName" value="${driver_classname}"/>
 		<!-- 初始化连接大小 -->
 		<property name="initialSize" value="${ds_initialSize}" />
 		<!-- 连接池最大使用连接数量 -->
