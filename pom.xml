@@ -22,7 +22,7 @@
         <jackson-version>2.9.8</jackson-version>
         <logback-version>1.1.7</logback-version>
         <thymeleaf-version>3.0.2.RELEASE</thymeleaf-version>
-        <poi-version>3.14</poi-version>
+        <poi-version>4.1.1</poi-version>
         <mybatis-generator-version>1.3.7</mybatis-generator-version>
 
         <jdbc-config>env/${env}.properties</jdbc-config>
